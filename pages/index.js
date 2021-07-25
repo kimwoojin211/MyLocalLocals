@@ -4,11 +4,13 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>My Local Locals</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      {/* default */}
+
+      {/* <main>
         <h1 className="title">
           Learn <a href="https://nextjs.org">Next.js!</a>
         </h1>
@@ -203,7 +205,7 @@ export default function Home() {
         * {
           box-sizing: border-box;
         }
-      `}</style>
+      `}</style> */}
     </div>
   )
 }
