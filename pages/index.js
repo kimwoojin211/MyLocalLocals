@@ -8,6 +8,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <main>
+        <form action="http://www.acme.com/register" method="POST">
+          <label htmlFor="location">Location</label>
+          <input id="location" type="text" />
+          <button type="submit">Submit!</button>
+        </form>
+      </main>
+
       {/* default */}
 
       {/* <main>
