@@ -1,6 +1,10 @@
 import Head from 'next/head'
+import Searchbar from '../components/searchbar'
+import ResultsList  from '../components/resultsList'
 
 export default function Home() {
+
+
   return (
     <div className="container">
       <Head>
@@ -9,11 +13,8 @@ export default function Home() {
       </Head>
 
       <main>
-        <form action="http://www.acme.com/register" method="POST">
-          <label htmlFor="location">Location</label>
-          <input id="location" type="text" />
-          <button type="submit">Submit!</button>
-        </form>
+        <Searchbar />
+        <ResultsList />
       </main>
 
       {/* default */}
