@@ -1,6 +1,8 @@
+import React from 'react'
 import Head from 'next/head'
-import Searchbar from '../components/searchbar'
-import ResultsList  from '../components/resultsList'
+import SearchControl from '../components/SearchControl'
+import Searchbar from '../components/Searchbar'
+import ResultsList  from '../components/ResultsList'
 
 export default function Home() {
 
@@ -13,8 +15,9 @@ export default function Home() {
       </Head>
 
       <main>
-        <Searchbar />
-        <ResultsList />
+        <SearchControl />
+        {/* <Searchbar />
+        <ResultsList /> */}
       </main>
 
       {/* default */}
