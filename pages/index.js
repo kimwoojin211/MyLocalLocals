@@ -3,9 +3,20 @@ import Head from 'next/head'
 import SearchControl from '../components/SearchControl'
 import Searchbar from '../components/Searchbar'
 import ResultsList  from '../components/ResultsList'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+  HttpLink,
+  setContext
+} from "@apollo/client";
+import smashggAPIHelper from '../helpers/smashggAPIHelper'
 
 export default function Home() {
-
+  
+  const client = smashggAPIHelper();
 
   return (
     <div className="container">
@@ -14,11 +25,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <SearchControl />
-        {/* <Searchbar />
-        <ResultsList /> */}
-      </main>
+      <ApolloProvider client={client}>
+        <main>
+          <SearchControl />
+          {/* <Searchbar />
+          <ResultsList /> */}
+        </main>
+      </ApolloProvider>
 
       {/* default */}
 

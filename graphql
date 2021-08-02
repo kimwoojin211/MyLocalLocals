@@ -1,0 +1,122 @@
+query TournamentsByCountry($cCode: String!, $perPage: Int!) {
+  tournaments(query: {
+    perPage: $perPage
+    filter: {
+      countryCode: $cCode
+    }
+  }) {
+    nodes {
+      id
+      name
+      countryCode
+    }
+  }
+},
+{
+  "cCode": "JP",
+  "perPage": 4
+}
+
+query TournamentsByState($perPage: Int, $state: String!) {
+  tournaments(query: {
+    perPage: $perPage
+    filter: {
+      addrState: $state
+    }
+  }) {
+    nodes {
+      id
+      name
+      addrState
+    }
+  }
+},
+{
+  "perPage": 4,
+  "state": "CT"
+}
+
+query SocalTournaments($perPage: Int, $coordinates: String!, $radius: String!) {
+  tournaments(query: {
+    perPage: $perPage
+    filter: {
+      location: {
+        distanceFrom: $coordinates,
+        distance: $radius
+      }
+    }
+  }) {
+    nodes {
+      id
+      name
+      city
+    }
+  }
+},
+{
+  "perPage": 4,
+  "coordinates": "33.7454725,-117.86765300000002",
+  "radius": "50mi"
+}
+
+query TournamentsbyCoordinatesAndGame($perPage: Int, $coordinates: String!, $radius: String!, $videogames: [ID]!) {
+  tournaments(query: {
+    perPage: $perPage
+    filter: {
+      location: {
+        distanceFrom: $coordinates,
+        distance: $radius
+      }
+    }
+  }) {
+    nodes {
+      id
+      name
+      addrState
+      venueAddress
+      city
+      countryCode
+      createdAt
+      events(filter:{videogameId: $videogames}){
+        id
+        videogame{
+          id
+          name
+          images{
+            id
+            url
+            height
+            width
+            ratio
+          }
+        }
+        startAt
+        state
+        numEntrants
+        entrantSizeMax
+        type
+        createdAt
+      }
+    }
+  }
+}
+{
+  "perPage": 10, //allow selectable option for more results (15,20)
+  "coordinates": "33.7454725,-117.86765300000002", // user input
+  "radius": "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
+	"videogames": [1,1386,33602,24,33945,33990,17,3200,287,32] //selectable
+}
+
+/*
+  1 -> SSBM
+  1386 -> SSBU
+  33602 -> Project+
+  24 -> Rivals of Aether
+  33945 -> Guilty Gear: Strive
+  33990 -> SFV Champion Edition
+  17 -> Tekken 7
+  3200 -> Mortal Kombat 11
+  287 -> DBFZ
+  32 -> Skullgirls: 2nd Encore
+
+*/

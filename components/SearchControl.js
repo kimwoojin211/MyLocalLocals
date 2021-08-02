@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import Searchbar from './Searchbar';
 import ResultsList from './ResultsList';
 
