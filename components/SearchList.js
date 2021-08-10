@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function ResultsList(props) {
+function SearchList(props) {
   const {tournaments}= props;
   // const tournamentList = ["Tourney1","Tourney2"];
 
@@ -19,8 +19,8 @@ function ResultsList(props) {
   )
 }
 
-ResultsList.propTypes = {
-  tournaments: PropTypes.Array
+SearchList.propTypes = {
+  tournaments: PropTypes.array
 }
 
-export default ResultsList;
+export default SearchList;

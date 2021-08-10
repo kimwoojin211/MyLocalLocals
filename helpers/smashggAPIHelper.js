@@ -14,12 +14,14 @@ function smashggAPIHelper() {
 
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
-    const token = process.env.SMASHGG_API_KEY;
+    const token = process.env.REACT_APP_SMASHGG_API_KEY;
     // return the headers to the context so httpLink can read them
+
+    console.log('token = ' + token);
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : "",
+        authorization: token ? `Bearer ${token}` : ""
       }
     }
   });
