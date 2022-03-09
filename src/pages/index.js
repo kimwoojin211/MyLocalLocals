@@ -3,6 +3,7 @@ import Head from 'next/head'
 import SearchControl from '../components/SearchControl'
 import Searchbar from '../components/Searchbar'
 import ResultsList  from '../components/ResultsList'
+// import smashggAPIHelper from '../helpers/smashggAPIHelper'
 import {
   ApolloClient,
   InMemoryCache,
@@ -12,11 +13,35 @@ import {
   HttpLink,
   setContext
 } from "@apollo/client";
-import smashggAPIHelper from '../helpers/smashggAPIHelper'
 
 export default function Home() {
   
-  const client = smashggAPIHelper();
+  const client = new ApolloClient({
+    uri: 'https://api.smash.gg/gql/alpha?',
+    cache: new InMemoryCache(),
+    headers: {
+    authorization: "Bearer " + process.env.SMASHGG_API_KEY,
+    }
+  });
+
+  client.query({
+    query: gql` 
+    query TournamentsByCountry($cCode: String!, $perPage: Int!) {
+  tournaments(query: {
+    perPage: $perPage
+    filter: {
+      countryCode: $cCode
+    }
+  }) {
+    nodes {
+      id
+      name
+      countryCode
+    }
+  }
+}
+  `
+  }).then(result => console.log(result));
 
   return (
     <div className="container">
@@ -29,7 +54,7 @@ export default function Home() {
         <main>
           <SearchControl />
           {/* <Searchbar />
-          <ResultsList /> */}
+          <ResultsList />  */}
         </main>
       </ApolloProvider>
 
@@ -37,7 +62,7 @@ export default function Home() {
 
       {/* <main>
         <h1 className="title">
-          Learn <a href="https://nextjs.org">Next.js!</a>
+          Learn <a href="https://nextjs.org">Next!</a>
         </h1>
 
         <p className="description">

@@ -20,7 +20,7 @@ function ResultsList(props) {
 }
 
 ResultsList.propTypes = {
-  tournaments: PropTypes.Array
+  tournaments: PropTypes.array
 }
 
 export default ResultsList;
