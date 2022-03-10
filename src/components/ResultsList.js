@@ -9,8 +9,10 @@ function ResultsList(props) {
     <>
       <h2>Tournaments!</h2>
       <hr />
-      {tournaments.map((tournament) =>
-        <h1>{tournament}</h1>
+      {tournaments.map((tournament,index) =>
+        <div key={index}>
+          <h1>{tournament}</h1>
+        </div>
       )}
       {/* {tournamentList.map((tournament) =>
         <h1>{tournament}</h1>
