@@ -1,9 +1,12 @@
 import React from 'react';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
 
 const Map = () => {
-  
-  const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+  const API_KEY = publicRuntimeConfig.GoogleMapsAPIKey;
+
   const mapStyles = {        
     height: "100%",
     width: "100%"
@@ -22,7 +25,6 @@ const Map = () => {
           center={defaultCenter}
         />
       </LoadScript>
-    <p>{API_KEY}</p>
     </div>
   )
 }
