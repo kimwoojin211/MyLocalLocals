@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { useQuery, gql } from "@apollo/client";
 
 const Query = gql`
@@ -49,19 +50,18 @@ const queryVariables = {
     "perPage": 10, //allow selectable option for more results (15,20)
     "coordinates": "33.7454725,-117.86765300000002", // user input
     "radius": "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
-    "videogames": [1, 1386, 33602, 24, 33945, 33990, 17, 3200, 287, 32] //selectable
+    "videogames": [1 /*, 1386, 33602, 24, 33945, 33990, 17, 3200, 287, 32*/] //selectable games
   };
 
-function SmashggAPI() {
+function SmashggResults(props) {
+  const {variables} = props;
   const {data, loading, error} = useQuery(Query, {
-    variables: queryVariables
+    // variables: queryVariables
+    variables: variables
   }); 
-    // console.log(`node env: ${process.env.NODE_ENV}`);
-    // console.log(`REACT_APP_SMASHGG_API_KEY: ${process.env.REACT_APP_SMASHGG_API_KEY}`);
-    // console.log(`REACT_APP_GOOGLE_MAPS_API_KEY: ${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`);
-    // console.log(`smashggapi key: ${API_KEY}`);
-
-
+  // const {tournamentList} = props;
+  console.log(`v: ${variables}       d: ${data}   l:${loading}  e:${error}      ` )
+  
     if (loading) {
         return (
             <h2>Loading Data...</h2>
@@ -75,15 +75,33 @@ function SmashggAPI() {
         );
     };
 
-    const {tournaments} = data;
-    console.log(tournaments);
+    function onSearchClick(event,tournaments){
+      event.preventDefault();
+      handleClick(tournaments);
+    }
+
+    console.log(`data ${JSON.stringify(data)}`)
+    const tournamentList = data.tournaments.nodes;
+    // console.log(`tournamentList  ${JSON.stringify(tournamentList)}`);
+    // console.log(`tournamentListname ${tournamentList[0].name}`);
 
     return(
       <div>
-        <h1>API FETCH SUCCESS!!!!!!!!!!!!!!!!!!! WHOOOOOOOOOOOOOOOOOOO</h1>
+      <h2>Tournaments!</h2>
+        <hr />
+        {
+          tournamentList.map((tournament,index) =>
+          <div key={index}>
+            <p>{tournament.name}</p>
+          </div>
+        )}
+        {/* <ResultsList tournaments={tournamentList}/> */}
       </div>
     )
 }
 
+SmashggResults.propTypes = {
+  tournamentList: PropTypes.object
+}
 
-export default SmashggAPI;
+export default SmashggResults;

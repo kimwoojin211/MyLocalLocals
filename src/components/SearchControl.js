@@ -1,37 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import Searchbar from './Searchbar';
-import ResultsList from './ResultsList';
 import Map from './Map';
-import SmashggAPI from './SmashggAPI';
+import SmashggResults from './SmashggResults';
 import ClientOnly from './ClientOnly';
-import getConfig from 'next/config';
 
-function SearchControl() {
-  const [tournaments, setTournaments] = useState(["Tourney1", "Tourney2"]);
-  const { publicRuntimeConfig } = getConfig();
-  const handleClick = () => {
-    setTournaments(["No tournaments"]);
-    console.log(`SMASHGG_API_KEY: ${process.env.SMASHGG_API_KEY}`);
-    console.log(`GOOGLE_MAPS_API_KEY: ${process.env.GOOGLE_MAPS_API_KEY}`);
-    console.log(`REACT_APP_SMASHGG_API_KEY: ${process.env.REACT_APP_SMASHGG_API_KEY}`);
-    console.log(`REACT_APP_GOOGLE_MAPS_API_KEY: ${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`);
-    console.log(`NEXT_BUILD_SMASHGG_API_KEY: ${process.env.NEXT_BUILD_SMASHGG_API_KEY}`);
-    console.log(`NEXT_BUILD_GOOGLE_MAPS_API_KEY: ${process.env.NEXT_BUILD_GOOGLE_MAPS_API_KEY}`);
-    console.log(`SMASHGG: ${publicRuntimeConfig.SmashGGAPIKey}`);
-    console.log(`MAPS: ${publicRuntimeConfig.GoogleMapsAPIKey}`);
+class SearchControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tournaments: {},
+      queryPerPage: 10, //allow selectable option for more results (15,20)
+      queryCoordinates: "39.787234, -101.316479", // user input
+      queryRadius: "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
+      queryVideogames: [1 /*, 1386, 33602, 24, 33945, 33990, 17, 3200, 287, 32*/] //selectable games
+      }
+    };
+
+  handleSearch = (queryVariables) => {
+    // setState(["No tournaments"]);
+    const {newPerPage, newCoordinates, newRadius, newVideogames} = queryVariables;
+    this.setState({
+      queryPerPage: newPerPage,
+      queryCoordinates: newCoordinates, 
+      queryRadius: newRadius, 
+      queryVideogames: newVideogames
+    });
   }
-  
-  return (
-    <>
-      <Searchbar onClick={handleClick}/>
-      <ResultsList tournaments={tournaments}/>
-      <ClientOnly>
-        <SmashggAPI/>
-      </ClientOnly>
-      <Map />
-    </>
-  )
+
+  render(){
+    let queryVariables = {
+      perPage: this.state.queryPerPage, 
+      coordinates: this.state.queryCoordinates, 
+      radius: this.state.queryRadius, 
+      videogames: this.state.queryVideogames
+    };
+
+    return (
+      <>
+        <Searchbar 
+          onSearch={this.handleSearch}
+        />
+        <ClientOnly>
+          <SmashggResults 
+          variables={queryVariables}/>
+        </ClientOnly>
+        <Map />
+      </>
+    )
+  }
 }
 
-export default SearchControl
+export default SearchControl;

@@ -15,7 +15,7 @@ const Map = () => {
   
   return (
     <div style={{ width: 500, height: 500}}>
-     <LoadScript googleMapsApiKey={API_KEY}>
+      <LoadScript googleMapsApiKey={API_KEY}>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={6}

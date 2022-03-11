@@ -1,18 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 import SearchControl from '../components/SearchControl'
-import Searchbar from '../components/Searchbar'
-import ResultsList  from '../components/ResultsList'
-import SmashggAPI from '../components/SmashggAPI'
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-  HttpLink,
-  setContext
-} from "@apollo/client";
 
 export default function Home() {
 
