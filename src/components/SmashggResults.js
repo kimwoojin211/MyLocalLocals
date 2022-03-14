@@ -3,14 +3,16 @@ import PropTypes from "prop-types";
 import { useQuery, gql } from "@apollo/client";
 
 const Query = gql`
-query TournamentsByCoordinatesAndGame($perPage: Int, $coordinates: String!, $radius: String!, $videogames: [ID]!) {
+query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!, $beforeDate: Timestamp, $afterDate: Timestamp) {
     tournaments(query: {
-      perPage: $perPage
+      perPage: 100
       filter: {
         location: {
-          distanceFrom: $coordinates,
+          distanceFrom: $coordinates
           distance: $radius
         }
+        beforeDate: $beforeDate
+        afterDate: $afterDate
       }
     }) {
       nodes {
@@ -20,7 +22,6 @@ query TournamentsByCoordinatesAndGame($perPage: Int, $coordinates: String!, $rad
         venueAddress
         city
         countryCode
-        createdAt
         events(filter: { videogameId: $videogames }){
           id
           videogame{
@@ -39,27 +40,24 @@ query TournamentsByCoordinatesAndGame($perPage: Int, $coordinates: String!, $rad
           numEntrants
           entrantSizeMax
           type
-          createdAt
         }
       }
     }
   }
 `;
 
-const queryVariables = {
-    "perPage": 10, //allow selectable option for more results (15,20)
-    "coordinates": "33.7454725,-117.86765300000002", // user input
-    "radius": "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
-    "videogames": [1 /*, 1386, 33602, 24, 33945, 33990, 17, 3200, 287, 32*/] //selectable games
-  };
+// const queryVariables = {
+//     "perPage": 10, //allow selectable option for more results (15,20)
+//     "coordinates": "33.7454725,-117.86765300000002", // user input
+//     "radius": "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
+//     "videogames": [ 1, 1386, 33602, /*24, 33945, 33990, 17, 3200, 287, 32*/] //selectable games
+//   };
 
 function SmashggResults(props) {
   const {variables} = props;
   const {data, loading, error} = useQuery(Query, {
-    // variables: queryVariables
     variables: variables
   }); 
-  // const {tournamentList} = props;
   console.log(`v: ${variables}       d: ${data}   l:${loading}  e:${error}      ` )
   
     if (loading) {
@@ -74,12 +72,7 @@ function SmashggResults(props) {
             <h2>Sorry, there&apos;s been an error...</h2>
         );
     };
-
-    function onSearchClick(event,tournaments){
-      event.preventDefault();
-      handleClick(tournaments);
-    }
-
+    
     console.log(`data ${JSON.stringify(data)}`)
     const tournamentList = data.tournaments.nodes;
     // console.log(`tournamentList  ${JSON.stringify(tournamentList)}`);
@@ -93,6 +86,8 @@ function SmashggResults(props) {
           tournamentList.map((tournament,index) =>
           <div key={index}>
             <p>{tournament.name}</p>
+            
+            <p>{tournament.startAt}</p>
           </div>
         )}
         {/* <ResultsList tournaments={tournamentList}/> */}
