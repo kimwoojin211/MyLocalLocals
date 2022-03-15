@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useQuery, gql } from "@apollo/client";
 
 const Query = gql`
-query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!, $beforeDate: Timestamp, $afterDate: Timestamp) {
+query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!,  $afterDate: Timestamp) {
     tournaments(query: {
       perPage: 100
       filter: {
@@ -11,7 +11,6 @@ query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $
           distanceFrom: $coordinates
           distance: $radius
         }
-        beforeDate: $beforeDate
         afterDate: $afterDate
       }
     }) {
@@ -58,7 +57,7 @@ function SmashggResults(props) {
   const {data, loading, error} = useQuery(Query, {
     variables: variables
   }); 
-  console.log(`v: ${variables}       d: ${data}   l:${loading}  e:${error}      ` )
+  console.log(`v:  ${JSON.stringify(variables)}       d: ${JSON.stringify(data)}   l:${loading}  e:${error}      ` )
   
     if (loading) {
         return (
@@ -86,8 +85,15 @@ function SmashggResults(props) {
           tournamentList.map((tournament,index) =>
           <div key={index}>
             <p>{tournament.name}</p>
-            
-            <p>{tournament.startAt}</p>
+            <p>{tournament.venueAddress}</p>
+            <p>{tournament.city}, {tournament.addrState}</p>
+            <p>{Date((tournament.startAt)*1000)}</p>
+            {/* +date.getDate()+
+          "/"+(date.getMonth()+1)+
+          "/"+date.getFullYear()+
+          " "+date.getHours()+
+          ":"+date.getMinutes()+
+          ":"+date.getSeconds()); */}
           </div>
         )}
         {/* <ResultsList tournaments={tournamentList}/> */}

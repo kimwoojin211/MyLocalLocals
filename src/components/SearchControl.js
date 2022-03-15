@@ -3,7 +3,10 @@ import Searchbar from './Searchbar';
 import Map from './Map';
 import SmashggResults from './SmashggResults';
 import ClientOnly from './ClientOnly';
+import getConfig from 'next/config';
+import Geocode from "react-geocode";
 
+const { publicRuntimeConfig } = getConfig();
 class SearchControl extends React.Component {
   constructor(props) {
     super(props);
@@ -11,17 +14,22 @@ class SearchControl extends React.Component {
       tournaments: {},
       // queryPerPage: 10, //allow selectable option for more results (15,20)
       // queryLocation: null, // user input
+      geolocationAddress:"",
+      searchAddress:"",
       queryCoordinates: "", // user input
       queryRadius: "10mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
       queryVideogames: [ 1, 1386, 33602,/* 24, 33945, 33990, 17, 3200, 287, 32*/], //selectable games
       queryAfterDate: Date.now(),
       queryBeforeDate: null,
-      initialSearch: false
+      isSearching: false,
+      currentPage: 1,
+      error: false
       }
     };
 
-  handleSearch = (queryVariables) => {
+  handleSearchSubmit = (queryVariables) => {
     // const {/* newPerPage, newLocation*/ newCoordinates, newRadius, newVideogames, newAfterDate, newBeforeDate} = queryVariables;
+    console.log(`${JSON.stringify(queryVariables)}`);
     this.setState({
       /*queryPerPage: newPerPage,
       queryLocation: newLocation,*/
@@ -30,34 +38,45 @@ class SearchControl extends React.Component {
       queryVideogames: queryVariables.newVideogames,
       queryAfterDate: queryVariables.newAfterDate,
       queryBeforeDate: queryVariables.newBeforeDate,
-      // initialSearch: true
+      isSearching: true
     });
   }
+
+  handleSearchChange = newAddress => {
+    console.log(`address change event: ${newAddress}`);
+    this.setState({searchAddress:newAddress.newAddress});
+    console.log(`what is going on`);
+  };
 
   //Geolocation - asking for user's current location and inputting it to search bar
   componentDidMount() {
     const success = position => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
-      console.log(latitude, longitude);
-      this.setState({
-        queryCoordinates:`${position.coords.latitude}, ${position.coords.longitude}`
-      });
+      console.log(position, latitude, longitude);
+      Geocode.fromLatLng(latitude, longitude).then((response) =>{
+        const reverseGeocodeResults = response.results[0];
+        console.log(`reverseGeocode raw: ${JSON.stringify(reverseGeocodeResults)}`);
+        const address = response.results[0].formatted_address;
+        console.log(address);
+        this.setState({
+          geolocationAddress: address,
+          searchAddress: address
+        })
+        },
+          (error) => {
+          console.error(error);
+          }
+        );
+      // this.setState({
+        // queryCoordinates:`${position.coords.latitude}, ${position.coords.longitude}`
+      // });
       console.log(JSON.stringify(this.state));
     };
     
     if (navigator.geolocation) {
       console.log('GeoLocation is Available!');
       navigator.geolocation.getCurrentPosition(success,
-      // navigator.geolocation.getCurrentPosition(function(position) {
-      //   console.log("Latitude is :", position.coords.latitude);
-      //   console.log("Longitude is :", position.coords.longitude);
-        // return `${position.coords.latitude}, ${position.coords.longitude}`;
-        // const latitude = position.coords.latitude;
-        // const longitude = position.coords.longitude;
-        // useCurrentLocation(position.coords.latitude,position.coords.longitude);
-        // this.setState({coordinates:`${position.coords.latitude}, ${position.coords.longitude}`})
-      // },
       () => console.log(`Geolocation permission has been blocked. If you'd like to use your current location, please click 'Use Current Location'`));
       // console.log(test());
       // this.setState({ queryCoordinates: ``});
@@ -65,10 +84,7 @@ class SearchControl extends React.Component {
     console.log(`Geolocation not available`);
   }
 }
-  //updates coordinate state with current location coordinates
-  // useCurrentLocation(latitude, longitude){
-  //   this.setState({ queryCoordinates: `${latitude}, ${longitude}`});
-  // }
+
 
   render(){
     let queryVariables = {
@@ -81,16 +97,28 @@ class SearchControl extends React.Component {
       beforeDate: this.state.queryBeforeDate
     };
 
+    console.log(`render queryvariables: ${JSON.stringify(this.state)}`);
+    let result = null;
+    console.log(`initial search: ${this.state.initialSearch} `)
+    if(this.state.isSearching){
+      result = <SmashggResults variables={queryVariables}/>
+    }
+    else{
+      result = <p>Enter your location in the search bar above!</p>
+    }
     return (
       <>
         <Searchbar 
-          onSearch={this.handleSearch}
+          onSearchSubmit={this.handleSearchSubmit}
+          onSearchChange={this.handleSearchChange}
           variables={queryVariables}
+          searchAddress={this.state.searchAddress}
         />
-        <ClientOnly /*display={this.state.initialSearch ? 'flex': 'none'}*/>
-          <SmashggResults 
+        <ClientOnly>
+          {result}
+          {/* <SmashggResults 
           variables={queryVariables}
-          />
+          /> */}
         </ClientOnly>
         {/* <Map /> */}
       </>
