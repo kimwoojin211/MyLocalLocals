@@ -26,7 +26,9 @@
     "react-datepicker": "^4.7.0",
     "react-dom": "17.0.2",
     "react-geocode": "^0.2.3",
+    "react-google-autocomplete": "^2.6.1",
     "react-google-location": "^1.2.2",
+    "react-google-places-autocomplete": "^3.3.4",
     "react-scripts": "^5.0.0"
   },
   "devDependencies": {

@@ -57,7 +57,7 @@ function SmashggResults(props) {
   const {data, loading, error} = useQuery(Query, {
     variables: variables
   }); 
-  console.log(`v:  ${JSON.stringify(variables)}       d: ${JSON.stringify(data)}   l:${loading}  e:${error}      ` )
+  // console.log(`v:  ${JSON.stringify(variables)}       d: ${JSON.stringify(data)}   l:${loading}  e:${error}      ` )
   
     if (loading) {
         return (
@@ -68,7 +68,7 @@ function SmashggResults(props) {
     if (error) {
         console.error(error);
         return (
-            <h2>Sorry, there&apos;s been an error...</h2>
+            <h2>No Tournaments found. Please try another location.</h2>
         );
     };
     

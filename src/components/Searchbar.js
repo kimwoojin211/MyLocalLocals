@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import DatePicker from 'react-datepicker';
 import Geocode from "react-geocode";
 import getConfig from 'next/config';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+// import Autocomplete from "react-google-autocomplete";
+
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -11,7 +14,7 @@ function Searchbar(props) {
   const {onSearchSubmit,searchAddress,onSearchChange} = props;
   // const {coordinates, radius, videogames, afterDate, beforeDate} = variables;
   // const [locationAddress, setLocationAddress] = useState('');
-  const [locationCoordinates, setLocationCoordinates] = useState('');
+  // const [locationCoordinates, setLocationCoordinates] = useState('');
   // const latitude = coordinates.slice(0,coordinates.indexOf(','));
   // const longitude = coordinates.slice(coordinates.indexOf(' ')+1,coordinates.length);
   // console.log(`pregeocode latitude: ..${latitude}..    pregeocode longitude:..${longitude}.. `);
@@ -99,20 +102,33 @@ function Searchbar(props) {
   // }
 
   function onAddressChange(event){
-    // console.log(`address change event: ${JSON.stringify(event)}`);
-    onSearchChange({newAddress: event.target.value});
+    console.log(`address change event: ${JSON.stringify(event)}`);
+    onSearchChange({newAddress: event.label});
   }
 
   return (
     <form onSubmit={searchTournaments}>
       <div display="inline">
         <label htmlFor="location">Location</label>
-        <input id="location" 
+        {/* <input id="location" 
           value={searchAddress} 
           type="text" 
           onChange={e => onAddressChange(e)}
-          style={{width:'400px'}}/>
-
+          style={{width:'400px'}}/> */}
+        <GooglePlacesAutocomplete 
+          apiKey={publicRuntimeConfig.GoogleMapsAPIKey}
+          id="location"
+          selectProps={{
+            searchAddress,
+            onChange: e => onAddressChange(e) 
+          }}
+        />
+        {/* <Autocomplete 
+          apiKey={publicRuntimeConfig.GoogleMapsAPIKey}
+          id="location"
+          defaultValue={searchAddress}
+          onPlaceSelected={{onChange: e => onAddressChange(e)}}
+          style={{width:'300px'}}/> */}
         <label htmlFor="radius">Radius</label>
         <select id="radius">
           <option default value="10mi">10mi</option>
