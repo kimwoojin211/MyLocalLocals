@@ -48,6 +48,10 @@ class SearchControl extends React.Component {
     console.log(`what is going on`);
   };
 
+  handleGameChange = newGames => {
+    this.setState({})
+  }
+
   //Geolocation - asking for user's current location and inputting it to search bar
   componentDidMount() {
     const success = position => {

@@ -15,9 +15,28 @@ function Searchbar(props) {
   // const {coordinates, radius, videogames, afterDate, beforeDate} = variables;
   // const [locationAddress, setLocationAddress] = useState('');
   // const [locationCoordinates, setLocationCoordinates] = useState('');
-  // const latitude = coordinates.slice(0,coordinates.indexOf(','));
-  // const longitude = coordinates.slice(coordinates.indexOf(' ')+1,coordinates.length);
-  // console.log(`pregeocode latitude: ..${latitude}..    pregeocode longitude:..${longitude}.. `);
+  const [checkedGames,setCheckedGames] = useState([1, 1386, 33602]);
+
+  console.log(`WHERE ARE MY CHECKEDGAMES ${checkedGames}`);
+  
+// const latitude = coordinates.slice(0,coordinates.indexOf(','));
+// const longitude = coordinates.slice(coordinates.indexOf(' ')+1,coordinates.length);
+// console.log(`pregeocode latitude: ..${latitude}..    pregeocode longitude:..${longitude}.. `);
+
+
+  // const {checkedGames,setCheckedGames} = [
+  //   true, //game 1 = melee (id=1)
+  //   true, //game 2 = ultimate (id= 1386)
+  //   true  //game 3 = P+ (id=33602)
+  // ]; 
+
+
+    // const [game1Checked, setGame1Checked] = useState(true);
+    // const [game2Checked, setGame2Checked] = useState(true);
+    // const [game3Checked, setGame3Checked] = useState(true);
+
+    // console.log(`GAMES CHECKED ${game1Checked}, ${game2Checked}, ${game3Checked}`)
+
   Geocode.setApiKey( publicRuntimeConfig.GoogleMapsAPIKey);
 
   // const success = position => {
@@ -77,18 +96,19 @@ function Searchbar(props) {
       onSearchSubmit({
             newCoordinates: `${lat}, ${lng}`,
             newRadius: event.target.radius.value,
-            newVideogames: [1]
+            newVideogames: checkedGames
           });
     },
   (error) => {
     console.error(error);
-    onSearchSubmit({error: true})
+    onSearchSubmit({error: true}) 
   }); 
     
       // setLocationCoordinates(`${position.coords.latitude}, ${position.coords.longitude}`);
       // setLocationAddress(address);
     // console.log(JSON.stringify(`${locationAddress}, ${locationCoordinates}`));
   };
+
       // onSearchSubmit({
       //   newCoordinates: locationCoordinates,
       //   newRadius: event.target.radius.value,
@@ -104,6 +124,19 @@ function Searchbar(props) {
   function onAddressChange(event){
     console.log(`address change event: ${JSON.stringify(event)}`);
     onSearchChange({newAddress: event.label});
+  }
+
+  function onGameChange(gameId){
+    if(checkedGames.includes(gameId)){
+      // setCheckedGames(checkedGames.splice(checkedGames.indexOf(gameId),1));
+      console.log(`WHERE ARE MY CHECKEDGAMESSSSSSSSSSSSSS ${checkedGames}, ${typeof checkedGames}`);
+      setCheckedGames(checkedGames.filter(item => item !== gameId));
+      console.log(`WHERE ARE MY CHECKEDGAMESSSSSSSSSSSSSS ${checkedGames}`);
+    }
+    else
+    {
+      setCheckedGames(checkedGames.concat([gameId]));
+    }
   }
 
   return (
@@ -161,26 +194,29 @@ function Searchbar(props) {
       <label htmlFor="games">
         Games:
         <input
-          name="melee"
-          type="checkbox"
-          /*checked={this.state.isGoing}
-            onChange={this.handleInputChange}*/
+          name= "melee"
+          type= "checkbox"
+          checked= {checkedGames.includes(1)}
+          onChange={() => onGameChange(1)}
         />
         <label htmlFor="melee">Super Smash Bros. Melee</label>
+
         <input
           name="ultimate"
           type="checkbox"
-          /*checked={this.state.isGoing}
-            onChange={this.handleInputChange}*/
+          checked= {checkedGames.includes(1386)}
+          onChange={() => onGameChange(1386)}
         />
-        <label htmlFor="melee">Super Smash Bros. Ultimate</label>
+        <label htmlFor="ultimate">Super Smash Bros. Ultimate</label>
+
         <input
           name="projectPlus"
           type="checkbox"
-          /*checked={this.state.isGoing}
-            onChange={this.handleInputChange}*/
+          checked= {checkedGames.includes(33602)}
+          onChange={() => onGameChange(33602)}
         />
-        <label htmlFor="melee">Project +</label>
+        <label htmlFor="projectPlus">Project +</label>
+
       </label>
       <button type="submit">Submit!</button>
       </div>

@@ -5,13 +5,14 @@ import { useQuery, gql } from "@apollo/client";
 const Query = gql`
 query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!,  $afterDate: Timestamp) {
     tournaments(query: {
-      perPage: 100
+      perPage: 50
       filter: {
         location: {
           distanceFrom: $coordinates
           distance: $radius
         }
         afterDate: $afterDate
+        videogameIds: $videogames
       }
     }) {
       nodes {
@@ -21,6 +22,7 @@ query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $
         venueAddress
         city
         countryCode
+        startAt
         events(filter: { videogameId: $videogames }){
           id
           videogame{
@@ -74,7 +76,7 @@ function SmashggResults(props) {
     
     console.log(`data ${JSON.stringify(data)}`)
     const tournamentList = data.tournaments.nodes;
-    // console.log(`tournamentList  ${JSON.stringify(tournamentList)}`);
+    console.log(`tournamentList  ${JSON.stringify(tournamentList)}`);
     // console.log(`tournamentListname ${tournamentList[0].name}`);
 
     return(
@@ -94,6 +96,11 @@ function SmashggResults(props) {
           " "+date.getHours()+
           ":"+date.getMinutes()+
           ":"+date.getSeconds()); */}
+            <p>Games Featured: {tournament.events.map((games,index) => 
+              <p>{games.videogame.name}</p>
+            )}
+              {/* {tournament.events[0].videogame.name}*/}
+              </p>
           </div>
         )}
         {/* <ResultsList tournaments={tournamentList}/> */}
