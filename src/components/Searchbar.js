@@ -129,9 +129,9 @@ function Searchbar(props) {
   function onGameChange(gameId){
     if(checkedGames.includes(gameId)){
       // setCheckedGames(checkedGames.splice(checkedGames.indexOf(gameId),1));
-      console.log(`WHERE ARE MY CHECKEDGAMESSSSSSSSSSSSSS ${checkedGames}, ${typeof checkedGames}`);
+      // console.log(`WHERE ARE MY CHECKEDGAMESSSSSSSSSSSSSS ${checkedGames}, typeof checkedGames}`);
       setCheckedGames(checkedGames.filter(item => item !== gameId));
-      console.log(`WHERE ARE MY CHECKEDGAMESSSSSSSSSSSSSS ${checkedGames}`);
+      // console.log(`WHERE ARE MY CHECKEDGAMESSSSSSSSSSSSSS ${checkedGames}`);
     }
     else
     {

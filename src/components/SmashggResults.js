@@ -6,6 +6,7 @@ const Query = gql`
 query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!,  $afterDate: Timestamp) {
     tournaments(query: {
       perPage: 50
+      sortBy: "startAt asc"
       filter: {
         location: {
           distanceFrom: $coordinates
@@ -23,6 +24,11 @@ query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $
         city
         countryCode
         startAt
+        isRegistrationOpen
+        url
+        images{
+          url
+        }
         events(filter: { videogameId: $videogames }){
           id
           videogame{
@@ -47,19 +53,13 @@ query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $
   }
 `;
 
-// const queryVariables = {
-//     "perPage": 10, //allow selectable option for more results (15,20)
-//     "coordinates": "33.7454725,-117.86765300000002", // user input
-//     "radius": "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
-//     "videogames": [ 1, 1386, 33602, /*24, 33945, 33990, 17, 3200, 287, 32*/] //selectable games
-//   };
-
 function SmashggResults(props) {
   const {variables} = props;
+  console.log(JSON.stringify(variables));
   const {data, loading, error} = useQuery(Query, {
     variables: variables
   }); 
-  // console.log(`v:  ${JSON.stringify(variables)}       d: ${JSON.stringify(data)}   l:${loading}  e:${error}      ` )
+  console.log(`v:  ${JSON.stringify(variables)}       d: ${JSON.stringify(data)}   l:${loading}  e:${error}      ` )
   
     if (loading) {
         return (
@@ -89,7 +89,7 @@ function SmashggResults(props) {
             <p>{tournament.name}</p>
             <p>{tournament.venueAddress}</p>
             <p>{tournament.city}, {tournament.addrState}</p>
-            <p>{Date((tournament.startAt)*1000)}</p>
+            <p>{() => {Date(tournament.startAt)}}</p>
             {/* +date.getDate()+
           "/"+(date.getMonth()+1)+
           "/"+date.getFullYear()+

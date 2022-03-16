@@ -17,7 +17,7 @@ class SearchControl extends React.Component {
       geolocationAddress:"",
       searchAddress:"",
       queryCoordinates: "", // user input
-      queryRadius: "10mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
+      queryRadius: "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
       queryVideogames: [ 1, 1386, 33602,/* 24, 33945, 33990, 17, 3200, 287, 32*/], //selectable games
       queryAfterDate: Date.now(),
       queryBeforeDate: null,
@@ -37,7 +37,7 @@ class SearchControl extends React.Component {
       queryRadius: queryVariables.newRadius, 
       queryVideogames: queryVariables.newVideogames,
       queryAfterDate: queryVariables.newAfterDate,
-      queryBeforeDate: queryVariables.newBeforeDate,
+      // queryBeforeDate: queryVariables.newBeforeDate,
       isSearching: true
     });
   }
@@ -98,13 +98,16 @@ class SearchControl extends React.Component {
       radius: this.state.queryRadius, 
       videogames: this.state.queryVideogames,
       afterDate: this.state.queryAfterDate,
-      beforeDate: this.state.queryBeforeDate
+      // beforeDate: this.state.queryBeforeDate
     };
 
-    console.log(`render queryvariables: ${JSON.stringify(this.state)}`);
+
+  
+    // console.log(`render queryvariables: ${JSON.stringify(this.state)}`);
+
     let result = null;
-    console.log(`initial search: ${this.state.initialSearch} `)
     if(this.state.isSearching){
+      // result = <SmashggResults variables={queryVariables}/>
       result = <SmashggResults variables={queryVariables}/>
     }
     else{
