@@ -96,7 +96,8 @@ function Searchbar(props) {
       onSearchSubmit({
             newCoordinates: `${lat}, ${lng}`,
             newRadius: event.target.radius.value,
-            newVideogames: checkedGames
+            newVideogames: checkedGames,
+            newAfterDate: Math.floor(Date.now()/1000)
           });
     },
   (error) => {

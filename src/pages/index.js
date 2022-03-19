@@ -3,6 +3,7 @@ import Head from 'next/head';
 import SearchControl from '../components/SearchControl';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Home() {
   return (

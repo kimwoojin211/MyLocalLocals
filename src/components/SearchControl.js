@@ -19,9 +19,9 @@ class SearchControl extends React.Component {
       queryCoordinates: "", // user input
       queryRadius: "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
       queryVideogames: [ 1, 1386, 33602,/* 24, 33945, 33990, 17, 3200, 287, 32*/], //selectable games
-      queryAfterDate: Date.now(),
+      queryAfterDate: Math.floor(Date.now()/1000),
       queryBeforeDate: null,
-      isSearching: false,
+      isSearching: true,
       currentPage: 1,
       error: false
       }
@@ -98,7 +98,7 @@ class SearchControl extends React.Component {
       radius: this.state.queryRadius, 
       videogames: this.state.queryVideogames,
       afterDate: this.state.queryAfterDate,
-      // beforeDate: this.state.queryBeforeDate
+      beforeDate: this.state.queryBeforeDate
     };
 
 
@@ -107,7 +107,6 @@ class SearchControl extends React.Component {
 
     let result = null;
     if(this.state.isSearching){
-      // result = <SmashggResults variables={queryVariables}/>
       result = <SmashggResults variables={queryVariables}/>
     }
     else{
@@ -115,12 +114,12 @@ class SearchControl extends React.Component {
     }
     return (
       <>
-        <Searchbar 
+        {/* <Searchbar 
           onSearchSubmit={this.handleSearchSubmit}
           onSearchChange={this.handleSearchChange}
           variables={queryVariables}
           searchAddress={this.state.searchAddress}
-        />
+        /> */}
         <ClientOnly>
           {result}
           {/* <SmashggResults 
