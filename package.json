@@ -38,7 +38,8 @@
     "@babel/core": "^7.17.5",
     "@babel/preset-react": "^7.16.7",
     "eslint": "^8.10.0",
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "sass": "^1.49.9"
   },
   "eslintConfig": {
     "plugins": [

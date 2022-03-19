@@ -4,7 +4,8 @@ import Map from './Map';
 import SmashggResults from './SmashggResults';
 import ClientOnly from './ClientOnly';
 import getConfig from 'next/config';
-import Geocode from "react-geocode";
+import Geocode from 'react-geocode';
+import Header from './Header';
 
 const { publicRuntimeConfig } = getConfig();
 class SearchControl extends React.Component {
@@ -21,7 +22,7 @@ class SearchControl extends React.Component {
       queryVideogames: [ 1, 1386, 33602,/* 24, 33945, 33990, 17, 3200, 287, 32*/], //selectable games
       queryAfterDate: Math.floor(Date.now()/1000),
       queryBeforeDate: null,
-      isSearching: true,
+      isSearching: false,
       currentPage: 1,
       error: false
       }
@@ -113,13 +114,14 @@ class SearchControl extends React.Component {
       result = <p>Enter your location in the search bar above!</p>
     }
     return (
-      <>
-        {/* <Searchbar 
+      <div className="pageContainer">
+        <Header/>
+        <Searchbar 
           onSearchSubmit={this.handleSearchSubmit}
           onSearchChange={this.handleSearchChange}
           variables={queryVariables}
           searchAddress={this.state.searchAddress}
-        /> */}
+        />
         <ClientOnly>
           {result}
           {/* <SmashggResults 
@@ -127,7 +129,7 @@ class SearchControl extends React.Component {
           /> */}
         </ClientOnly>
         {/* <Map /> */}
-      </>
+      </div>
     )
   }
 }

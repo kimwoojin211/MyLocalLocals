@@ -1,7 +1,7 @@
 import React from 'react';
 import { ApolloProvider } from "@apollo/client";
 import client from "../components/Client";
-import '../styles.css';
+import '../styles/global.css';
 
 function MyApp({ Component, pageProps }){
   return (

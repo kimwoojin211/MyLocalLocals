@@ -40,12 +40,12 @@ function TournamentCards(props){
     <Card.Img variant="top" src={tournament.images[1].url } style={cardImageStyle} />
     <Card.Header style={{display: "flex", flexDirection: "column"}}>
       <div style={{display: "flex", justifyContent:"space-between"}} >
-        <Card.Title style= {{fontSize:'2.2rem'}}>
+        <Card.Title style= {{fontSize:'1.8rem'}}>
           {tournament.name}
           </Card.Title>
           <div style={{width:'40%', display: "flex", flexDirection: "column"}}>
             <Button variant="danger" href={tournament.url}>Smash.gg</Button>
-            <span style={{fontSize:"0.8rem", alignSelf:'center'}}>Registration {tournament.isRegistrationOpen ? 'Open': 'Closed'}</span>
+            <span style={{fontSize:"0.7rem", alignSelf:'center'}}>Registration {tournament.isRegistrationOpen ? 'Open': 'Closed'}</span>
           </div>
       </div>
     {/* </Card.Header>

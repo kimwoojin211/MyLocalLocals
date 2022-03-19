@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import Geocode from "react-geocode";
 import getConfig from 'next/config';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import styles from '../styles/searchbar.module.css';
 // import Autocomplete from "react-google-autocomplete";
 
 
@@ -141,7 +142,7 @@ function Searchbar(props) {
   }
 
   return (
-    <form onSubmit={searchTournaments}>
+    <form className={styles.searchWrapper}s onSubmit={searchTournaments}>
       <div display="inline">
         <label htmlFor="location">Location</label>
         {/* <input id="location" 
@@ -154,7 +155,8 @@ function Searchbar(props) {
           id="location"
           selectProps={{
             searchAddress,
-            onChange: e => onAddressChange(e) 
+            onChange: e => onAddressChange(e),
+            className: styles.autocomplete
           }}
         />
         {/* <Autocomplete 
