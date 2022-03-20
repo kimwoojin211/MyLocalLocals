@@ -22,6 +22,7 @@ function TournamentList(props){
                   startTime={convertTime(tournament.startAt*1000)}
                   isRegistrationOpen={tournament.isRegistrationOpen}
                   tournamentEvents={tournament.events}
+                  convertTime={convertTime}
 
                   />
             )
