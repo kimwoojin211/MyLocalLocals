@@ -18,7 +18,7 @@ function Searchbar(props) {
   // const [locationCoordinates, setLocationCoordinates] = useState('');
   const [checkedGames,setCheckedGames] = useState([1, 1386, 33602]);
 
-  console.log(`WHERE ARE MY CHECKEDGAMES ${checkedGames}`);
+  // console.log(`WHERE ARE MY CHECKEDGAMES ${checkedGames}`);
   
 // const latitude = coordinates.slice(0,coordinates.indexOf(','));
 // const longitude = coordinates.slice(coordinates.indexOf(' ')+1,coordinates.length);
@@ -142,7 +142,7 @@ function Searchbar(props) {
   }
 
   return (
-    <form className={styles.searchWrapper}s onSubmit={searchTournaments}>
+    <form className={styles.searchContainer} onSubmit={searchTournaments}>
       <div display="inline">
         <label htmlFor="location">Location</label>
         {/* <input id="location" 

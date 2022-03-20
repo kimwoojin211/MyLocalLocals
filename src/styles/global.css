@@ -8,11 +8,19 @@ body{
 
 
 .pageContainer{
+  height:100%;
   width:85%;
   display: flex;
   margin: auto;
   flex-direction:column;
   align-items: center;
+}
+
+.contentContainer{
+  width:100%;
+  height:100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 @media only screen and (max-width:576px){

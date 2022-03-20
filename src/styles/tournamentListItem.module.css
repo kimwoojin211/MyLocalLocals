@@ -1,0 +1,22 @@
+.listItemWrapper{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.itemIndex{
+  width:10%;
+  display:flex;
+  align-items: center;
+}
+
+.tournamentDescription{
+  width:70%;
+}
+
+.smashGG{
+  width:20%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}

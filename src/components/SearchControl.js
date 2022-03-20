@@ -3,6 +3,7 @@ import Searchbar from './Searchbar';
 import Map from './Map';
 import SmashggResults from './SmashggResults';
 import ClientOnly from './ClientOnly';
+import TournamentList from './TournamentList';
 import getConfig from 'next/config';
 import Geocode from 'react-geocode';
 import Header from './Header';
@@ -114,7 +115,7 @@ class SearchControl extends React.Component {
       result = <p>Enter your location in the search bar above!</p>
     }
     return (
-      <div className="pageContainer">
+      <div className='pageContainer'>
         <Header/>
         <Searchbar 
           onSearchSubmit={this.handleSearchSubmit}
@@ -122,13 +123,13 @@ class SearchControl extends React.Component {
           variables={queryVariables}
           searchAddress={this.state.searchAddress}
         />
-        <ClientOnly>
+        {/* <ClientOnly>
           {result}
-          {/* <SmashggResults 
-          variables={queryVariables}
-          /> */}
-        </ClientOnly>
-        {/* <Map /> */}
+        </ClientOnly> */}
+        <div className='contentContainer'>
+          <SmashggResults/>
+          <Map />
+        </div>
       </div>
     )
   }
