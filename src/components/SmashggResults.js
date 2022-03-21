@@ -75,8 +75,8 @@ function convertTime(timestamp){
   const splitTime = time.toTimeString().split(' ').slice(2).join();
   const regex = /[A-Z]/g;
   const timezone = splitTime.match(regex).join('');
-  console.log(splitTime);
-  console.log(timezone);
+  // console.log(splitTime);
+  // console.log(timezone);
   return `${time.toDateString()} ${time.toLocaleTimeString()} ${timezone}`;
 }
 
@@ -85,7 +85,7 @@ function calculateDistance(searchCoordinates, tournamentAddress){
 }
 
 function SmashggResults(props) {
-  const {variables} = props;
+  const {variables, onTournamentSelected,selectedTournamentID} = props;
   console.log(JSON.stringify(variables));
   
   // const {data, loading, error} = useQuery(Query, {
@@ -258,7 +258,11 @@ function SmashggResults(props) {
     return(
       <div className={styles.resultsContainer}>
         {/* <TournamentList tournaments={queryResults}/> */}
-        <TournamentList convertTime={convertTime} tournaments={testTournamentList}/>
+        <TournamentList
+          tournaments={testTournamentList} 
+          convertTime={convertTime} 
+          onTournamentSelected={onTournamentSelected}
+          selectedTournamentID={selectedTournamentID}/>
         {/* {
           tournamentList.map((tournament,index) =>
           <div key={index} style={{display: 'flex'}}>

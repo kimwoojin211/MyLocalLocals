@@ -20,3 +20,14 @@
   flex-direction: column;
   align-items: center;
 }
+
+.eventListWrapper{
+  display:flex;
+  border: 1px solid #dbdbdb;
+  flex-direction: column;
+}
+
+.eventWrapper{
+  display:flex;
+  border: 1px solid #dbdbdb;
+}

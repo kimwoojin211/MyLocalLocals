@@ -25,7 +25,8 @@ class SearchControl extends React.Component {
       queryBeforeDate: null,
       isSearching: false,
       currentPage: 1,
-      error: false
+      error: false,
+      selectedTournamentID: null
       }
     };
 
@@ -45,13 +46,17 @@ class SearchControl extends React.Component {
   }
 
   handleSearchChange = newAddress => {
-    console.log(`address change event: ${newAddress}`);
     this.setState({searchAddress:newAddress.newAddress});
-    console.log(`what is going on`);
   };
 
-  handleGameChange = newGames => {
-    this.setState({})
+  handleSelectedTournament = (id) => {
+    console.log(id);
+    if(id===this.state.selectedTournamentID){
+      this.setState({selectedTournamentID:null})
+    }
+    else{
+      this.setState({selectedTournamentID:id});
+    }
   }
 
   //Geolocation - asking for user's current location and inputting it to search bar
@@ -108,12 +113,14 @@ class SearchControl extends React.Component {
     // console.log(`render queryvariables: ${JSON.stringify(this.state)}`);
 
     let result = null;
+
     if(this.state.isSearching){
       result = <SmashggResults variables={queryVariables}/>
     }
     else{
       result = <p>Enter your location in the search bar above!</p>
     }
+
     return (
       <div className='pageContainer'>
         <Header/>
@@ -127,7 +134,9 @@ class SearchControl extends React.Component {
           {result}
         </ClientOnly> */}
         <div className='contentContainer'>
-          <SmashggResults/>
+          <SmashggResults 
+            onTournamentSelected={this.handleSelectedTournament}
+            selectedTournamentID={this.state.selectedTournamentID}/>
           <Map />
         </div>
       </div>
