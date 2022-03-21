@@ -13,81 +13,10 @@ const { publicRuntimeConfig } = getConfig();
 
 function Searchbar(props) {
   const {onSearchSubmit,searchAddress,onSearchChange} = props;
-  // const {coordinates, radius, videogames, afterDate, beforeDate} = variables;
-  // const [locationAddress, setLocationAddress] = useState('');
-  // const [locationCoordinates, setLocationCoordinates] = useState('');
   const [checkedGames,setCheckedGames] = useState([1, 1386, 33602]);
-
-  // console.log(`WHERE ARE MY CHECKEDGAMES ${checkedGames}`);
-  
-// const latitude = coordinates.slice(0,coordinates.indexOf(','));
-// const longitude = coordinates.slice(coordinates.indexOf(' ')+1,coordinates.length);
-// console.log(`pregeocode latitude: ..${latitude}..    pregeocode longitude:..${longitude}.. `);
-
-
-  // const {checkedGames,setCheckedGames} = [
-  //   true, //game 1 = melee (id=1)
-  //   true, //game 2 = ultimate (id= 1386)
-  //   true  //game 3 = P+ (id=33602)
-  // ]; 
-
-
-    // const [game1Checked, setGame1Checked] = useState(true);
-    // const [game2Checked, setGame2Checked] = useState(true);
-    // const [game3Checked, setGame3Checked] = useState(true);
-
-    // console.log(`GAMES CHECKED ${game1Checked}, ${game2Checked}, ${game3Checked}`)
 
   Geocode.setApiKey( publicRuntimeConfig.GoogleMapsAPIKey);
 
-  // const success = position => {
-  //   const latitude = position.coords.latitude;
-  //   const longitude = position.coords.longitude;
-  //   console.log(latitude, longitude);
-  //   Geocode.fromLatLng(latitude, longitude).then((response) =>{
-  //     const reverseGeocodeResults = response.results[0];
-  //     console.log(`reverseGeocode raw: ${JSON.stringify(reverseGeocodeResults)}`);
-  //     const address = response.results[0].formatted_address;
-  //     console.log(address);
-  //     setLocationAddress(address);
-  //     },
-  //       (error) => {
-  //       console.error(error);
-  //       }
-  //     );
-  //   setLocationCoordinates(`${position.coords.latitude}, ${position.coords.longitude}`);
-  //   // setLocationAddress(address);
-  //   console.log(JSON.stringify(`${locationAddress}, ${locationCoordinates}`));
-  // };
-    
-  // if (navigator.geolocation) {
-  //   console.log('GeoLocation is Available!');
-  //   navigator.geolocation.getCurrentPosition(
-  //     success,
-  //     () => console.log(`Geolocation permission has been blocked. If you'd like to use your current location, please click 'Use Current Location'`)
-  //     );
-  //   // console.log(test());
-  //   // this.setState({ queryCoordinates: ``});
-  // } else {
-  // console.log(`Geolocation not available`);
-  // }
-
-
-  // if(latitude != "" && longitude != ""){
-  // Geocode.setApiKey( publicRuntimeConfig.GoogleMapsAPIKey);
-  // Geocode.fromLatLng(latitude, longitude).then((response) =>{
-  //   const reverseGeocodeResults = response.results[0];
-  //   console.log(`reverseGeocode raw: ${JSON.stringify(reverseGeocodeResults)}`);
-  //   const address = reverseGeocodeResults.formatted_address;
-  //   console.log(address);
-  //   setLocationAddress(address);
-  //   },
-  //     (error) => {
-  //     console.error(error);
-  //     }
-  //   );
-  // console.log(`locationAddress: ${locationAddress}`);
-  // }
 
   function searchTournaments(event){
     event.preventDefault(); // don't redirect the page
@@ -95,10 +24,11 @@ function Searchbar(props) {
     Geocode.fromAddress(searchAddress).then((response) => {
       const { lat, lng } = response.results[0].geometry.location;
       onSearchSubmit({
-            newCoordinates: `${lat}, ${lng}`,
+            newCoordinates: [lat, lng],
             newRadius: event.target.radius.value,
             newVideogames: checkedGames,
-            newAfterDate: Math.floor(Date.now()/1000)
+            newAfterDate: Math.floor(Date.now()/1000),
+            error: false
           });
     },
   (error) => {

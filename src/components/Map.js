@@ -1,11 +1,12 @@
 import React from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import getConfig from 'next/config';
 import styles from '../styles/map.module.css';
 
 const { publicRuntimeConfig } = getConfig();
 
-const Map = () => {
+function Map(props){
+  const {searchedCoordinates, tournamentCoordinates} = props;
   const API_KEY = publicRuntimeConfig.GoogleMapsAPIKey;
 
   const mapStyles = {        
@@ -13,21 +14,32 @@ const Map = () => {
     width: "100%"
   };
   
-  const defaultCenter = {
-    lat: 39.35296715847609, lng: -101.41150043318002
+  const center = {
+    lat: tournamentCoordinates ? tournamentCoordinates[0]:searchedCoordinates[0], 
+    lng: tournamentCoordinates ? tournamentCoordinates[1]:searchedCoordinates[1]
+  }
+  console.log(searchedCoordinates);
+  console.log(tournamentCoordinates);
+  console.log(center);
+
+  const onLoad = marker => {
+    console.log('marker: ', marker);
   }
   
   return (
     <div className={styles.mapContainer}>
-      <div style={{ width: 500, height: 500}}>
-        map
-        {/* <LoadScript googleMapsApiKey={API_KEY}>
+      <div style={{ width: '100%', height: '70vmin'}}>
+        <LoadScript googleMapsApiKey={API_KEY}>
           <GoogleMap
             mapContainerStyle={mapStyles}
-            zoom={6}
-            center={defaultCenter}
-          />
-        </LoadScript> */}
+            zoom={13}
+            center={center}>
+                  <Marker
+                      onLoad={onLoad}
+                      position={center}
+                    />
+            </GoogleMap>
+        </LoadScript>
       </div>
     </div>
   )

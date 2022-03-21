@@ -2,12 +2,16 @@
   width:100%;
   display: flex;
   flex-direction: row;
+  border: 1px solid grey;
+  padding-top: 15px;
 }
 
 .itemIndex{
   width:10%;
   display:flex;
   align-items: center;
+  padding-left: 10px;
+  text-align: right;
 }
 
 .tournamentDescription{
@@ -19,15 +23,14 @@
   display:flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .eventListWrapper{
   display:flex;
   border: 1px solid #dbdbdb;
   flex-direction: column;
-}
-
-.eventWrapper{
-  display:flex;
-  border: 1px solid #dbdbdb;
+  width:95%;
+  margin:auto;
+  margin-bottom: 20px;
 }

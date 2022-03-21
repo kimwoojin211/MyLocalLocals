@@ -18,9 +18,18 @@ body{
 
 .contentContainer{
   width:100%;
-  height:100%;
+  height:70vmin;
   display: flex;
   justify-content: space-around;
+}
+
+.resultsContainer{
+  background: #f2f2f2;
+  border: 4px solid black;
+  border-radius: 3px;
+  height: 100%;
+  width: 40%;
+  margin-right: 10px;
 }
 
 @media only screen and (max-width:576px){

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import SearchControl from '../components/SearchControl';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
         <title>My Local Locals</title>
       </Head>
 
-        <main>
+        <main className="pageContainer">
           {/* <Header/> */}
           <SearchControl />
         </main>

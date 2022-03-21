@@ -8,13 +8,16 @@ import TournamentEvents from './TournamentEvents';
 function TournamentListItem(props){
   return(
     <React.Fragment>
-    <div className={styles.listItemWrapper} onClick= {() => props.onTournamentSelected(props.id)}>
+    <div 
+      className={styles.listItemWrapper} 
+      onClick= {() => props.onTournamentSelected(props.id,props.venueAddress)}
+    >
       <div className={styles.itemIndex}>
         <h3>{props.id+1}.</h3>
       </div>
       
       <div className={styles.tournamentDescription}>
-        <h3>{props.name}</h3>
+        <h4>{props.name}</h4>
         <p>{props.venueName}</p>
         <p>{props.venueAddress}</p>
         <p>{props.startTime}</p>

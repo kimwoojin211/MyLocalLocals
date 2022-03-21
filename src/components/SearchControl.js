@@ -18,15 +18,15 @@ class SearchControl extends React.Component {
       // queryLocation: null, // user input
       geolocationAddress:"",
       searchAddress:"",
-      queryCoordinates: "", // user input
+      queryCoordinates: [0,0], // user input
       queryRadius: "50mi", // 10 mi, 15 mi, 20 mi, 25 mi, 30 mi
       queryVideogames: [ 1, 1386, 33602,/* 24, 33945, 33990, 17, 3200, 287, 32*/], //selectable games
       queryAfterDate: Math.floor(Date.now()/1000),
-      queryBeforeDate: null,
-      isSearching: false,
-      currentPage: 1,
+      hasSearched: false,
+      currentPage: 0,
       error: false,
-      selectedTournamentID: null
+      selectedTournamentID: null,
+      selectedTournamentCoordinates: null
       }
     };
 
@@ -40,8 +40,9 @@ class SearchControl extends React.Component {
       queryRadius: queryVariables.newRadius, 
       queryVideogames: queryVariables.newVideogames,
       queryAfterDate: queryVariables.newAfterDate,
-      // queryBeforeDate: queryVariables.newBeforeDate,
-      isSearching: true
+      selectedTournamentID: null,
+      selectedTournamentCoordinates: null,
+      hasSearched: true
     });
   }
 
@@ -49,15 +50,21 @@ class SearchControl extends React.Component {
     this.setState({searchAddress:newAddress.newAddress});
   };
 
-  handleSelectedTournament = (id) => {
-    console.log(id);
-    if(id===this.state.selectedTournamentID){
+  handleSelectedTournament = (tournamentId,address) => {
+    console.log(tournamentId);
+    if(tournamentId===this.state.selectedTournamentID){
       this.setState({selectedTournamentID:null})
     }
     else{
-      this.setState({selectedTournamentID:id});
+      this.setState({selectedTournamentID:tournamentId});
     }
+    
+    Geocode.fromAddress(address).then((response) => {
+      const { lat, lng } = response.results[0].geometry.location;
+      this.setState({selectedTournamentCoordinates: [lat,lng] });
+    })
   }
+
 
   //Geolocation - asking for user's current location and inputting it to search bar
   componentDidMount() {
@@ -101,11 +108,10 @@ class SearchControl extends React.Component {
     let queryVariables = {
       // perPage: this.state.queryPerPage, 
       // location: this.state.queryLocation,
-      coordinates: this.state.queryCoordinates, 
+      coordinates: `${this.state.queryCoordinates[0]}, ${this.state.queryCoordinates[1]}`, 
       radius: this.state.queryRadius, 
       videogames: this.state.queryVideogames,
       afterDate: this.state.queryAfterDate,
-      beforeDate: this.state.queryBeforeDate
     };
 
 
@@ -114,15 +120,20 @@ class SearchControl extends React.Component {
 
     let result = null;
 
-    if(this.state.isSearching){
-      result = <SmashggResults variables={queryVariables}/>
+    if(this.state.hasSearched){
+      result = <SmashggResults 
+            variables={queryVariables}
+            onTournamentSelected={this.handleSelectedTournament}
+            selectedTournamentID={this.state.selectedTournamentID}
+            currentPage={this.state.currentPage}
+            />
     }
     else{
       result = <p>Enter your location in the search bar above!</p>
     }
 
     return (
-      <div className='pageContainer'>
+      <React.Fragment>
         <Header/>
         <Searchbar 
           onSearchSubmit={this.handleSearchSubmit}
@@ -130,16 +141,23 @@ class SearchControl extends React.Component {
           variables={queryVariables}
           searchAddress={this.state.searchAddress}
         />
-        {/* <ClientOnly>
-          {result}
-        </ClientOnly> */}
-        <div className='contentContainer'>
+          <div className='contentContainer'>
+            <ClientOnly className='resultsContainer'>
+              {result}
+            </ClientOnly>
+            <Map 
+              searchedCoordinates={this.state.queryCoordinates}
+              tournamentCoordinates={this.state.selectedTournamentCoordinates}
+              />
+          </div>
+        {/* <div className='contentContainer'>
           <SmashggResults 
+            variables={queryVariables}
             onTournamentSelected={this.handleSelectedTournament}
             selectedTournamentID={this.state.selectedTournamentID}/>
           <Map />
-        </div>
-      </div>
+        </div> */}
+      </React.Fragment>
     )
   }
 }

@@ -4,7 +4,7 @@ import TournamentListItem from './TournamentListItem';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 function TournamentList(props){
-  const {tournaments, convertTime, onTournamentSelected, selectedTournamentID} = props;
+  const {tournaments, convertTime, onTournamentSelected, selectedTournamentID,currentPage} = props;
   return(
     <React.Fragment>
       <ListGroup className={styles.listContainer}>

@@ -7,8 +7,7 @@ function TournamentEvents(props){
     <div className={styles.eventWrapper}>
       <div className={styles.eventDesc}>
         <span>{props.name}</span>
-        <span>Starts at:</span>
-        <span>{props.startTime}</span>
+        <span>Starts at: {props.startTime}</span>
         <span>Entrants: {props.numEntrants}</span>
       </div>
       <img src={props.gameImage} className={styles.eventImg}/>

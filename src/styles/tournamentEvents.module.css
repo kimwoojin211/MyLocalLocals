@@ -1,12 +1,14 @@
 .eventWrapper{
   display:flex;
   border: 1px solid #dbdbdb;
+  width: 100%;
+  justify-content:center;
 }
 
 .eventDesc{
   display: flex;
   flex-flow: column wrap;
-  padding-left: 10px;
+  padding: 10px 0 10px 15px;
   flex-grow: 2;
 }
 
