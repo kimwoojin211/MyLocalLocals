@@ -6,7 +6,7 @@ function TournamentEvents(props){
   return(
     <div className={styles.eventWrapper}>
       <div className={styles.eventDesc}>
-        <span>{props.name}</span>
+        <h6>{props.name}</h6>
         <span>Starts at: {props.startTime}</span>
         <span>Entrants: {props.numEntrants}</span>
       </div>

@@ -29,7 +29,7 @@ function Map(props){
   return (
     <div className={styles.mapContainer}>
       <div style={{ width: '100%', height: '70vmin'}}>
-        <LoadScript googleMapsApiKey={API_KEY}>
+        {/* <LoadScript googleMapsApiKey={API_KEY}> */}
           <GoogleMap
             mapContainerStyle={mapStyles}
             zoom={13}
@@ -39,7 +39,7 @@ function Map(props){
                       position={center}
                     />
             </GoogleMap>
-        </LoadScript>
+        {/* </LoadScript> */}
       </div>
     </div>
   )

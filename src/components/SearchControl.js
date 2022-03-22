@@ -7,8 +7,12 @@ import TournamentList from './TournamentList';
 import getConfig from 'next/config';
 import Geocode from 'react-geocode';
 import Header from './Header';
+import { LoadScript } from '@react-google-maps/api';
 
 const { publicRuntimeConfig } = getConfig();
+const API_KEY = publicRuntimeConfig.GoogleMapsAPIKey;
+const libraries= ["places"];
+Geocode.setApiKey(API_KEY);
 class SearchControl extends React.Component {
   constructor(props) {
     super(props);
@@ -54,15 +58,15 @@ class SearchControl extends React.Component {
     console.log(tournamentId);
     if(tournamentId===this.state.selectedTournamentID){
       this.setState({selectedTournamentID:null})
+      this.setState({selectedTournamentCoordinates:null})
     }
     else{
       this.setState({selectedTournamentID:tournamentId});
+      Geocode.fromAddress(address).then((response) => {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.setState({selectedTournamentCoordinates: [lat,lng] });
+      })
     }
-    
-    Geocode.fromAddress(address).then((response) => {
-      const { lat, lng } = response.results[0].geometry.location;
-      this.setState({selectedTournamentCoordinates: [lat,lng] });
-    })
   }
 
 
@@ -135,13 +139,18 @@ class SearchControl extends React.Component {
     return (
       <React.Fragment>
         <Header/>
-        <Searchbar 
-          onSearchSubmit={this.handleSearchSubmit}
-          onSearchChange={this.handleSearchChange}
-          variables={queryVariables}
-          searchAddress={this.state.searchAddress}
-        />
-          <div className='contentContainer'>
+        <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
+          <div className='searchContainer' style={{ margin:this.state.hasSearched ? '0 0 1.5rem 0': 'auto'}}>
+            <Searchbar 
+              onSearchSubmit={this.handleSearchSubmit}
+              onSearchChange={this.handleSearchChange}
+              variables={queryVariables}
+              searchAddress={this.state.searchAddress}
+              geolocationAddress={this.state.geolocationAddress}
+            />
+          </div>
+          <div className='contentContainer' style={{
+            display:this.state.hasSearched ? 'flex': 'none'}}>
             <ClientOnly className='resultsContainer'>
               {result}
             </ClientOnly>
@@ -157,6 +166,7 @@ class SearchControl extends React.Component {
             selectedTournamentID={this.state.selectedTournamentID}/>
           <Map />
         </div> */}
+        </LoadScript>
       </React.Fragment>
     )
   }
