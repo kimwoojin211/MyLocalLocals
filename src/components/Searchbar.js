@@ -1,9 +1,7 @@
 import React,{useState} from "react";
 import PropTypes from "prop-types";
-import DatePicker from 'react-datepicker';
 import Geocode from "react-geocode";
 import getConfig from 'next/config';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import styles from '../styles/searchbar.module.css';
 import {StandaloneSearchBox, Autocomplete} from '@react-google-maps/api';
 // import Autocomplete from "react-google-autocomplete";
@@ -34,20 +32,26 @@ function Searchbar(props) {
   function searchTournaments(event){
     event.preventDefault(); // don't redirect the page
     console.log(`submitted + ${searchAddress}`);
-    Geocode.fromAddress(searchAddress).then((response) => {
-      const { lat, lng } = response.results[0].geometry.location;
-      onSearchSubmit({
-            newCoordinates: [lat, lng],
-            newRadius: event.target.radius.value,
-            newVideogames: checkedGames,
-            newAfterDate: Math.floor(Date.now()/1000),
-            error: false
-          });
-    },
-  (error) => {
-    console.error(error);
-    onSearchSubmit({error: true}) 
-  }); 
+    const newAddress = searchAddress ? searchAddress : (geolocationAddress? geolocationAddress : null);
+    if(newAddress){
+      Geocode.fromAddress(newAddress).then((response) => {
+        const { lat, lng } = response.results[0].geometry.location;
+        onSearchSubmit({
+              newCoordinates: [lat, lng],
+              newRadius: event.target.radius.value,
+              newVideogames: checkedGames,
+              newAfterDate: Math.floor(Date.now()/1000),
+              error: false
+            });
+        },
+      (error) => {
+        console.error(error);
+        onSearchSubmit({error: true}) 
+      });
+    }
+    else{
+      onSearchSubmit({error:true})
+    } 
 
     
       // setLocationCoordinates(`${position.coords.latitude}, ${position.coords.longitude}`);

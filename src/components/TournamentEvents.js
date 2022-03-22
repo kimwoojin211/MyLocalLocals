@@ -1,5 +1,4 @@
 import React from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
 import styles from '../styles/tournamentEvents.module.css'
 
 function TournamentEvents(props){

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 import Searchbar from './Searchbar';
 import Map from './Map';
 import SmashggResults from './SmashggResults';
 import ClientOnly from './ClientOnly';
-import TournamentList from './TournamentList';
 import getConfig from 'next/config';
 import Geocode from 'react-geocode';
 import Header from './Header';
@@ -37,17 +36,23 @@ class SearchControl extends React.Component {
   handleSearchSubmit = (queryVariables) => {
     // const {/* newPerPage, newLocation*/ newCoordinates, newRadius, newVideogames, newAfterDate, newBeforeDate} = queryVariables;
     console.log(`${JSON.stringify(queryVariables)}`);
-    this.setState({
-      /*queryPerPage: newPerPage,
-      queryLocation: newLocation,*/
-      queryCoordinates: queryVariables.newCoordinates,
-      queryRadius: queryVariables.newRadius, 
-      queryVideogames: queryVariables.newVideogames,
-      queryAfterDate: queryVariables.newAfterDate,
-      selectedTournamentID: null,
-      selectedTournamentCoordinates: null,
-      hasSearched: true
-    });
+    if(queryVariables.error){
+      this.setState({hasSearched:true,error: queryVariables.error})
+    }
+    else{
+      this.setState({
+        /*queryPerPage: newPerPage,
+        queryLocation: newLocation,*/
+        queryCoordinates: queryVariables.newCoordinates,
+        queryRadius: queryVariables.newRadius, 
+        queryVideogames: queryVariables.newVideogames,
+        queryAfterDate: queryVariables.newAfterDate,
+        selectedTournamentID: null,
+        selectedTournamentCoordinates: null,
+        hasSearched: true,
+        error: queryVariables.error
+      });
+    }
   }
 
   handleSearchChange = newAddress => {
@@ -123,17 +128,27 @@ class SearchControl extends React.Component {
     // console.log(`render queryvariables: ${JSON.stringify(this.state)}`);
 
     let result = null;
+    let map = null;
 
-    if(this.state.hasSearched){
+    if(this.state.error){
+      result = <p style={{margin:'auto'}}>Error. Please try again.</p>
+      map = <div style={{display:'none'}}></div>
+    }
+    else if(this.state.hasSearched){
       result = <SmashggResults 
             variables={queryVariables}
             onTournamentSelected={this.handleSelectedTournament}
             selectedTournamentID={this.state.selectedTournamentID}
             currentPage={this.state.currentPage}
             />
+      map = <Map 
+              searchedCoordinates={this.state.queryCoordinates}
+              tournamentCoordinates={this.state.selectedTournamentCoordinates}
+              />
     }
     else{
       result = <p>Enter your location in the search bar above!</p>
+      map = <div style={{display:'none'}}></div>
     }
 
     return (
@@ -154,10 +169,7 @@ class SearchControl extends React.Component {
             <ClientOnly className='resultsContainer'>
               {result}
             </ClientOnly>
-            <Map 
-              searchedCoordinates={this.state.queryCoordinates}
-              tournamentCoordinates={this.state.selectedTournamentCoordinates}
-              />
+            {map}
           </div>
         {/* <div className='contentContainer'>
           <SmashggResults 

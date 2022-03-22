@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { useQuery, gql } from "@apollo/client";
-import TournamentCard from './TournamentCard';
 import TournamentList from './TournamentList';
 import styles from '../styles/smashggresults.module.css';
 

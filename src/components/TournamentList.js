@@ -8,6 +8,7 @@ function TournamentList(props){
   return(
     <React.Fragment>
       <ListGroup className={styles.listContainer}>
+        <span style={{margin:'auto'}}>Click on a tournament to view all relevant events</span>
         <ListGroup.Item>
           {
             tournaments.map((tournament,index) =>
@@ -17,6 +18,7 @@ function TournamentList(props){
                   key={index}
                   name={tournament.name}
                   url={tournament.url}
+                  imageURL={tournament.images[1].url}
                   venueName={tournament.venueName}
                   venueAddress={`${tournament.venueAddress.slice(0,tournament.venueAddress.indexOf(", ")+2)}${tournament.city}, ${tournament.addrState}`}
                   // location={tournament.venueAddress}

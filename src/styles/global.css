@@ -1,11 +1,15 @@
 *{
   box-sizing: border-box;
+  
 }
 
 body{
   margin:0 auto;
 }
 
+.bodyContainer{
+  background-color: #c1c1c1
+}
 
 .pageContainer{
   height:100vh;
