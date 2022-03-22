@@ -1,5 +1,5 @@
 {
-  "name": "learn-starter",
+  "name": "My Local Locals",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,12 +12,10 @@
     "@apollo/client": "^3.5.6",
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@react-google-maps/api": "^2.7.0",
-    "apollo-server-micro": "^3.6.5",
     "bootstrap": "^5.1.3",
     "eslint-plugin-fp": "^2.3.0",
     "google-map-react": "^2.1.10",
     "graphql": "^16.1.0",
-    "graphql-request": "^3.7.0",
     "next": "^12.0.7",
     "node-fetch": "^3.2.2",
     "npm-watch": "^0.11.0",

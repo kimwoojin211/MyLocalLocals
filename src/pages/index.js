@@ -6,7 +6,7 @@ import { LoadScript } from '@react-google-maps/api';
 import Searchbar from '../components/Searchbar';
 import Map from '../components/Map';
 import SmashggResults from '../components/SmashggResults';
-import ClientOnly from '../components/ClientOnly';
+// import ClientOnly from '../components/ClientOnly';
 import Header from '../components/Header';
 
 const { publicRuntimeConfig } = getConfig();
@@ -168,9 +168,9 @@ class Home extends React.Component {
             </div>
             <div className='contentContainer' style={{
               display:this.state.hasSearched ? 'flex': 'none'}}>
-              <ClientOnly className='resultsContainer'>
+              <div className='resultsContainer'>
                 {result}
-              </ClientOnly>
+              </div>
               {map}
             </div>
           {/* <div className='contentContainer'>
