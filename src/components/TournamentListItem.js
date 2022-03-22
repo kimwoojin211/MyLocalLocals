@@ -36,8 +36,7 @@ function TournamentListItem(props){
                 startTime={props.convertTime(tournamentEvent.startAt*1000)}
                 numEntrants={tournamentEvent.numEntrants}
                 gameImage={tournamentEvent.videogame.images[0].url}
-
-                />
+              />
             )
           }
         </div>

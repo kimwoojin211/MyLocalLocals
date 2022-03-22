@@ -1,12 +1,8 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import getConfig from 'next/config';
 
 const isServer = typeof window === "undefined";
 const windowApolloState = !isServer && window.__NEXT_DATA__.apolloState;
-
 let CLIENT;
-
-const { publicRuntimeConfig } = getConfig();
 
 export function getApolloClient(forceNew){
 

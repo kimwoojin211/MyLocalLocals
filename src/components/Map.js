@@ -1,9 +1,6 @@
 import React from 'react';
 import { GoogleMap, Marker } from '@react-google-maps/api';
-import getConfig from 'next/config';
 import styles from '../styles/map.module.css';
-
-const { publicRuntimeConfig } = getConfig();
 
 function Map(props){
   const {searchedCoordinates, tournamentCoordinates} = props;
@@ -30,10 +27,7 @@ function Map(props){
           mapContainerStyle={mapStyles}
           zoom={13}
           center={center}>
-                <Marker
-                    onLoad={onLoad}
-                    position={center}
-                  />
+            <Marker onLoad={onLoad} position={center} />
           </GoogleMap>
       </div>
     </div>

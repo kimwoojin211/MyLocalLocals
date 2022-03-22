@@ -8,30 +8,40 @@
 
 * _Javascript_
 * _React_
-* _Next.js_
 * _React.js_
+* _Next.js_
 * _ApolloClient_
 * _GraphQL_
-* _React-Datepicker_
-* _React-Dom_
-* _React-Geocode_
-* _React-Scripts_
-* _Google-Map-React_
+* _SmashGG API_
+* _Google Maps API_
+* _react-dom_
+* _react-geocode_
+* _react-scripts_
+* _google-map-react_
+* _@react-google-maps/api_
+* _bootstrap_
+* _Server Side Rendering_
+
 
 ## Description
 
-__
+_TBA_
 
 ## Setup/Installation Requirements
 
-* _Clone this repository to your desktop_
-* _Navigate to the top level of the directory_
-* _Open js/index.html_
+* _TBA_
 
-## Known Bugs
+## Known Bugs/Issues
 
-* _None_
+* _If user enters an invalid address after a successful query, program uses previous address instead of returning an error_
+* _Not optimally designed for mobile viewing_
+* _Basic styling, not consistent throughout components_
+* _Many PropTypes not defined_
 
+
+## References
+
+* _TBA_
 ## License
 
 _MIT_
@@ -40,4 +50,4 @@ _MIT_
 
 _Woo Jin Kim (kimwoojin211@gmail.com)_
 
-Copyright (c) 2021 Woo Jin Kim
+Copyright (c) 2022 Woo Jin Kim
