@@ -166,8 +166,8 @@ function Searchbar(props) {
           // // minDate={startDate}
           id="beforeDate"
       /> */}
-        <div className="gameFilters" >
-          <span>Games: </span> 
+        <div className={styles.gameFilters}>
+          <div>Games: </div> 
           <input
             name= "melee"
             type= "checkbox"

@@ -3,6 +3,7 @@
   border: 1px solid #dbdbdb;
   width: 100%;
   justify-content:center;
+  background-color:rgba(0,0,0,0.95);
 }
 
 .eventDesc{

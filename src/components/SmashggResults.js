@@ -2,72 +2,73 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { useQuery, gql } from "@apollo/client";
 import TournamentList from './TournamentList';
+import {QUERY} from '../../data/Client';
 import styles from '../styles/smashggresults.module.css';
 
-const Query = gql`
-query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!,  $afterDate: Timestamp) {
-    tournaments(query: {
-      perPage: 500
-      sortBy: "startAt asc"
-      filter: {
-        location: {
-          distanceFrom: $coordinates
-          distance: $radius
-        }
-        afterDate: $afterDate
-        videogameIds: $videogames
-        hasOnlineEvents: false
-      }
-    }) {
-nodes {
-        id
-        name
-        addrState
-        venueAddress
-        venueName
-        city
-        countryCode
-        startAt
-        timezone
-        isRegistrationOpen
-        url(relative: false)
-        streams{
-          enabled
-          id
-          streamId
-          streamSource
-        }
-        images{
-          height
-          width
-          ratio
-          url
-        }
-        events(filter: { videogameId: $videogames }){
-          id   
-          name       
-          startAt
-          state
-          numEntrants
-          entrantSizeMax
-          type
-          slug
-          videogame{
-            id
-            name
-            images{
-              id
-              url
-              height
-              width
-              ratio
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+// const Query = gql`
+// query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!,  $afterDate: Timestamp) {
+//     tournaments(query: {
+//       perPage: 500
+//       sortBy: "startAt asc"
+//       filter: {
+//         location: {
+//           distanceFrom: $coordinates
+//           distance: $radius
+//         }
+//         afterDate: $afterDate
+//         videogameIds: $videogames
+//         hasOnlineEvents: false
+//       }
+//     }) {
+// nodes {
+//         id
+//         name
+//         addrState
+//         venueAddress
+//         venueName
+//         city
+//         countryCode
+//         startAt
+//         timezone
+//         isRegistrationOpen
+//         url(relative: false)
+//         streams{
+//           enabled
+//           id
+//           streamId
+//           streamSource
+//         }
+//         images{
+//           height
+//           width
+//           ratio
+//           url
+//         }
+//         events(filter: { videogameId: $videogames }){
+//           id   
+//           name       
+//           startAt
+//           state
+//           numEntrants
+//           entrantSizeMax
+//           type
+//           slug
+//           videogame{
+//             id
+//             name
+//             images{
+//               id
+//               url
+//               height
+//               width
+//               ratio
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
 
 function convertTime(timestamp){
   const time = new Date(timestamp);
@@ -84,7 +85,7 @@ function SmashggResults(props) {
   const {variables, onTournamentSelected,selectedTournamentID, currentPage} = props;
   console.log(JSON.stringify(variables));
   
-  const {data, loading, error} = useQuery(Query, {
+  const {data, loading, error} = useQuery(QUERY, {
     variables: variables
   }); 
   console.log(`v:  ${JSON.stringify(variables)}       d: ${JSON.stringify(data)}   l:${loading}  e:${error}      ` )

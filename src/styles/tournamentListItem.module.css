@@ -1,4 +1,4 @@
-.listItemWrapper{
+.listItemContainer{
   width:100%;
   border: 1px solid grey;
   color:white;
@@ -8,9 +8,14 @@
 .overlay{
   height:100%;
   width:100%;
+  background-color:rgba(0,0,0,0.85);
+}
+
+.tournamentWrapper{
+  height:100%;
+  width:100%;
   display: flex;
   flex-direction: row;
-  background-color:rgba(0,0,0,0.85);
   padding-top: 15px;
 }
 
@@ -40,5 +45,5 @@
   flex-direction: column;
   width:95%;
   margin:auto;
-  margin-bottom: 20px;
+  background: rgba(0,0,0,0.95);
 }

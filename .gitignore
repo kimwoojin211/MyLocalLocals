@@ -36,3 +36,5 @@ yarn-error.log*
 log.txt
 graphql.txt
 .vscode
+Refactoredindex.js
+TournamentCard.js

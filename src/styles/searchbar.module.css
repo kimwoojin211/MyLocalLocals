@@ -11,9 +11,16 @@
 .filters{
   display: flex;
   justify-content:space-between;
+  align-items:center;
   padding-top:0.5rem;
 }
 
 .filters > div >*{
   padding: 0 0.5rem;
+}
+
+.gameFilters{
+  display: flex;
+  flex-wrap: wrap;
+  align-items:center;
 }

@@ -4,11 +4,13 @@ import TournamentListItem from './TournamentListItem';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 function TournamentList(props){
-  const {tournaments, convertTime, onTournamentSelected, selectedTournamentID,currentPage} = props;
+  const {tournaments, convertTime, onTournamentSelected, selectedTournamentID} = props;
   return(
     <React.Fragment>
       <ListGroup className={styles.listContainer}>
-        <span style={{margin:'auto'}}>Click on a tournament to view all relevant events</span>
+        <div style={{display:'flex', justifyContent: 'center', margin:'0 auto', height:'1.5rem', width:'100%', color:'white'}}>
+          {props.tournaments.length>0? 'Click on a tournament to view all relevant events':'No tournaments found. Please modify your selection and try again.'}
+          </div>
         <ListGroup.Item>
           {
             tournaments.map((tournament,index) =>
