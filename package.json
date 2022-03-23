@@ -36,11 +36,5 @@
     "eslint": "^8.10.0",
     "jest": "^27.5.1",
     "sass": "^1.49.9"
-  },
-  "eslintConfig": {
-    "plugins": [
-      "fp"
-    ],
-    "extends": "plugin:fp/recommended"
   }
 }
