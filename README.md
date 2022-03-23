@@ -2,7 +2,7 @@
 
 #### _A web application designed to help competitive Smash players find tournaments local to their area, or wherever they'd like to search_
 
-#### By _**Woo Jin Kim (@w00j__)**_
+#### By **Woo Jin Kim (@w00j__)**
 
 ## Technologies Used
 
@@ -30,6 +30,18 @@ _TBA_
 ## Setup/Installation Requirements
 
 * _TBA_
+
+## Planned Updates
+
+* _Refactor current code_
+* _Add more responsive styling (& more styling in general)_
+* _Reformat displayed tournament start times to account for user's local time zone_
+* _Add more games to options_
+* _Allow user to choose to view tournaments after a specified date_
+* _Add an option to view results as cards instead of a list_
+* _Configure map to allow user to select a location by clicking on the map_
+* _Add an infobox on map per user query or user selection_
+* _Utilize a different geocode and/or place API to increase query limit_
 
 ## Known Bugs/Issues
 

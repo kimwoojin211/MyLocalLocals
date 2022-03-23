@@ -31,8 +31,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-.eslintrc
-.babelrc
 log.txt
 graphql.txt
 .vscode
