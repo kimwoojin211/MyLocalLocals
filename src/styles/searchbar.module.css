@@ -6,21 +6,31 @@
 
 .searchbar{
   width:100%;
+  /* border: 1px solid red; */
 }
 
 .filters{
   display: flex;
-  justify-content:space-between;
+  justify-content:space-around;
   align-items:center;
   padding-top:0.5rem;
+  /* border: 1px solid blue; */
 }
 
-.filters > div >*{
-  padding: 0 0.5rem;
+.filters div label{
+  padding-right: 0.5rem;
+  /* border: 1px solid yellow; */
 }
 
 .gameFilters{
   display: flex;
   flex-wrap: wrap;
   align-items:center;
+  padding: 0 0.5rem;
+  /* border: 1px solid green; */
+}
+
+.gameFilters > label > input{
+  margin: 0 0.5em;
+  border: 10px solid violet;
 }

@@ -34,7 +34,7 @@ _TBA_
 ## Planned Updates
 
 * _Refactor current code_
-* _Add more responsive styling (& more styling in general)_
+* ~~Add more responsive styling~~ _(& more styling in general)_
 * _Reformat displayed tournament start times to account for user's local time zone_
 * _Add more games to options_
 * _Allow user to choose to view tournaments after a specified date_
@@ -42,6 +42,7 @@ _TBA_
 * _Configure map to allow user to select a location by clicking on the map_
 * _Add an infobox on map per user query or user selection_
 * _Utilize a different geocode and/or place API to increase query limit_
+* _Add map to mobile view_
 
 ## Known Bugs/Issues
 

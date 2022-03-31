@@ -83,10 +83,11 @@ function Searchbar(props) {
             }}
           />
         </Autocomplete>
+        </div>
 
         <div className={styles.filters}>
           <div className={styles.dropdowns}>
-          <label htmlFor="radius">Radius </label>
+            <label htmlFor="radius">Radius </label>
             <select id="radius">
               <option default value="10mi">10mi</option>
               <option value="20mi">20mi</option>
@@ -97,34 +98,35 @@ function Searchbar(props) {
           </div>
 
           <div className={styles.gameFilters}>
-            <div>Games: </div> 
+            <label><b>Games:</b> </label> 
+            <label htmlFor="melee">Super Smash Bros. Melee
             <input
               name= "melee"
               type= "checkbox"
               checked= {checkedGames.includes(1)}
               onChange={() => onGameChange(1)}
             />
-            <label htmlFor="melee">Super Smash Bros. Melee</label>
+            </label>
 
+            <label htmlFor="ultimate">Super Smash Bros. Ultimate
             <input
               name="ultimate"
               type="checkbox"
               checked= {checkedGames.includes(1386)}
               onChange={() => onGameChange(1386)}
-            />
-            <label htmlFor="ultimate">Super Smash Bros. Ultimate</label>
+            /></label>
 
+            <label htmlFor="projectPlus">Project +
             <input
               name="projectPlus"
               type="checkbox"
               checked= {checkedGames.includes(33602)}
               onChange={() => onGameChange(33602)}
-            />
-            <label htmlFor="projectPlus">Project +</label>
+            /></label>
           </div>
           <button type="submit">Search!</button>
         </div>
-      </div>
+      {/* </div> */}
     </form>
   );
 }

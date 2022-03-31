@@ -21,7 +21,7 @@ function TournamentListItem(props){
           </div>
           <div className={styles.smashGG}>
             <Button variant="danger" href={props.tournament.url}>Smash.gg</Button>
-            <span style={{fontSize:"0.7rem", alignSelf:'center'}}>Registration {props.tournament.isRegistrationOpen ? 'Open': 'Closed'}</span>
+            <span style={{marginLeft: '1em', fontSize:"0.7rem", alignSelf:'center'}}>Registration {props.tournament.isRegistrationOpen ? 'Open': 'Closed'}</span>
           </div>
         </div>
 

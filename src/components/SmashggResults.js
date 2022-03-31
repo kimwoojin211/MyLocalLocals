@@ -9,7 +9,10 @@ function convertTime(timestamp){
   const splitTime = time.toTimeString().split(' ').slice(2).join();
   const regex = /[A-Z]/g;
   const timezone = splitTime.match(regex).join('');
-  return `${time.toDateString()} ${time.toLocaleTimeString()} ${timezone}`;
+  const localTime = time.toLocaleTimeString().split(':');
+  const hoursMinutes = localTime.slice(0,2).join(':');
+  const combinedTime = hoursMinutes + localTime[2].slice(2);
+  return `${time.toDateString()} ${combinedTime} ${timezone}`;
 }
 
 function SmashggResults(props) {
