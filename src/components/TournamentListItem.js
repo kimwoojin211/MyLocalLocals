@@ -14,7 +14,7 @@ function TournamentListItem(props){
           </div>
           
           <div className={styles.tournamentDescription}>
-            <h4>{props.name}</h4>
+            <h5>{props.name}</h5>
             <p>{props.venueName}</p>
             <p>{props.venueAddress}</p>
             <p>{props.startTime}</p>

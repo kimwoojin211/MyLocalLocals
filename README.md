@@ -39,6 +39,7 @@ _TBA_
 * _Add more games to options_
 * _Allow user to choose to view tournaments after a specified date_
 * _Add an option to view results as cards instead of a list_
+* _Allow user to sort by date or by distance_
 * _Configure map to allow user to select a location by clicking on the map_
 * _Add an infobox on map per user query or user selection_
 * _Utilize a different geocode and/or place API to increase query limit_

@@ -5,8 +5,9 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 function TournamentList(props){
   const {tournaments, convertTime, onTournamentSelected, selectedTournamentID} = props;
+  console.log(`tournaments: ${tournaments}`)
   return(
-    <React.Fragment>
+    <div className='resultsContainer'>
       <ListGroup className={styles.listContainer}>
         <div style={{display:'flex', justifyContent: 'center', margin:'0 auto', height:'1.5rem', width:'100%', color:'white'}}>
           {props.tournaments.length > 0? 'Click on a tournament to view all relevant events':'No tournaments found. Please modify your selection and try again.'}
@@ -21,7 +22,7 @@ function TournamentList(props){
                 key={index}
                 name={tournament.name}
                 url={tournament.url}
-                imageURL={tournament.images[1].url}
+                imageURL={tournament.images.length>1 && (tournament.images[1].ratio>= tournament.images[0].ratio) ? tournament.images[1].url : tournament.images[0].url}
                 venueName={tournament.venueName}
                 venueAddress={`${tournament.venueAddress.slice(0,tournament.venueAddress.indexOf(", ")+2)}${tournament.city}, ${tournament.addrState}`}
                 startTime={convertTime(tournament.startAt*1000)}
@@ -35,7 +36,7 @@ function TournamentList(props){
           }
         </ListGroup.Item>
       </ListGroup>
-    </React.Fragment>
+    </div>
   )
 }
 
