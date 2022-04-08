@@ -52,9 +52,14 @@ function Home(){
   const [hasSearched,setHasSearched] = useState(false);
   const [errorMessage,setErrorMessage] = useState(null);
   const [searchVariables, setSearchVariables] = useState({});
+  const [selectedTournamentID, setSelectedTournamentID] = useState(null);
+  const [selectedTournamentCoords, setSelectedTournamentCoords] = useState(null);
 
   const {data, loading, error} = useQuery(QUERY, {variables: searchVariables}); 
   console.log(`data: ${JSON.stringify(data)}~~~~~~~loading: ${loading}~~~~~~~~~~~error ${error}~~~~~~~~~~searchVariables ${JSON.stringify(searchVariables)} `)
+
+  
+    console.log(`selectedTournamentID = ${selectedTournamentID}`);
 
   //   //Geolocation - asking for user's current location and inputting it to search bar
   //   componentDidMount() {
@@ -125,20 +130,20 @@ function Home(){
 //       this.setState({searchAddress:newAddress.newAddress});
 //     };
 
-//     handleSelectedTournament = (tournamentId,address) => {
-//       console.log(tournamentId);
-//       if(tournamentId===this.state.selectedTournamentID){
-//         this.setState({selectedTournamentID:null})
-//         this.setState({selectedTournamentCoordinates:null})
-//       }
-//       else{
-//         this.setState({selectedTournamentID:tournamentId});
-//         Geocode.fromAddress(address).then((response) => {
-//           const { lat, lng } = response.results[0].geometry.location;
-//           this.setState({selectedTournamentCoordinates: [lat,lng] });
-//         })
-//       }
-//     }
+    const handleTournamentSelected = (tournamentId,address) => {
+      console.log(tournamentId);
+      if(tournamentId===selectedTournamentID){
+        setSelectedTournamentID(null);
+        // setSelectedTournamentCoords({selectedTournamentCoords:null})
+      }
+      else{
+        setSelectedTournamentID(tournamentId);
+        // Geocode.fromAddress(address).then((response) => {
+        //   const { lat, lng } = response.results[0].geometry.location;
+        //   setSelectedTournamentID({selectedTournamentCoords: [lat,lng] });
+        // })
+      }
+    }
 
 
 
@@ -184,8 +189,8 @@ function Home(){
           <h1 className="title">My Local Locals (beta)</h1>
 
           <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}> 
-            {/* <div className='searchContainer'
-              style={{ margin:(hasSearched ? '0 0 1.5rem 0': 'auto')}}>  */}
+            <div className='searchContainer'
+              style={{ margin:(hasSearched ? '0 0 1.5rem 0': 'auto')}}> 
               <Searchbar 
                 onSearchSubmit={handleSearchSubmit}
                 hasSearched={hasSearched}
@@ -194,7 +199,7 @@ function Home(){
                 // searchAddress={this.state.searchAddress}
                 // geolocationAddress={this.state.geolocationAddress}
               />
-            {/* </div> */}
+            </div>
             { hasSearched ? (() => { 
                 if(error){
                   return <h2>No Tournaments found. Please try another location.</h2>;
@@ -204,16 +209,16 @@ function Home(){
                 }
                 else{
                   return( 
-                    <div className='contentContainer' style={{display: (hasSearched ? 'flex': 'none')}}>
+                    <div className='resultsContainer' style={{display: (hasSearched ? 'flex': 'none')}}>
                         <TournamentList
                           tournaments={data.tournaments.nodes} 
                           convertTime={convertTime} 
-                          // onTournamentSelected={onTournamentSelected}
-                          // selectedTournamentID={selectedTournamentID} 
+                          onTournamentSelected={handleTournamentSelected}
+                          selectedTournamentID={selectedTournamentID} 
                           />
                         <Map 
                           searchedCoordinates={searchVariables.coordinates}
-                          // tournamentCoordinates={selectedTournamentCoordinates}
+                          tournamentCoordinates={selectedTournamentCoords}
                         />
                     </div>
                   )

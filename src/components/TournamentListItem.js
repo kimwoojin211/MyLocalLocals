@@ -2,26 +2,36 @@ import React from 'react';
 import styles from '../styles/tournamentListItem.module.css';
 import Button from 'react-bootstrap/Button';
 import TournamentEvents from './TournamentEvents';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 
 function TournamentListItem(props){
+  const streetEndIndex = props.venueAddress.indexOf(", ");
+  const cityAndStateEndIndex = props.venueAddress.indexOf(props.addrState);
   return(
-    <div className={styles.listItemContainer} style={{backgroundImage:`url(${props.imageURL})`}}>
+    <ListGroup.Item className={styles.listItemContainer} style={{backgroundImage:`url(${props.imageURL})`}}>
       <div className={styles.overlay}>
         <div className={styles.tournamentWrapper} onClick= {() => props.onTournamentSelected(props.id,props.venueAddress)}>
           <div className={styles.itemIndex}>
             <h3>{props.id+1}.</h3>
           </div>
           
-          <div className={styles.tournamentDescription}>
-            <h5>{props.name}</h5>
-            <p>{props.venueName}</p>
-            <p>{props.venueAddress}</p>
-            <p>{props.startTime}</p>
+          <div className={styles.tournamentDescriptionContainer}>
+            <h3 className={styles.tournamentName}>{props.name}</h3>
+            <div className={styles.tournamentDescription}>
+              <p>Address: </p>
+              <p><span>{props.venueAddress.slice(0,streetEndIndex)},</span>
+                  <span>{props.venueAddress.slice(streetEndIndex+2,cityAndStateEndIndex+2)}</span></p>
+            </div>
+            <div className={styles.tournamentDescription}>
+              <p>Starts At:</p>
+              <p><span>{props.startTime[0]}</span><span>{props.startTime[1]}</span></p>
+            </div>
+            {/*<p>{props.startTime}</p> */}
           </div>
           <div className={styles.smashGG}>
             <Button variant="danger" href={props.tournament.url}>Smash.gg</Button>
-            <span style={{marginLeft: '1em', fontSize:"0.7rem", alignSelf:'center'}}>Registration {props.tournament.isRegistrationOpen ? 'Open': 'Closed'}</span>
+            <p className={styles.registration}>Registration <span style={{color: (props.tournament.isRegistrationOpen ? 'lightgreen' : 'red')}}>{props.tournament.isRegistrationOpen ? 'Open': 'Closed'}</span></p>
           </div>
         </div>
 
@@ -41,7 +51,7 @@ function TournamentListItem(props){
           }
         </div>
       </div>
-    </div>
+    </ListGroup.Item>
   )
 }
 

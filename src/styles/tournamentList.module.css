@@ -1,9 +1,26 @@
 .listContainer{
   width:100%;
   height:100%;
-  border-radius: 1px solid red;
+  border-radius: 10px;
+  background:black;
+  flex:5 1 auto;
+}
+
+.listContainer > p{
+  margin: auto;
+  text-align:center;
+  width: 100%;
+  color: white;
+  font-size:0.8rem;
+  padding: 0.1rem 0;
+
+}
+
+.listWrapper{
+  width:100%;
+  height:100%;
   overflow:scroll;
   overflow-x: hidden;
-  background:black;
+  border-top: 1px solid grey;
 }
 

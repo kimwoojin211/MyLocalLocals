@@ -14,8 +14,23 @@
 }
 
 .eventImg{
-  width: 7%; 
+  width: 10%; 
   padding: 0 0 0 5px;
   flex-grow: 1;
   min-width: 75px;
+}
+
+.eventTime {
+  display:flex;
+}
+
+.eventTime p {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.83rem;
+  margin-bottom: 0.3rem;
+}
+
+.eventTime p + p{
+  margin-left: 0.8rem;
 }

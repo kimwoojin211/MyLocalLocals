@@ -3,17 +3,31 @@ import styles from '../styles/tournamentList.module.css';
 import TournamentListItem from './TournamentListItem';
 import ListGroup from 'react-bootstrap/ListGroup';
 
+function convertTime(timestamp){
+  const time = new Date(timestamp);
+  const splitTime = time.toTimeString().split(' ').slice(2).join();
+  const regex = /[A-Z]/g;
+  const timezone = splitTime.match(regex).join('');
+  const localTime = time.toLocaleTimeString().split(':');
+  const hoursMinutes = localTime.slice(0,2).join(':');
+  const combinedTime = hoursMinutes + localTime[2].slice(2);
+  return [time.toDateString(), `${combinedTime} ${timezone}`];
+}
+
 function TournamentList(props){
-  const {tournaments, convertTime, onTournamentSelected, selectedTournamentID} = props;
-  console.log(`tournaments: ${tournaments}`)
+  const {tournaments, onTournamentSelected, selectedTournamentID} = props;
+  console.log(`tournaments: ${JSON.stringify(tournaments)}`);
+    console.log(`address1: ${tournaments[0].venueAddress.slice(0,tournaments[0].venueAddress.indexOf(", "))}`);
+  console.log(`address2: ${tournaments[0].venueAddress.slice(tournaments[0].venueAddress.indexOf(", ")+2)}`);
+    console.log(`selectedTournamentID = ${JSON.stringify(selectedTournamentID)}`);
   return(
-    <div className='resultsContainer'>
-      <ListGroup className={styles.listContainer}>
-        <div style={{display:'flex', justifyContent: 'center', margin:'0 auto', height:'1.5rem', width:'100%', color:'white'}}>
-          {props.tournaments.length > 0? 'Click on a tournament to view all relevant events':'No tournaments found. Please modify your selection and try again.'}
-        </div>
+    <div className={styles.listContainer}>
+      <p>
+        {props.tournaments.length > 0? `Click on a tournament to view all relevant events`:'No tournaments found. Please modify your selection and try again.'}
+      </p>
+      <ListGroup className={styles.listWrapper}>
         
-        <ListGroup.Item>
+        {/* <ListGroup.Item>        </ListGroup.Item> */}
           {
             tournaments.map((tournament,index) =>
               <TournamentListItem 
@@ -24,7 +38,9 @@ function TournamentList(props){
                 url={tournament.url}
                 imageURL={tournament.images.length>1 && (tournament.images[1].ratio>= tournament.images[0].ratio) ? tournament.images[1].url : tournament.images[0].url}
                 venueName={tournament.venueName}
-                venueAddress={`${tournament.venueAddress.slice(0,tournament.venueAddress.indexOf(", ")+2)}${tournament.city}, ${tournament.addrState}`}
+                venueAddress={tournament.venueAddress}
+                // venueAddress={`${tournament.venueAddress.slice(0,tournament.venueAddress.indexOf(", ")+2)}${tournament.city}, ${tournament.addrState}`}
+                addrState={tournament.addrState}
                 startTime={convertTime(tournament.startAt*1000)}
                 isRegistrationOpen={tournament.isRegistrationOpen}
                 tournamentEvents={tournament.events}
@@ -34,7 +50,7 @@ function TournamentList(props){
                 />
             )
           }
-        </ListGroup.Item>
+
       </ListGroup>
     </div>
   )

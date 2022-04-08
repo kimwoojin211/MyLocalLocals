@@ -1,18 +1,19 @@
-.searchContainer {
+/* .searchContainer {
   justify-content: center;
   display: flex;
   width: 100%;
   align-items: center;
   flex-direction: column;
   border: 1px solid green;
-}
+  flex: 0 1 auto;
+} */
 
 .searchForm{
   width:100%;
 }
 
 .searchbar{
-  margin-bottom:0.5rem;
+  margin-bottom:0.6rem;
 }
 
 .searchbar a{
@@ -25,7 +26,7 @@
   display: flex;
   justify-content:space-between;
   align-items:flex-start;
-  font-size:0.85rem;
+  font-size:0.9rem;
   /* border: 1px solid red; */
 }
 
@@ -51,19 +52,9 @@
 }
 
 .searchFilters>div>label {
-  margin-right: 0.3rem;
+  margin-right: 0.4rem;
 }
 
-.radiusFilter{
-  /* display:flex;
-  flex-direction:column; */
-  /* margin-bottom:0.2rem; */
-  /* border: 1px solid green; */
-}
-
-.radiusFilter select{
-  max-height:22px;
-}
 
 .dateFilter {
   /* display:flex;
@@ -77,24 +68,15 @@
   /* border: 1px solid purple; */
 }
 
-.dateFilter > div {
-  width: 68px;
-  height: 22px;
+.dateFilter > div, .dateFilter>div>div>input {
+  width: 75px;
+  height: 25px;
   /* border: 1px solid orange; */
 }
 
-.dateFilter>div>div>input {
-  width: 68px;
-  height: 22px;
-}
-
-.gameFilter{
-  flex-grow:2;
-}
 
 .gameList{
   border: 1px solid orange;
-
 }
 
 .gameList label{
@@ -103,7 +85,7 @@
 }
 
 .gameCheckbox{
-  min-width:62px;
+  min-width:65px;
 }
 
 .gameCheckbox:not(:last-child) label {
@@ -119,14 +101,26 @@
 }
 
 @media only screen and (min-width:475px) {
+
   .searchFilters {
       justify-content: flex-start;
     }
-    
+  
   .searchFilters > div:not(:last-child){
       margin-right:0.5rem;
     }
+
+  .searchContainer {
+    font-size: 1.3125rem;
+  }
+  
+  .filters {
+    font-size: 1rem;
+  }
+
+
   /* 
+  
   
   .searchFilters > div{
     flex-direction:row;
@@ -137,13 +131,49 @@
   */
 }
 
-@media only screen and (min-width:615px) {
+@media only screen and (min-width:625px) {
   .searchFilters {
     justify-content:flex-start;
   }
+
   .gameList {
     display: flex;
+    flex-wrap: wrap;
   }
+
+  .searchFilters>div:not(:last-child) {
+    margin-right: 0.8rem;
+  }
+
+}
+
+@media only screen and (min-width:900px) {
+
+.dateFilter>div, .dateFilter>div>div>input {
+  width: 80px;
+  height: 25px;
+  /* border: 1px solid orange; */
+}
+  .radiusFilter select {
+    max-height: 25px;
+  }
+
+  
+  .searchContainer {
+    font-size: 1.3125rem;
+  }
+  
+  .filters {
+    font-size: 1.1rem;
+  }
+
+  .searchFilters>div>label {
+    margin-right: 0.7rem;
+  }
+  .gameCheckbox:not(:last-child) label {
+  padding-right: 0.8rem;
+}
+
 }
 
 /* 
