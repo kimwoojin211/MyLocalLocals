@@ -69,7 +69,7 @@ function Searchbar(props) {
   function searchTournaments(event){
     event.preventDefault(); // don't redirect the page
     onSearchSubmit({
-              searchCoordinates: '33.895543, -117.967085',
+              searchCoordinates: [33.895543, -117.967085],
               searchRadius: '50mi',
               searchVideogames: [1, 1386, 33602],
               searchAfterDate: Math.floor(Date.now()/1000),
@@ -138,18 +138,20 @@ function Searchbar(props) {
           >
             <input
               type="text"
+              className={styles.searchbarInput}
               id="location"
               placeholder="Enter an address here"
               value={searchAddress}
               onChange={handleInputChange}
-              style={{
-                border: `1px solid transparent`,
-                width: `100%`,
-                height: `32px`,
-                borderRadius: `6px`,
-                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                marginTop: '3px'
-              }}
+              preventOpenOnFocus={true}
+              // style={{
+              //   border: `1px solid transparent`,
+              //   width: `100%`,
+              //   height: `32px`,
+              //   borderRadius: `6px`,
+              //   boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              //   marginTop: '3px'
+              // }}
             />
           </Autocomplete>
           </div>
@@ -170,7 +172,27 @@ function Searchbar(props) {
                   </div>
                   <div className={styles.dateFilter}>
                     <label htmlFor="afterDate">After Date: </label>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} minDate={new Date()} dateFormat="MM/dd/yy" />
+                    <DatePicker 
+                      selected={startDate} 
+                      onChange={(date) => setStartDate(date)} 
+                      minDate={new Date()} 
+                      dateFormat="MM/dd/yy"
+                      popperModifiers={[
+                        {
+                          name: "offset",
+                          options: {
+                            offset: [-35, 5],
+                          },
+                        },
+                        {
+                          name: "preventOverflow",
+                          options: {
+                            rootBoundary: "viewport",
+                            tether: false,
+                            altAxis: true,
+                          },
+                        },
+                      ]} />
                   </div>
                   <div className={styles.gameFilters}>
                     <label>Games: </label>

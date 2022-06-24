@@ -99,7 +99,7 @@ function Home(){
       }
       else{
         setSearchVariables({...searchVariables,
-                        coordinates: queryVariables.searchCoordinates,
+                        coordinates: `${queryVariables.searchCoordinates[0]}, ${queryVariables.searchCoordinates[1]}`,
                         radius: queryVariables.searchRadius, 
                         videogames: queryVariables.searchVideogames,
                         afterDate: queryVariables.searchAfterDate
@@ -180,60 +180,62 @@ function Home(){
     // }
 
     return (
-      <div className="pageContainer"> 
+      <React.Fragment> 
         <Head>
           <title>My Local Locals (beta)</title>
         </Head>
 
         <main>
-          <h1 className="title">My Local Locals (beta)</h1>
+          <div className="container col">
+            <h1 className="title">My Local Locals (beta)</h1>
 
-          <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}> 
-            <div className='searchContainer'
-              style={{ margin:(hasSearched ? '0 0 1.5rem 0': 'auto')}}> 
-              <Searchbar 
-                onSearchSubmit={handleSearchSubmit}
-                hasSearched={hasSearched}
-                // onSearchChange={this.handleSearchChange}
-                // variables={queryVariables}
-                // searchAddress={this.state.searchAddress}
-                // geolocationAddress={this.state.geolocationAddress}
-              />
-            </div>
-            { hasSearched ? (() => { 
-                if(error){
-                  return <h2>No Tournaments found. Please try another location.</h2>;
-                }
-                else if(loading){
-                  return <h2>Loading Data...</h2>;
-                }
-                else{
-                  return( 
-                    <div className='resultsContainer' style={{display: (hasSearched ? 'flex': 'none')}}>
-                        <TournamentList
-                          tournaments={data.tournaments.nodes} 
-                          convertTime={convertTime} 
-                          onTournamentSelected={handleTournamentSelected}
-                          selectedTournamentID={selectedTournamentID} 
-                          />
-                        <Map 
-                          searchedCoordinates={searchVariables.coordinates}
-                          tournamentCoordinates={selectedTournamentCoords}
-                        />
-                    </div>
-                  )
-                }
-              })() : <p></p>}
-            {/* 
-            <div className='contentContainer' style={{display:this.state.hasSearched ? 'flex': 'none'}}>
-              <div className='resultsContainer'>
-                {result}
+            <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}> 
+              <div className='searchContainer'
+                style={{ margin:(hasSearched ? '0 0 1rem 0': 'auto')}}> 
+                <Searchbar 
+                  onSearchSubmit={handleSearchSubmit}
+                  hasSearched={hasSearched}
+                  // onSearchChange={this.handleSearchChange}
+                  // variables={queryVariables}
+                  // searchAddress={this.state.searchAddress}
+                  // geolocationAddress={this.state.geolocationAddress}
+                />
               </div>
-              {map}
-            </div>*/}
-          </LoadScript> 
+              { hasSearched ? (() => { 
+                  if(error){
+                    return <h2>No Tournaments found. Please try another location.</h2>;
+                  }
+                  else if(loading){
+                    return <h2>Loading Data...</h2>;
+                  }
+                  else{
+                    return( 
+                      <div className='resultsContainer' style={{display: (hasSearched ? 'flex': 'none')}}>
+                          <TournamentList
+                            tournaments={data.tournaments.nodes} 
+                            convertTime={convertTime} 
+                            onTournamentSelected={handleTournamentSelected}
+                            selectedTournamentID={selectedTournamentID} 
+                            />
+                          <Map 
+                            searchedCoordinates={searchVariables.coordinates}
+                            tournamentCoordinates={selectedTournamentCoords}
+                          />
+                      </div>
+                    )
+                  }
+                })() : <p></p>}
+              {/* 
+              <div className='contentContainer' style={{display:this.state.hasSearched ? 'flex': 'none'}}>
+                <div className='resultsContainer'>
+                  {result}
+                </div>
+                {map}
+              </div>*/}
+            </LoadScript> 
+            </div>
         </main>
-      </div>
+      </React.Fragment>
     )
   }
 // }

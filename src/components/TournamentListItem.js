@@ -13,11 +13,11 @@ function TournamentListItem(props){
       <div className={styles.overlay}>
         <div className={styles.tournamentWrapper} onClick= {() => props.onTournamentSelected(props.id,props.venueAddress)}>
           <div className={styles.itemIndex}>
-            <h3>{props.id+1}.</h3>
+            <h4>{props.id+1}.</h4>
           </div>
           
           <div className={styles.tournamentDescriptionContainer}>
-            <h3 className={styles.tournamentName}>{props.name}</h3>
+            <h4 className={styles.tournamentName}>{props.name}</h4>
             <div className={styles.tournamentDescription}>
               <p>Address: </p>
               <p><span>{props.venueAddress.slice(0,streetEndIndex)},</span>
@@ -30,7 +30,7 @@ function TournamentListItem(props){
             {/*<p>{props.startTime}</p> */}
           </div>
           <div className={styles.smashGG}>
-            <Button variant="danger" href={props.tournament.url}>Smash.gg</Button>
+            <Button variant="danger" href={props.tournament.url}>Start.gg</Button>
             <p className={styles.registration}>Registration <span style={{color: (props.tournament.isRegistrationOpen ? 'lightgreen' : 'red')}}>{props.tournament.isRegistrationOpen ? 'Open': 'Closed'}</span></p>
           </div>
         </div>

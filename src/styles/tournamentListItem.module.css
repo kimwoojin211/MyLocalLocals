@@ -8,9 +8,7 @@
 .overlay{
   height:100%;
   width:100%;
-  background-color:rgba(0,0,0,0.9);
-  display:flex;
-  flex-direction:column;
+  background-color:rgba(0,0,0,0.8);
 }
 
 .tournamentWrapper{
@@ -26,7 +24,6 @@
 .itemIndex{
   width:12%;
   text-align: right;
-
 }
 
 .tournamentDescriptionContainer{
@@ -41,6 +38,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 
 .tournamentDescription{
   display: flex;

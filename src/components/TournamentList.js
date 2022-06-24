@@ -14,6 +14,19 @@ function convertTime(timestamp){
   return [time.toDateString(), `${combinedTime} ${timezone}`];
 }
 
+// function selectImageByRatio(imageArray){
+//   if(imageArray.length===0){
+//     return "";
+//   }
+//   if(imageArray.length===1 || imageArray[0].ratio >= imageArray[1].ratio ){
+//     return imageArray[0].url;
+//   }
+//   else{
+//     return imageArray[1].url;
+//   }
+// }
+
+
 function TournamentList(props){
   const {tournaments, onTournamentSelected, selectedTournamentID} = props;
   console.log(`tournaments: ${JSON.stringify(tournaments)}`);
@@ -23,7 +36,7 @@ function TournamentList(props){
   return(
     <div className={styles.listContainer}>
       <p>
-        {props.tournaments.length > 0? `Click on a tournament to view all relevant events`:'No tournaments found. Please modify your selection and try again.'}
+        {props.tournaments.length > 0? `Click on a tournament to view events`:'No tournaments found. Modify your search and try again.'}
       </p>
       <ListGroup className={styles.listWrapper}>
         
@@ -36,7 +49,7 @@ function TournamentList(props){
                 key={index}
                 name={tournament.name}
                 url={tournament.url}
-                imageURL={tournament.images.length>1 && (tournament.images[1].ratio>= tournament.images[0].ratio) ? tournament.images[1].url : tournament.images[0].url}
+                imageURL={tournament.images.length===0 ? "" : (tournament.images.length>1 && (tournament.images[1].ratio>= tournament.images[0].ratio) ? tournament.images[1].url : tournament.images[0].url)}
                 venueName={tournament.venueName}
                 venueAddress={tournament.venueAddress}
                 // venueAddress={`${tournament.venueAddress.slice(0,tournament.venueAddress.indexOf(", ")+2)}${tournament.city}, ${tournament.addrState}`}

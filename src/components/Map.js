@@ -4,29 +4,36 @@ import styles from '../styles/map.module.css';
 
 function Map(props){
   const {searchedCoordinates, tournamentCoordinates} = props;
-
+  console.log(`searched coordinates: ${searchedCoordinates}`)
+  const searchedLat= parseFloat(searchedCoordinates.slice(0,searchedCoordinates.indexOf(',')));
+  const searchedLng= parseFloat(searchedCoordinates.slice(searchedCoordinates.indexOf(',')+2));
+  console.log(`${searchedLat} ${searchedLng}`);
+  
   const mapStyles = {        
     height: "100%",
     width: "100%"
   };
   
   const center = {
-    lat: tournamentCoordinates ? tournamentCoordinates[0]:searchedCoordinates[0], 
-    lng: tournamentCoordinates ? tournamentCoordinates[1]:searchedCoordinates[1]
+    lat: tournamentCoordinates ? tournamentCoordinates[0]:searchedLat, 
+    lng: tournamentCoordinates ? tournamentCoordinates[1]:searchedLng
   }
 
 
+  console.log(`searched coordinates: ${JSON.stringify(center)}`)
+  
   const onLoad = marker => {
     console.log('marker: ', marker);
   }
   
   return (
     <div className={styles.mapContainer}>
-      <div style={{ width: '100%', height: '70vmin'}}>
+      <div className={styles.mapWrapper}>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={13}
-          center={center}>
+          center={center}
+          >
             <Marker onLoad={onLoad} position={center} />
           </GoogleMap>
       </div>
