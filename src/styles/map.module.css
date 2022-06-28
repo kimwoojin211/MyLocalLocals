@@ -11,6 +11,33 @@
   height:65vh;
 }
 
+
+.infoWindowWrapper{
+  display:flex;
+  max-width:300px;
+  background-color:white;
+  /* padding:0.2rem; */
+}
+
+.tournamentThumbnail {
+  max-width: 65px;
+  max-height: 65px;
+  margin: auto 0.5rem auto 0;
+}
+
+.tournamentInfo{
+  margin:auto 0;
+}
+
+.infoWindowWrapper h5{
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+.infoWindowWrapper p{
+  margin-bottom: 0;
+}
+
 @media only screen and (min-width:625px) {
   .mapContainer {
     display:block;

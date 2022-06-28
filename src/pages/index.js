@@ -53,7 +53,7 @@ function Home(){
   const [errorMessage,setErrorMessage] = useState(null);
   const [searchVariables, setSearchVariables] = useState({});
   const [selectedTournamentID, setSelectedTournamentID] = useState(null);
-  const [selectedTournamentCoords, setSelectedTournamentCoords] = useState(null);
+  const [selectedTournament, setSelectedTournament] = useState({});
 
   const {data, loading, error} = useQuery(QUERY, {variables: searchVariables}); 
   console.log(`data: ${JSON.stringify(data)}~~~~~~~loading: ${loading}~~~~~~~~~~~error ${error}~~~~~~~~~~searchVariables ${JSON.stringify(searchVariables)} `)
@@ -130,18 +130,24 @@ function Home(){
 //       this.setState({searchAddress:newAddress.newAddress});
 //     };
 
-    const handleTournamentSelected = (tournamentId,tournamentAddress) => {
+    const handleTournamentSelected = (tournamentId,tournamentAddress,tournamentName,tournamentThumbnail) => {
       console.log('tournamentID: ' + tournamentId);
       console.log('tournamentaddress: ' + tournamentAddress);
       if(tournamentId===selectedTournamentID){
         setSelectedTournamentID(null);
-        setSelectedTournamentCoords(null);
+        setSelectedTournament({});
       }
       else{
         setSelectedTournamentID(tournamentId);
         Geocode.fromAddress(tournamentAddress).then((response) => {
           const { lat, lng } = response.results[0].geometry.location;
-          setSelectedTournamentCoords([lat,lng]);
+          setSelectedTournament({
+            tournamentName: tournamentName,
+            tournamentAddress: tournamentAddress,
+            selectedCoordinates: [lat,lng],
+            thumbnailURL: tournamentThumbnail
+            });
+          // setSelectedTournamentCoords([lat,lng]);
         })
       }
     }
@@ -221,7 +227,7 @@ function Home(){
 
                           <Map 
                             searchedCoordinates={searchVariables.coordinates}
-                            tournamentCoordinates={selectedTournamentCoords}
+                            selectedTournament={selectedTournament}
                           />
                       </div>
                     )

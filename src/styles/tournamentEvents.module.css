@@ -12,17 +12,18 @@
 }
 
 .eventDesc{
+  width: 80%;
   display: flex;
   flex-flow: column wrap;
   padding: 10px 0 10px 15px;
-  flex-grow: 2;
+  /* flex-grow: 2; */
   font-size: 0.83rem;
 }
 
 .eventImg{
-  width: 10%; 
+  width: 20%; 
   padding: 0 0 0 5px;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   min-width: 75px;
   max-width: 100px;
 }

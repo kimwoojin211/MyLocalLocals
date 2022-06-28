@@ -8,11 +8,12 @@ import ListGroup from 'react-bootstrap/ListGroup';
 function TournamentListItem(props){
   const streetEndIndex = props.venueAddress.indexOf(", ");
   const cityAndStateEndIndex = props.venueAddress.indexOf(props.addrState);
+  // const tournamentMarkerImg = props.images.find(image => )
   return(
     <ListGroup.Item className={styles.listItemContainer}>
-      <div className={styles.listBackground} style={{backgroundImage:`url(${props.imageURL})`}}>
+      <div className={styles.listBackground} style={{backgroundImage:`url(${props.bannerURL})`}}>
         <div className={styles.overlay}>
-          <div className={styles.tournamentContainer} onClick= {() => props.onTournamentSelected(props.id,props.venueAddress)}>
+          <div className={styles.tournamentContainer} onClick= {() => props.onTournamentSelected(props.id,props.venueAddress,props.name,props.thumbnailURL)}>
             <div className={styles.itemIndexAndName}> 
               <h3 className={styles.itemIndex}>{props.id+1}.</h3>
               <h3 className={styles.tournamentName}>{props.name}</h3>

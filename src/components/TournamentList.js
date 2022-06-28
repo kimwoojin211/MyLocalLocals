@@ -26,7 +26,6 @@ function convertTime(timestamp){
 //   }
 // }
 
-
 function TournamentList(props){
   const {tournaments, onTournamentSelected, selectedTournamentID} = props;
   console.log(`tournaments: ${JSON.stringify(tournaments)}`);
@@ -49,7 +48,9 @@ function TournamentList(props){
                 key={index}
                 name={tournament.name}
                 url={tournament.url}
-                imageURL={tournament.images.length===0 ? "" : (tournament.images.length>1 && (tournament.images[1].ratio>= tournament.images[0].ratio) ? tournament.images[1].url : tournament.images[0].url)}
+                images={tournament.images}
+                bannerURL= {tournament.images.length===0 ? "" : (tournament.images.find(image => image.ratio>1) ? tournament.images.find(image => image.ratio>1).url : tournament.images[0].url)}
+                thumbnailURL={tournament.images.length===0 ? "" : (tournament.images.find(image => image.ratio===1) ? tournament.images.find(image => image.ratio===1).url : tournament.images[0].url)}
                 venueName={tournament.venueName}
                 venueAddress={tournament.venueAddress}
                 // venueAddress={`${tournament.venueAddress.slice(0,tournament.venueAddress.indexOf(", ")+2)}${tournament.city}, ${tournament.addrState}`}
