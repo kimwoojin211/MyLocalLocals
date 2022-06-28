@@ -1,3 +1,8 @@
+.eventLink, .eventLink:hover{
+  text-decoration: none;
+  color:white;
+}
+
 .eventWrapper{
   display:flex;
   border: 1px solid #dbdbdb;
@@ -11,6 +16,7 @@
   flex-flow: column wrap;
   padding: 10px 0 10px 15px;
   flex-grow: 2;
+  font-size: 0.83rem;
 }
 
 .eventImg{
@@ -18,6 +24,7 @@
   padding: 0 0 0 5px;
   flex-grow: 1;
   min-width: 75px;
+  max-width: 100px;
 }
 
 .eventTime {
@@ -27,10 +34,15 @@
 .eventTime p {
   display: flex;
   flex-direction: column;
-  font-size: 0.83rem;
   margin-bottom: 0.3rem;
 }
 
 .eventTime p + p{
   margin-left: 0.8rem;
+}
+
+@media only screen and (min-width:625px) {
+  .eventDesc{
+    font-size: 0.9rem;
+  }
 }

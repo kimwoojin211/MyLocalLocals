@@ -1,6 +1,6 @@
 .mapContainer{
   background: #ede5ff;
-  width: 45%;
+  width: 40%;
   margin-bottom: 1rem;
   display:none;
 }
@@ -8,11 +8,21 @@
 .mapWrapper{
   /* width: 88vw; */
   min-height: 375px;
-  height:63vh;
+  height:65vh;
+}
+
+@media only screen and (min-width:625px) {
+  .mapContainer {
+    display:block;
+  }
 }
 
 @media only screen and (min-width:768px) {
   .mapContainer {
-    display:block;
+    width:48%;
+  }
+
+  .mapWrapper{
+    height:69vh;
   }
 }

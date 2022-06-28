@@ -1,5 +1,6 @@
 .listContainer{
   width:100%;
+  /* max-width: 355px; */
   height:100%;
   border-radius: 10px;
   background:black;
@@ -38,6 +39,12 @@
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #757474;
+}
+
+@media only screen and (min-width:625px) {
+  .listContainer {
+    width: 58%;
+  }
 }
 
 @media only screen and (min-width:768px) {

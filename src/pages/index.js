@@ -130,18 +130,19 @@ function Home(){
 //       this.setState({searchAddress:newAddress.newAddress});
 //     };
 
-    const handleTournamentSelected = (tournamentId,address) => {
-      console.log(tournamentId);
+    const handleTournamentSelected = (tournamentId,tournamentAddress) => {
+      console.log('tournamentID: ' + tournamentId);
+      console.log('tournamentaddress: ' + tournamentAddress);
       if(tournamentId===selectedTournamentID){
         setSelectedTournamentID(null);
-        // setSelectedTournamentCoords({selectedTournamentCoords:null})
+        setSelectedTournamentCoords(null);
       }
       else{
         setSelectedTournamentID(tournamentId);
-        // Geocode.fromAddress(address).then((response) => {
-        //   const { lat, lng } = response.results[0].geometry.location;
-        //   setSelectedTournamentID({selectedTournamentCoords: [lat,lng] });
-        // })
+        Geocode.fromAddress(tournamentAddress).then((response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          setSelectedTournamentCoords([lat,lng]);
+        })
       }
     }
 
@@ -217,6 +218,7 @@ function Home(){
                             onTournamentSelected={handleTournamentSelected}
                             selectedTournamentID={selectedTournamentID} 
                             />
+
                           <Map 
                             searchedCoordinates={searchVariables.coordinates}
                             tournamentCoordinates={selectedTournamentCoords}

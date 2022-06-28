@@ -9,36 +9,40 @@ function TournamentListItem(props){
   const streetEndIndex = props.venueAddress.indexOf(", ");
   const cityAndStateEndIndex = props.venueAddress.indexOf(props.addrState);
   return(
-    <ListGroup.Item className={styles.listItemContainer} style={{backgroundImage:`url(${props.imageURL})`}}>
-      <div className={styles.overlay}>
-        <div className={styles.tournamentWrapper} onClick= {() => props.onTournamentSelected(props.id,props.venueAddress)}>
-          <div className={styles.itemIndex}>
-            <h4>{props.id+1}.</h4>
-          </div>
-          
-          <div className={styles.tournamentDescriptionContainer}>
-            <h4 className={styles.tournamentName}>{props.name}</h4>
-            <div className={styles.tournamentDescription}>
-              <p>Address: </p>
-              <p><span>{props.venueAddress.slice(0,streetEndIndex)},</span>
-                  <span>{props.venueAddress.slice(streetEndIndex+2,cityAndStateEndIndex+2)}</span></p>
+    <ListGroup.Item className={styles.listItemContainer}>
+      <div className={styles.listBackground} style={{backgroundImage:`url(${props.imageURL})`}}>
+        <div className={styles.overlay}>
+          <div className={styles.tournamentContainer} onClick= {() => props.onTournamentSelected(props.id,props.venueAddress)}>
+            <div className={styles.itemIndexAndName}> 
+              <h3 className={styles.itemIndex}>{props.id+1}.</h3>
+              <h3 className={styles.tournamentName}>{props.name}</h3>
             </div>
-            <div className={styles.tournamentDescription}>
-              <p>Starts At:</p>
-              <p><span>{props.startTime[0]}</span><span>{props.startTime[1]}</span></p>
+            
+            <div className={styles.tournamentInfoContainer}>
+              <div className={styles.tournamentDetailsContainer}>
+                <div className={styles.tournamentDetails}>
+                  <p>Address: </p>
+                  <p><span>{props.venueAddress.slice(0,streetEndIndex)},</span>
+                      <span>{props.venueAddress.slice(streetEndIndex+2,cityAndStateEndIndex+2)}</span></p>
+                </div>
+                <div className={styles.tournamentDetails}>
+                  <p>Starts at:</p>
+                  <p><span>{props.startTime[0]}</span>
+                  <span>{props.startTime[1]}</span></p>
+                </div>
+              </div>
+              <div className={styles.smashGG}>
+                <Button variant="danger" href={props.tournament.url}>Start.gg</Button>
+                <p className={styles.registration}>Registration <span style={{color: (props.tournament.isRegistrationOpen ? 'lightgreen' : 'red')}}>{props.tournament.isRegistrationOpen ? 'Open': 'Closed'}</span></p>
+              </div>
             </div>
-            {/*<p>{props.startTime}</p> */}
-          </div>
-          <div className={styles.smashGG}>
-            <Button variant="danger" href={props.tournament.url}>Start.gg</Button>
-            <p className={styles.registration}>Registration <span style={{color: (props.tournament.isRegistrationOpen ? 'lightgreen' : 'red')}}>{props.tournament.isRegistrationOpen ? 'Open': 'Closed'}</span></p>
           </div>
         </div>
-
+      </div>
         <div 
           className={styles.eventListWrapper} 
           style={{display: props.selectedTournamentID === props.id ? 'flex' : 'none'}}
-        >
+          >
           {
             props.tournamentEvents.map((tournamentEvent,index) =>
               <TournamentEvents
@@ -46,10 +50,10 @@ function TournamentListItem(props){
                 startTime={props.convertTime(tournamentEvent.startAt*1000)}
                 numEntrants={tournamentEvent.numEntrants}
                 gameImage={tournamentEvent.videogame.images[0].url}
+                eventURL={tournamentEvent.slug}
               />
             )
           }
-        </div>
       </div>
     </ListGroup.Item>
   )

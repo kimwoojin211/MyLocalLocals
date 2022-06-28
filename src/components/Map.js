@@ -14,13 +14,19 @@ function Map(props){
     width: "100%"
   };
   
-  const center = {
-    lat: tournamentCoordinates ? tournamentCoordinates[0]:searchedLat, 
-    lng: tournamentCoordinates ? tournamentCoordinates[1]:searchedLng
+  const searchedCenter = {
+    lat: searchedLat,
+    lng: searchedLng
   }
+  
+  // const center = {
+  //   lat: tournamentCoordinates ? tournamentCoordinates[0]:searchedLat, 
+  //   lng: tournamentCoordinates ? tournamentCoordinates[1]:searchedLng
+  // }
 
 
-  console.log(`searched coordinates: ${JSON.stringify(center)}`)
+  console.log(`searched coordinates: ${JSON.stringify(searchedCenter)}`)
+    console.log(`tournament coordinates: ${JSON.stringify(tournamentCoordinates)}`)
   
   const onLoad = marker => {
     console.log('marker: ', marker);
@@ -32,9 +38,23 @@ function Map(props){
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={13}
-          center={center}
+          center={searchedCenter}
           >
-            <Marker onLoad={onLoad} position={center} />
+            <Marker 
+              onLoad={onLoad} 
+              position={searchedCenter} 
+              icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"} 
+              />
+            {
+              tournamentCoordinates && (
+                <Marker 
+                  onLoad={onLoad} 
+                  position={{
+                      lat:tournamentCoordinates[0],
+                      lng:tournamentCoordinates[1]
+                    }} 
+                />)
+            }
           </GoogleMap>
       </div>
     </div>

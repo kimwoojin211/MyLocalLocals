@@ -36,7 +36,7 @@ function TournamentList(props){
   return(
     <div className={styles.listContainer}>
       <p>
-        {props.tournaments.length > 0? `Click on a tournament to view events`:'No tournaments found. Modify your search and try again.'}
+        {props.tournaments.length > 0? `Click on a tournament to view events`:'No tournaments found. Modify your search & try again.'}
       </p>
       <ListGroup className={styles.listWrapper}>
         
