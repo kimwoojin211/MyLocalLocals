@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Geocode from 'react-geocode';
 import Head from 'next/head';
 import getConfig from 'next/config';
-import {useQuery} from "@apollo/client";
+import {useQuery,useLazyQuery} from "@apollo/client";
 import {QUERY} from '../../data/Client';
 import { LoadScript } from '@react-google-maps/api';
 import Searchbar from '../components/Searchbar';
@@ -27,22 +27,16 @@ function convertTime(timestamp){
   return `${time.toDateString()} ${combinedTime} ${timezone}`;
 }
 
+
+// { variables: { 
+//             coordinates: '33.899297, -117.967907',
+//             radius:'50mi',
+//             videogames:[1, 1386, 33602],
+//             afterDate: Math.floor(Date.now()/1000)
+//             } }
+
+
 function Home(){
-      // constructor(props) {
-      //   super(props);
-      //   this.state = {
-      //     geolocationAddress:"",
-      //     searchAddress:"",
-      //     queryCoordinates: [0,0],
-      //     queryRadius: "50mi", 
-      //     queryVideogames: [1, 1386, 33602] ,
-      //     queryAfterDate: Math.floor(Date.now()/1000),
-      //     hasSearched: false,
-      //     error: false,
-      //     selectedTournamentID: null,
-      //     selectedTournamentCoordinates: null
-      //     }
-      // };
   // const [geolocationAddress,setGeoLocationAddress] = useState('');
   // const [searchAddress,setSearchAddress] = useState('');
   // const [queryCoordinates,setQueryCoordinates] = useState([,]);
@@ -51,18 +45,32 @@ function Home(){
   // const [queryAfterDate,setQueryAfterDate] = useState(Math.floor(Date.now()/1000));
   const [hasSearched,setHasSearched] = useState(false);
   const [errorMessage,setErrorMessage] = useState(null);
-  const [searchVariables, setSearchVariables] = useState({});
+  // const [searchVariables, setSearchVariables] = useState({});
+  // console.log(`~~~~~~~~~~searchVariables ${JSON.stringify(searchVariables)} `);
+  const [searchCoordinates, setSearchCoordinates] = useState(null);
   const [selectedTournamentID, setSelectedTournamentID] = useState(null);
   const [selectedTournament, setSelectedTournament] = useState({});
+  const [getTournaments, {data, loading, error}] = useLazyQuery(QUERY, {
+    ssr:false
+    // , variables: { 
+    //         coordinates: '33.899297, -117.967907',
+    //         radius:'50mi',
+    //         videogames:[1, 1386, 33602],
+    //         afterDate: Math.floor(Date.now()/1000)
+    //         }
+  });
+  
+  // const {data, loading, error} = Object.keys(searchVariables).length>0 ? useQuery(QUERY, {variables: searchVariables}) : {undefined,undefined,undefined}; 
+  // const {data, loading, error} = Object.keys(searchVariables).length>0? useQuery(QUERY, {variables: searchVariables}) : {undefined,undefined,undefined}; 
+  // const {data, loading, error} = useQuery(QUERY, {variables: searchVariables});
 
-  const {data, loading, error} = useQuery(QUERY, {variables: searchVariables}); 
-  console.log(`data: ${JSON.stringify(data)}~~~~~~~loading: ${loading}~~~~~~~~~~~error ${error}~~~~~~~~~~searchVariables ${JSON.stringify(searchVariables)} `)
+  // console.log(`data: ${JSON.stringify(data)}~~~~~~~loading: ${loading}~~~~~~~~~~~error: ${error}`);
 
   
-    console.log(`selectedTournamentID = ${selectedTournamentID}`);
+    // console.log(`selectedTournamentID = ${selectedTournamentID}`);
 
-  //   //Geolocation - asking for user's current location and inputting it to search bar
-  //   componentDidMount() {
+    //Geolocation - asking for user's current location and inputting it to search bar
+  //   function componentDidMount() {
   //     const success = position => {
   //       const latitude = position.coords.latitude;
   //       const longitude = position.coords.longitude;
@@ -92,22 +100,61 @@ function Home(){
   //     console.log(`Geolocation not available`);
   //   }
   // }
-    const handleSearchSubmit = (queryVariables) => {
-      setHasSearched(true);
-      if(queryVariables.searchError){
-        setErrorMessage(queryVariables.errorMessage);
-      }
-      else{
-        setSearchVariables({...searchVariables,
-                        coordinates: `${queryVariables.searchCoordinates[0]}, ${queryVariables.searchCoordinates[1]}`,
-                        radius: queryVariables.searchRadius, 
-                        videogames: queryVariables.searchVideogames,
-                        afterDate: queryVariables.searchAfterDate
-        });
-        console.log(`variables::::: ${JSON.stringify(searchVariables)}`)
-      }
 
+  const handleSearchSubmit = (queryVariables) => {
+    if(errorMessage){
+      setErrorMessage(null);
     }
+
+    if(!hasSearched){
+      setHasSearched(true);
+    }
+
+    setSearchCoordinates(queryVariables.searchCoordinates);
+    // setSearchVariables({...searchVariables,
+    //   coordinates: queryVariables.searchCoordinates && `${queryVariables.searchCoordinates[0]}, ${queryVariables.searchCoordinates[1]}`,
+    //   radius: queryVariables.searchRadius, 
+    //   videogames: queryVariables.searchVideogames,
+    //   afterDate: queryVariables.searchAfterDate
+    //   });
+    // getTournaments();
+    getTournaments({variables:{
+      coordinates: `${queryVariables.searchCoordinates[0]}, ${queryVariables.searchCoordinates[1]}`,
+      radius: queryVariables.searchRadius, 
+      videogames: queryVariables.searchVideogames,
+      afterDate: queryVariables.searchAfterDate
+    }});
+    // getTournaments({variables: { 
+    //         coordinates: '33.899297, -117.967907',
+    //         radius:'50mi',
+    //         videogames:[1, 1386, 33602],
+    //         afterDate: Math.floor(Date.now()/1000)
+    //         }});
+
+      // console.log(`data: ${JSON.stringify(data)}~~~~~~~loading: ${loading}~~~~~~~~~~~error: ${error}`);
+  }
+
+
+    // const handleSearchSubmit = (queryVariables) => {
+    //   console.log(`~~~~~queryVariables ${JSON.stringify(queryVariables)} `);
+    //   if(!hasSearched){
+    //     setHasSearched(true);
+    //   }
+    //   if(queryVariables.error){
+    //     setErrorMessage(error);
+    //     setSearchVariables({});
+    //   }
+    //   else{
+    //     setSearchVariables({...searchVariables,
+    //                     coordinates: queryVariables.searchCoordinates && `${queryVariables.searchCoordinates[0]}, ${queryVariables.searchCoordinates[1]}`,
+    //                     radius: queryVariables.searchRadius, 
+    //                     videogames: queryVariables.searchVideogames,
+    //                     afterDate: queryVariables.searchAfterDate
+    //     });
+    //   }
+    //   console.log(`variables::::: ${JSON.stringify(searchVariables)}`
+    // }
+
 //     handleSearchSubmit = (queryVariables) => {
 //       if(queryVariables.error){
 //         this.setState({hasSearched:true,error: queryVariables.error})
@@ -129,6 +176,13 @@ function Home(){
 //     handleSearchChange = newAddress => {
 //       this.setState({searchAddress:newAddress.newAddress});
 //     };
+
+    const handleSearchError = (searchError) => {
+      setErrorMessage(`${searchError}. Please try again.`);
+      if(!hasSearched){
+        setHasSearched(true);
+      }
+    }
 
     const handleTournamentSelected = (tournamentId,tournamentAddress,tournamentName,tournamentThumbnail) => {
       console.log('tournamentID: ' + tournamentId);
@@ -152,8 +206,14 @@ function Home(){
       }
     }
 
-
-
+    
+    // if (loading) return <p>Loading ...</p>;
+    
+    // else if (error || errorMessage){
+    //   console.log(`${error? error: errorMessage}`);
+    // }
+    
+    // else if (data) return <p>{JSON.stringify(data)}</p>
 
   // render(){
     // let queryVariables = {
@@ -193,6 +253,7 @@ function Home(){
         </Head>
 
         <main>
+      
           <div className="container col">
             <h1 className="title">My Local Locals (beta)</h1>
 
@@ -201,22 +262,24 @@ function Home(){
                 style={{ margin:(hasSearched ? '0 0 1rem 0': 'auto')}}> 
                 <Searchbar 
                   onSearchSubmit={handleSearchSubmit}
-                  hasSearched={hasSearched}
+                  onSearchError={handleSearchError}
+                  // hasSearched={hasSearched}
+                  // getTournaments={getTournaments}
                   // onSearchChange={this.handleSearchChange}
                   // variables={queryVariables}
                   // searchAddress={this.state.searchAddress}
                   // geolocationAddress={this.state.geolocationAddress}
                 />
               </div>
-              { hasSearched ? (() => { 
-                  if(error){
+               { hasSearched ? (() => { 
+                if(loading){
+                  return <h2>Loading Data...</h2>;
+                }
+                else if(error || errorMessage){
                     return <h2>No Tournaments found. Please try another location.</h2>;
                   }
-                  else if(loading){
-                    return <h2>Loading Data...</h2>;
-                  }
-                  else{
-                    return( 
+                else{
+                    return( data && (
                       <div className='resultsContainer' style={{display: (hasSearched ? 'flex': 'none')}}>
                           <TournamentList
                             tournaments={data.tournaments.nodes} 
@@ -226,13 +289,15 @@ function Home(){
                             />
 
                           <Map 
-                            searchedCoordinates={searchVariables.coordinates}
+                            searchedCoordinates={searchCoordinates}
                             selectedTournament={selectedTournament}
                           />
                       </div>
                     )
+                    )
                   }
-                })() : <p></p>}
+                })() : <React.Fragment/>}
+
               {/* 
               <div className='contentContainer' style={{display:this.state.hasSearched ? 'flex': 'none'}}>
                 <div className='resultsContainer'>

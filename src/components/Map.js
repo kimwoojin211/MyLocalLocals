@@ -5,8 +5,10 @@ import styles from '../styles/map.module.css';
 function Map(props){
   const {searchedCoordinates, selectedTournament} = props;
   console.log(`searched coordinates: ${searchedCoordinates}`)
-  const searchedLat= parseFloat(searchedCoordinates.slice(0,searchedCoordinates.indexOf(',')));
-  const searchedLng= parseFloat(searchedCoordinates.slice(searchedCoordinates.indexOf(',')+2));
+  // const searchedLat= parseFloat(searchedCoordinates.slice(0,searchedCoordinates.indexOf(',')));
+  // const searchedLng= parseFloat(searchedCoordinates.slice(searchedCoordinates.indexOf(',')+2));
+  const searchedLat=searchedCoordinates[0];
+  const searchedLng=searchedCoordinates[1];
   console.log(`${searchedLat} ${searchedLng}`);
   
   const mapStyles = {        
