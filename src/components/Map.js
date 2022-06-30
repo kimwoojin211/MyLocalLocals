@@ -29,7 +29,7 @@ function Map(props){
 
   console.log(`searched coordinates: ${JSON.stringify(searchedCenter)}`)
     // console.log(`tournament coordinates: ${JSON.stringify(tournamentCoordinates)}`)
-  console.log(`tournament coordinates: ${JSON.stringify(selectedTournament)}`)
+  console.log(`tournament: ${JSON.stringify(selectedTournament)}`)
   
   const onLoad = marker => {
     console.log('marker: ', marker);

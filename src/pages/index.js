@@ -110,6 +110,10 @@ function Home(){
       setHasSearched(true);
     }
 
+    if(Object.keys(selectedTournament).length > 0){
+      setSelectedTournament({})
+    }
+
     setSearchCoordinates(queryVariables.searchCoordinates);
     // setSearchVariables({...searchVariables,
     //   coordinates: queryVariables.searchCoordinates && `${queryVariables.searchCoordinates[0]}, ${queryVariables.searchCoordinates[1]}`,
@@ -276,7 +280,7 @@ function Home(){
                   return <h2>Loading Data...</h2>;
                 }
                 else if(error || errorMessage){
-                    return <h2>No Tournaments found. Please try another location.</h2>;
+                    return <h2>No Tournaments found. Please try again.</h2>;
                   }
                 else{
                     return( data && (

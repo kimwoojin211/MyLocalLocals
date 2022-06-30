@@ -26,6 +26,7 @@
   flex-direction: row;
   padding-top: 0.8rem;
   padding-bottom: 0.5rem;
+  padding-right:1rem;
   flex-wrap: wrap;
   /* border: 1px solid blue; */
 }
@@ -33,7 +34,7 @@
 .itemIndexAndName{
   width:100%;
   display: flex;
-  padding-right: 0.5rem;
+  /* padding-right: 0.5rem; */
   margin-bottom: 0.3rem;
   /* border: 1px solid blue; */
 }
@@ -81,7 +82,7 @@
 .tournamentDetailsContainer {
   width:100%;
   padding-left: 14%;
-  padding-right: 0.5rem;
+  /* padding-right: 0.5rem; */
   /* max-width: 230px; */
   display: flex;
   flex-direction: column;

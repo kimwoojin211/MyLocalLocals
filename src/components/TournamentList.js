@@ -28,10 +28,10 @@ function convertTime(timestamp){
 
 function TournamentList(props){
   const {tournaments, onTournamentSelected, selectedTournamentID} = props;
-  console.log(`tournaments: ${JSON.stringify(tournaments)}`);
-    console.log(`address1: ${tournaments[0].venueAddress.slice(0,tournaments[0].venueAddress.indexOf(", "))}`);
-  console.log(`address2: ${tournaments[0].venueAddress.slice(tournaments[0].venueAddress.indexOf(", ")+2)}`);
-    console.log(`selectedTournamentID = ${JSON.stringify(selectedTournamentID)}`);
+  // console.log(`tournaments: ${JSON.stringify(tournaments)}`);
+  //   console.log(`address1: ${tournaments[0].venueAddress.slice(0,tournaments[0].venueAddress.indexOf(", "))}`);
+  // console.log(`address2: ${tournaments[0].venueAddress.slice(tournaments[0].venueAddress.indexOf(", ")+2)}`);
+  //   console.log(`selectedTournamentID = ${JSON.stringify(selectedTournamentID)}`);
   return(
     <div className={styles.listContainer}>
       <p>
