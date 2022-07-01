@@ -58,17 +58,44 @@ main{
   text-align: center;
 }
 
+.title span{
+  font-size: 0.9rem;
+  color:red;
+}
+
+.errorMessage{
+  width: auto;
+  max-width: 80%;
+  color:red;
+  background:white;
+  border: 1px solid red;
+  padding: 0.5rem 1rem;
+  border-radius:3rem;
+  text-align: center;
+  margin: 3.5rem auto;
+}
+
+.errorMessage p{
+  margin: 0;
+}
+
 @media only screen and (min-width:625px) {
   .resultsContainer{
     flex-direction:row;
     justify-content: space-between;
     /* height:62vh; */
   }
+  .errorMessage{
+    margin: 6rem auto;
+  }
 }
 
 @media only screen and (min-width:768px) {
   .resultsContainer {
     /* height: 66vh; */
+  }
+  .errorMessage {
+    margin: 7rem auto;
   }
 }
 

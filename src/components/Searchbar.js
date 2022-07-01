@@ -153,7 +153,9 @@ function Searchbar(props) {
 
   function onGameChange(gameId){
     if(checkedGames.includes(gameId)){
-      setCheckedGames(checkedGames.filter(item => item !== gameId));
+      if(checkedGames.length>1){
+        setCheckedGames(checkedGames.filter(item => item !== gameId));
+      }
     }
     else
     {

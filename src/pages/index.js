@@ -259,7 +259,7 @@ function Home(){
         <main>
       
           <div className="container col">
-            <h1 className="title">My Local Locals (beta)</h1>
+            <h1 className="title">My Local Locals <span>(beta)</span></h1>
 
             <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}> 
               <div className='searchContainer'
@@ -275,12 +275,15 @@ function Home(){
                   // geolocationAddress={this.state.geolocationAddress}
                 />
               </div>
-               { hasSearched ? (() => { 
+              { hasSearched ? (() => { 
                 if(loading){
                   return <h2>Loading Data...</h2>;
                 }
-                else if(error || errorMessage){
-                    return <h2>No Tournaments found. Please try again.</h2>;
+                else if(error || errorMessage || (data && data.tournaments.nodes && data.tournaments.nodes.length > 0 )){
+                  return (
+                    <div className="errorMessage">
+                      <p>No Tournaments found. Please try again.</p>
+                    </div>);
                   }
                 else{
                     return( data && (
