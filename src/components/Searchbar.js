@@ -66,7 +66,7 @@ function Searchbar(props) {
           searchCoordinates: [lat, lng],
           searchRadius: event.target.radius.value,
           searchVideogames: checkedGames,
-          searchAfterDate: Math.floor(Date.now() / 1000),
+          searchAfterDate: Math.floor(startDate/1000),
         });
       },
       (error) => {
@@ -124,9 +124,11 @@ function Searchbar(props) {
                 <label htmlFor="afterDate">After Date: </label>
                 <DatePicker
                   selected={startDate}
+                  // onChange={(date) => console.log(date)}
                   onChange={(date) => setStartDate(date)}
                   minDate={new Date()}
                   dateFormat="MM/dd/yy"
+                  popperPlacement="bottom-start"
                   popperModifiers={[
                     {
                       name: "offset",

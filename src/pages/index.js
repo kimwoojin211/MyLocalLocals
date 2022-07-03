@@ -82,7 +82,7 @@ function Home() {
       </Head>
 
       <main>
-        <div className="container col">
+        <div className="pageContainer col">
           <h1 className="title">
             My Local Locals <span>(beta)</span>
           </h1>
@@ -112,13 +112,12 @@ function Home() {
                   return (
                     <div className="errorMessageWrapper">
                       <p>
-                        {data &&
+                        {`${data &&
                         data.tournaments &&
                         data.tournaments.nodes &&
                         data.tournaments.nodes.length === 0
-                          ? "No Tournaments found."
-                          : "An error has occurred."}
-                        Please try again.
+                          ? "No Tournaments found. "
+                          : "An error has occurred. "} Please try again.`}
                       </p>
                     </div>
                   );

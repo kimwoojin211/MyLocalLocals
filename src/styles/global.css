@@ -4,26 +4,21 @@
 
 html {
   background-color: #c1c1c1;
-  max-width: 900px;
   margin: 0 auto;
   font-size: 16px;
 }
 
 .pageContainer {
   background-color: #c1c1c1;
-  height: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 900px;
 }
 
 main {
   background-color: #c1c1c1;
   min-height: 100vh;
-}
-
-.container {
-  min-height: 100vh;
-  margin: 0 auto;
-  width: 90%;
-  max-width: 900px;
 }
 
 .col {
