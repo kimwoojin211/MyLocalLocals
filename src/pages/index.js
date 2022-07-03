@@ -182,7 +182,7 @@ function Home(){
 //     };
 
     const handleSearchError = (searchError) => {
-      setErrorMessage(`${searchError}. Please try again.`);
+      setErrorMessage(`${searchError}.`);
       if(!hasSearched){
         setHasSearched(true);
       }
@@ -275,19 +275,20 @@ function Home(){
                   // geolocationAddress={this.state.geolocationAddress}
                 />
               </div>
-              { hasSearched ? (() => { 
+              { 
+              hasSearched ? (() => { 
                 if(loading){
-                  return <h2>Loading Data...</h2>;
+                  return <h2 className="loadingMessage">Loading Data...</h2>;
                 }
-                else if(error || errorMessage || (data && data.tournaments.nodes && data.tournaments.nodes.length > 0 )){
-                  return (
-                    <div className="errorMessage">
-                      <p>No Tournaments found. Please try again.</p>
-                    </div>);
-                  }
-                else{
-                    return( data && (
-                      <div className='resultsContainer' style={{display: (hasSearched ? 'flex': 'none')}}>
+                else if(error || errorMessage || (data && data.tournaments.nodes && data.tournaments.nodes.length === 0 )){
+                    return (
+                      <div className="errorMessageWrapper">
+                        <p>{(data && data.tournaments && data.tournaments.nodes && data.tournaments.nodes.length === 0) ? "No Tournaments found." : "An error has occurred."} Please try again.</p>
+                      </div>);
+                    }
+                else if(data && data.tournaments && data.tournaments.nodes && data.tournaments.nodes.length > 0){
+                  return(
+                    <div className='resultsContainer' style={{display: (hasSearched ? 'flex': 'none')}}>
                           <TournamentList
                             tournaments={data.tournaments.nodes} 
                             convertTime={convertTime} 
@@ -301,8 +302,17 @@ function Home(){
                           />
                       </div>
                     )
-                    )
                   }
+                        {/* <p>{() => {
+                          if(errorMessage){ return errorMessage; }
+                          else if(data && data.tournaments && data.tournaments.nodes && data.tournaments.length === 0){
+                            return "No Tournaments found. Please try again.";
+                          }
+                          else{ 
+                            console.log(error); 
+                            return "An error has occured. Please try again."};
+                        }} 
+                        </p>*/}
                 })() : <React.Fragment/>}
 
               {/* 

@@ -22,6 +22,7 @@ main{
 }
 
 .container{
+  min-height:100vh;
   margin: 0 auto;
   width: 90%;
   max-width: 900px;
@@ -39,7 +40,7 @@ main{
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
 }
 
 .resultsContainer {
@@ -63,7 +64,7 @@ main{
   color:red;
 }
 
-.errorMessage{
+.errorMessageWrapper{
   width: auto;
   max-width: 80%;
   color:red;
@@ -75,7 +76,7 @@ main{
   margin: 3.5rem auto;
 }
 
-.errorMessage p{
+.errorMessageWrapper p{
   margin: 0;
 }
 
