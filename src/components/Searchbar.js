@@ -124,7 +124,6 @@ function Searchbar(props) {
                 <label htmlFor="afterDate">After Date: </label>
                 <DatePicker
                   selected={startDate}
-                  // onChange={(date) => console.log(date)}
                   onChange={(date) => setStartDate(date)}
                   minDate={new Date()}
                   dateFormat="MM/dd/yy"
