@@ -1,22 +1,19 @@
-.mapContainer{
+.mapContainer {
   background: #ede5ff;
   width: 40%;
   margin-bottom: 1rem;
-  display:none;
+  display: none;
 }
 
-.mapWrapper{
-  /* width: 88vw; */
+.mapWrapper {
   min-height: 375px;
-  height:65vh;
+  height: 65vh;
 }
 
-
-.infoWindowWrapper{
-  display:flex;
-  max-width:300px;
-  background-color:white;
-  /* padding:0.2rem; */
+.infoWindowWrapper {
+  display: flex;
+  max-width: 300px;
+  background-color: white;
 }
 
 .tournamentThumbnail {
@@ -25,31 +22,31 @@
   margin: auto 0.5rem auto 0;
 }
 
-.tournamentInfo{
-  margin:auto 0;
+.tournamentInfo {
+  margin: auto 0;
 }
 
-.infoWindowWrapper h5{
+.infoWindowWrapper h5 {
   font-size: 0.9rem;
   margin-bottom: 0.2rem;
 }
 
-.infoWindowWrapper p{
+.infoWindowWrapper p {
   margin-bottom: 0;
 }
 
-@media only screen and (min-width:625px) {
+@media only screen and (min-width: 625px) {
   .mapContainer {
-    display:block;
+    display: block;
   }
 }
 
-@media only screen and (min-width:768px) {
+@media only screen and (min-width: 768px) {
   .mapContainer {
-    width:48%;
+    width: 48%;
   }
 
-  .mapWrapper{
-    height:69vh;
+  .mapWrapper {
+    height: 69vh;
   }
 }

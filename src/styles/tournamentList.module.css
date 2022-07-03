@@ -1,9 +1,6 @@
 .listContainer{
   width:100%;
-  /* max-width: 355px; */
   height:100%;
-  /* height:65vh;
-  min-height: 350px; */
   border-radius: 10px;
   background:black;
 }
@@ -20,7 +17,6 @@
 
 .listWrapper{
   width:100%;
-  /* height:100%; */
   min-height: 325px;
   height: 60vh;
   overflow: scroll;
@@ -31,7 +27,6 @@
 .listWrapper::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  /* background-color: black; */
   background-color: #757474;
 }
 
@@ -43,8 +38,6 @@
 .listWrapper::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-  /* background-color: #757474; */
-  /* background-color: black; */
   background-color: white;
 }
 

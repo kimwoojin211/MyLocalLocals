@@ -1,25 +1,15 @@
-/* .searchContainer {
-  justify-content: center;
-  display: flex;
+.searchForm {
   width: 100%;
-  align-items: center;
-  flex-direction: column;
-  border: 1px solid green;
-  flex: 0 1 auto;
-} */
-
-.searchForm{
-  width:100%;
 }
 
-.searchbar{
-  margin-bottom:0.6rem;
+.searchbar {
+  margin-bottom: 0.6rem;
 }
 
-.searchbar a{
-  padding-left:0.4rem;
+.searchbar a {
+  padding-left: 0.4rem;
   font-size: 0.8rem;
-  font-style:italic;
+  font-style: italic;
 }
 
 .searchbarInput {
@@ -32,118 +22,89 @@
   font-size: 0.9rem;
 }
 
-.filters{
+.filters {
   display: flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  font-size:0.85rem;
-  /* border: 1px solid red; */
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 0.85rem;
 }
 
-.searchFilterContainer{
-  width:100%;
+.searchFilterContainer {
+  width: 100%;
 }
 
-.searchFilters{
-  display:flex;
-  justify-content:space-between;
+.searchFilters {
+  display: flex;
+  justify-content: space-between;
   align-items: flex-start;
 }
 
-.searchFilters label{
+.searchFilters label {
   font-weight: bold;
 }
 
-.searchFilters > div{
-  display:flex;
-  /* flex-direction:column; */
-  flex-wrap:wrap;
-  /* border: 1px solid rgb(4, 0, 255); */
+.searchFilters > div {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.searchFilters>div>label {
+.searchFilters > div > label {
   margin-right: 0.4rem;
 }
 
-
-.dateFilter {
-  /* display:flex;
-  flex-direction:column; */
-  /* border: 1px solid yellow; */
-}
-
 .dateFilter label {
-  min-width:75px;
-  /* display:flex; */
-  /* border: 1px solid purple; */
+  min-width: 75px;
 }
 
-.dateFilter>div:first-of-type, .dateFilter>div:first-of-type>div, .dateFilter div:first-of-type div input{
+.dateFilter > div:first-of-type,
+.dateFilter > div:first-of-type > div,
+.dateFilter div:first-of-type div input {
   width: 73px;
   height: 21px;
-  /* border: 1px solid orange; */
 }
 
-
-.gameList{
-  /* border: 1px solid orange; */
-}
-
-.gameList label{
+.gameList label {
   font-weight: normal;
   margin-left: 0.3rem;
 }
 
-.gameCheckbox{
-  min-width:65px;
+.gameCheckbox {
+  min-width: 65px;
 }
 
 .gameCheckbox:not(:last-child) label {
   padding-right: 0.5rem;
 }
 
-.pPlus{
-  min-width:21px;
+.pPlus {
+  min-width: 21px;
 }
 
-.submitButton{
-  margin-left:0.5rem;
+.submitButton {
+  margin-left: 0.5rem;
 }
 
-@media only screen and (min-width:475px) {
-
+@media only screen and (min-width: 475px) {
   .searchFilters {
-      justify-content: flex-start;
-    }
-  
-  .searchFilters > div:not(:last-child){
-      margin-right:0.5rem;
-    }
+    justify-content: flex-start;
+  }
+
+  .searchFilters > div:not(:last-child) {
+    margin-right: 0.5rem;
+  }
 
   .searchContainer {
     font-size: 1.3125rem;
   }
-  
+
   .filters {
     font-size: 1rem;
   }
-
-
-  /* 
-  
-  
-  .searchFilters > div{
-    flex-direction:row;
-  }
-
-
-  
-  */
 }
 
-@media only screen and (min-width:625px) {
+@media only screen and (min-width: 625px) {
   .searchFilters {
-    justify-content:flex-start;
+    justify-content: flex-start;
   }
 
   .gameList {
@@ -151,102 +112,33 @@
     flex-wrap: wrap;
   }
 
-  .searchFilters>div:not(:last-child) {
+  .searchFilters > div:not(:last-child) {
     margin-right: 0.8rem;
   }
-
 }
 
-@media only screen and (min-width:900px) {
-
-.dateFilter>div:first-of-type, .dateFilter>div:first-of-type>div>input {
-  width: 80px;
-  height: 25px;
-  /* border: 1px solid orange; */
-}
+@media only screen and (min-width: 900px) {
+  .dateFilter > div:first-of-type,
+  .dateFilter > div:first-of-type > div > input {
+    width: 80px;
+    height: 25px;
+  }
   .radiusFilter select {
     max-height: 25px;
   }
 
-  
   .searchContainer {
     font-size: 1.3125rem;
   }
-  
+
   .filters {
     font-size: 1.1rem;
   }
 
-  .searchFilters>div>label {
+  .searchFilters > div > label {
     margin-right: 0.7rem;
   }
   .gameCheckbox:not(:last-child) label {
-  padding-right: 0.8rem;
-}
-
-}
-
-/* 
-
-
-
-.searchFilter label{
-  padding-right: 0.4rem;
-}
-
-
-
-.gameFilters{
-  display: flex;
-  justify-content:center;
-  padding: 0 0.3rem;
-  flex-grow: 2;
-}
-
-.gameFilters>label {
-  padding-right: 1rem;
-}
-
-.gameList{
-  display:flex;
-  flex-wrap:wrap;
-  padding-top:2px;
-}
-
-.gameCheckbox{
-}
-
-.gameCheckbox label{
-  padding-left: 0.3rem;
-}
-.gameCheckbox:not(:last-child) label{
-  padding-right: 0.5rem;
-}
-
-
-@media only screen and (max-width:375px) {
-  .radiusFilter{
-    flex-direction:column;
+    padding-right: 0.8rem;
   }
-
-  .gameFilters>label {
-    padding-right: .4rem;
-  }
-
-  .gameList{
-    flex-direction:column;
-    flex-wrap:nowrap;
-  }
-
-  .gameCheckbox:not(:last-child) label {
-    padding-right: 0;
-  }
-
-  .searchFilter label {
-    padding-right: 0;
-  }
-
-  .dateFilter>div {
-    margin-left: 0;
-  }
-} */
+}

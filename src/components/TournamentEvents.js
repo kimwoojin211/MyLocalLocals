@@ -2,7 +2,6 @@ import React from 'react';
 import styles from '../styles/tournamentEvents.module.css'
 
 function TournamentEvents(props){
-    // console.log(`~~~~~~~~~~~tournament event : ${JSON.stringify(props.eventURL)}`)
   return(
     <a className={styles.eventLink} href={`https://start.gg/` + props.eventURL}>
     <div className={styles.eventWrapper}>
