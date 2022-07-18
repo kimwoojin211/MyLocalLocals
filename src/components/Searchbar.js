@@ -17,7 +17,7 @@ function Searchbar(props) {
   const [searchGames, setSearchGames] = useState([1, 1386, 33602]);
   const [searchAddress, setSearchAddress] = useState("");
   const [searchStartDate, setSearchStartDate] = useState(Date.now());
-  const [filtersClicked, setFiltersClicked] = useState(false);
+  const [filterToggle, setFilterToggle] = useState(false);
   Geocode.setApiKey(publicRuntimeConfig.GoogleMapsAPIKey);
 
   const onGeolocationClick = (event) => {
@@ -71,6 +71,11 @@ function Searchbar(props) {
     setSearchStartDate(date);
   }
 
+  const handleFiltersToggle = (toggle) => {
+    console.log(filterToggle);
+    setFilterToggle(toggle);
+  }
+
   function searchTournaments(event) {
     event.preventDefault();
 
@@ -105,9 +110,10 @@ function Searchbar(props) {
       <form className={styles.searchForm} onSubmit={searchTournaments}>
         <div className={styles.searchbar}>
           <label htmlFor="location"><b>Location</b></label>
-          <a href="#" onClick={onGeolocationClick}>
+          <a className={styles.geoLocation} href="#" onClick={onGeolocationClick}>
             Use your current location
           </a>
+          <a className={styles.filtersToggleTopRight} onClick={()=>setFilterToggle(!filterToggle)}>Filters</a>
           <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceChanged}>
             <input
               type="text"
@@ -121,7 +127,7 @@ function Searchbar(props) {
         </div>
 
         <div className={styles.filters}>
-          { filtersClicked ? 
+          { filterToggle ? 
             (
               <Filters 
                 searchRadius = {searchRadius}
@@ -130,10 +136,11 @@ function Searchbar(props) {
                 onRadiusChanged = {handleRadiusChange}
                 onGameChanged = {handleGameChange}
                 onStartDateChanged = {handleStartDateChange}
+                onFilterToggle = {handleFiltersToggle}
                 />
                 )
               :
-              <p className={styles.filterToggle} onClick={()=>setFiltersClicked(true)}>Filters</p>
+              <a className={styles.filterToggle} onClick={()=>setFilterToggle(!filterToggle)}>Filters</a>
           }
           {/* <div className={styles.searchFilterContainer}>
             <div className={styles.searchFilters}>

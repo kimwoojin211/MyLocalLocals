@@ -3,9 +3,9 @@ import styles from "../styles/filters.module.css";
 import DatePicker from "react-datepicker";
 
 function Filters(props){
-  const {searchRadius, searchGames, searchStartDate, onRadiusChanged, onGameChanged, onStartDateChanged} = props;
+  const {searchRadius, searchGames, searchStartDate, onRadiusChanged, onGameChanged, onStartDateChanged, onFilterToggle} = props;
   
-  function onGameChange(gameId) {
+  function handleGameChange(gameId) {
     if (searchGames.includes(gameId)) {
       if (searchGames.length > 1) {
         onGameChanged(searchGames.filter((item) => item !== gameId));
@@ -15,23 +15,28 @@ function Filters(props){
     }
   }
 
+  function handleFilterClick(){
+    onFilterToggle(false);
+  }
+
   return(
     <div className={styles.searchFilterContainer}>
+      <a onClick={handleFilterClick}>Filters</a>
       <div className={styles.searchFilters}>
-        <div className={styles.radiusFilter}>
-          <label htmlFor="radius">Radius </label>
-          <select id="radius" onchange="onRadiusChanged(this)">
-            <option default value="10mi">
-              10mi
-            </option>
-            <option value="20mi">20mi</option>
-            <option value="30mi">30mi</option>
-            <option value="40mi">40mi</option>
-            <option value="50mi">50mi</option>
-            <option value="75mi">75mi</option>
-            <option value="100mi">100mi</option>
-          </select>
-        </div>
+          <div className={styles.radiusFilter}>
+            <label htmlFor="radius">Radius</label>
+            <select id="radius" onChange={onRadiusChanged(this)}>
+              <option default value="10mi">
+                10mi
+              </option>
+              <option value="20mi">20mi</option>
+              <option value="30mi">30mi</option>
+              <option value="40mi">40mi</option>
+              <option value="50mi">50mi</option>
+              <option value="75mi">75mi</option>
+              <option value="100mi">100mi</option>
+            </select>
+          </div>
         <div className={styles.dateFilter}>
           <label htmlFor="afterDate">After Date: </label>
           <DatePicker

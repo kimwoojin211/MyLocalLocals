@@ -6,10 +6,15 @@
   margin-bottom: 0.6rem;
 }
 
-.searchbar a {
+.geoLocation{
   padding-left: 0.4rem;
   font-size: 0.8rem;
-  font-style: italic;
+  font-style: italic;}
+
+.filtersToggleTopRight{
+  float: right;
+  text-decoration: none;
+  font-size: 0.8rem;
 }
 
 .searchbarInput {
