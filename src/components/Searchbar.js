@@ -89,7 +89,7 @@ function Searchbar(props) {
     <React.Fragment>
       <form className={styles.searchForm} onSubmit={searchTournaments}>
         <div className={styles.searchbar}>
-          <label htmlFor="location">Location</label>
+          <label htmlFor="location"><b>Location</b></label>
           <a href="#" onClick={onGeolocationClick}>
             Use your current location
           </a>

@@ -13,7 +13,7 @@ html {
   min-height: 100vh;
   margin: 0 auto;
   width: 90%;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 main {
@@ -26,30 +26,35 @@ main {
   flex-direction: column;
 }
 
-.searchContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.resultsContainer {
-  width: 100%;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
 .title {
   padding-top: 1rem;
   text-align: center;
+  /* border: 1px solid red; */
+  height: 3rem;
+  /* flex: 0 1; */
+  /* min-height: 50px; 55 @ 475; 60px @ 625; 65 @ 900 */
 }
 
 .title span {
   font-size: 0.9rem;
   color: red;
 }
+
+.searchContainer {
+  width: 100%;
+  /* border: 1px solid yellow; */
+  height: 9rem;
+  /* flex: 0 1; */
+}
+
+.resultsContainer {
+  width: 100%;
+  flex-direction: column;
+  /* border: 1px solid blue; */
+  height:calc(100vh - 2rem - 3.5rem - 9rem);
+  /* flex:1 1; */
+}
+
 
 .errorMessageWrapper {
   width: auto;
@@ -67,10 +72,28 @@ main {
   margin: 0;
 }
 
+@media only screen and (min-width: 475px) {
+  .title{
+    height:3.5rem;
+  }
+  .searchContainer{
+    height:8.5rem;
+  }
+  .resultsContainer{
+    height:calc(100vh - 2.5rem - 3.5rem - 9rem);
+  }
+}
+
 @media only screen and (min-width: 625px) {
   .resultsContainer {
     flex-direction: row;
     justify-content: space-between;
+  }
+  .searchContainer {
+    height: 6.5rem;
+  }
+  .resultsContainer {
+    height: calc(100vh - 3.5rem - 3.5rem - 6.5rem);
   }
   .errorMessage {
     margin: 6rem auto;
@@ -78,6 +101,10 @@ main {
 }
 
 @media only screen and (min-width: 768px) {
+  .title{
+    height:4rem;
+  }
+
   .errorMessage {
     margin: 7rem auto;
   }

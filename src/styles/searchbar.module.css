@@ -97,9 +97,9 @@
     font-size: 1.3125rem;
   }
 
-  .filters {
-    font-size: 1rem;
-  }
+  /* .filters {
+    font-size: 0.9rem;
+  } */
 }
 
 @media only screen and (min-width: 625px) {
@@ -128,11 +128,11 @@
   }
 
   .searchContainer {
-    font-size: 1.3125rem;
+    /* font-size: 1.3125rem;  */
   }
 
   .filters {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 
   .searchFilters > div > label {

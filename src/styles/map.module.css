@@ -1,13 +1,13 @@
 .mapContainer {
   background: #ede5ff;
-  width: 40%;
+  width: 48%;
   margin-bottom: 1rem;
   display: none;
 }
 
 .mapWrapper {
-  min-height: 375px;
-  height: 65vh;
+  min-height: 350px;
+  height: calc(100vh - 3.5rem - 6.5rem - 3.5rem);
 }
 
 .infoWindowWrapper {
@@ -47,6 +47,6 @@
   }
 
   .mapWrapper {
-    height: 69vh;
+    height: calc(100vh - 3.5rem - 6.5rem - 3.5rem);
   }
 }

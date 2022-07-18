@@ -18,7 +18,7 @@
 .listWrapper{
   width:100%;
   min-height: 325px;
-  height: 60vh;
+  height: calc(100vh - 3.5rem - 3.5rem - 9rem);
   overflow: scroll;
   overflow-x: hidden;
   border-top: 1px solid grey;
@@ -41,12 +41,17 @@
   background-color: white;
 }
 
+@media only screen and (min-width:475px) {
+  .listWrapper{
+    height: calc(100vh - 4rem - 3.5rem - 9rem);
+  }
+}
 @media only screen and (min-width:625px) {
   .listContainer {
-    width: 58%;
+    width: 50%;
   }
   .listWrapper{
-    height:62vh;
+    height: calc(100vh - 5rem - 3.5rem - 6.5rem);
   }
 }
 
@@ -56,6 +61,6 @@
   }
 
   .listWrapper{
-    height:66vh;
+    height: calc(100vh - 5rem - 3.5rem - 6.5rem);
   }
 }
