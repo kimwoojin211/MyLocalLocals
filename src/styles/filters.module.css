@@ -1,0 +1,116 @@
+.searchFilterContainer {
+  width: 100%;
+}
+
+.searchFilters {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.searchFilters label {
+  font-weight: bold;
+}
+
+.searchFilters>div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.searchFilters>div>label {
+  margin-right: 0.4rem;
+}
+
+.dateFilter label {
+  min-width: 75px;
+}
+
+.dateFilter>div:first-of-type,
+.dateFilter>div:first-of-type>div,
+.dateFilter div:first-of-type div input {
+  width: 73px;
+  height: 21px;
+}
+
+.gameList label {
+  font-weight: normal;
+  margin-left: 0.3rem;
+}
+
+.gameCheckbox {
+  min-width: 65px;
+}
+
+.gameCheckbox:not(:last-child) label {
+  padding-right: 0.5rem;
+}
+
+.pPlus {
+  min-width: 21px;
+}
+
+.submitButton {
+  margin-left: 0.5rem;
+}
+
+@media only screen and (min-width: 475px) {
+  .searchFilters {
+    justify-content: flex-start;
+  }
+
+  .searchFilters>div:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+  .searchContainer {
+    font-size: 1.3125rem;
+  }
+
+  /* .filters {
+    font-size: 0.9rem;
+  } */
+}
+
+@media only screen and (min-width: 625px) {
+  .searchFilters {
+    justify-content: flex-start;
+  }
+
+  .gameList {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .searchFilters>div:not(:last-child) {
+    margin-right: 0.8rem;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+
+  .dateFilter>div:first-of-type,
+  .dateFilter>div:first-of-type>div>input {
+    width: 80px;
+    height: 25px;
+  }
+
+  .radiusFilter select {
+    max-height: 25px;
+  }
+
+  .searchContainer {
+    /* font-size: 1.3125rem;  */
+  }
+
+  .filters {
+    font-size: 0.9rem;
+  }
+
+  .searchFilters>div>label {
+    margin-right: 0.7rem;
+  }
+
+  .gameCheckbox:not(:last-child) label {
+    padding-right: 0.8rem;
+  }
+}

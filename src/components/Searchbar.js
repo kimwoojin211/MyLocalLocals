@@ -5,16 +5,19 @@ import getConfig from "next/config";
 import styles from "../styles/searchbar.module.css";
 import { Autocomplete } from "@react-google-maps/api";
 import DatePicker from "react-datepicker";
+import Filters from "../components/Filters";
 import "react-datepicker/dist/react-datepicker.css";
 
 const { publicRuntimeConfig } = getConfig();
 
 function Searchbar(props) {
   const { onSearchSubmit, onSearchError } = props;
-  const [checkedGames, setCheckedGames] = useState([1, 1386, 33602]);
   const [autocompleteAddress, setAutocompleteAddress] = useState(null);
+  const [searchRadius, setSearchRadius] = useState("10mi");
+  const [searchGames, setSearchGames] = useState([1, 1386, 33602]);
   const [searchAddress, setSearchAddress] = useState("");
-  const [startDate, setStartDate] = useState(Date.now());
+  const [searchStartDate, setSearchStartDate] = useState(Date.now());
+  const [filtersClicked, setFiltersClicked] = useState(false);
   Geocode.setApiKey(publicRuntimeConfig.GoogleMapsAPIKey);
 
   const onGeolocationClick = (event) => {
@@ -56,6 +59,18 @@ function Searchbar(props) {
     setSearchAddress(event.target.value);
   };
 
+  const handleRadiusChange = (radius) => {
+    setSearchRadius(radius);
+  }
+  
+  const handleGameChange = (games) =>{
+    setSearchGames(games);
+  }
+
+  const handleStartDateChange = (date) => {
+    setSearchStartDate(date);
+  }
+
   function searchTournaments(event) {
     event.preventDefault();
 
@@ -65,8 +80,8 @@ function Searchbar(props) {
         onSearchSubmit({
           searchCoordinates: [lat, lng],
           searchRadius: event.target.radius.value,
-          searchVideogames: checkedGames,
-          searchAfterDate: Math.floor(startDate/1000),
+          searchVideogames: searchGames,
+          searchAfterDate: Math.floor(searchStartDate/1000),
         });
       },
       (error) => {
@@ -76,12 +91,12 @@ function Searchbar(props) {
   }
 
   function onGameChange(gameId) {
-    if (checkedGames.includes(gameId)) {
-      if (checkedGames.length > 1) {
-        setCheckedGames(checkedGames.filter((item) => item !== gameId));
+    if (searchGames.includes(gameId)) {
+      if (searchGames.length > 1) {
+        setSearchGames(searchGames.filter((item) => item !== gameId));
       }
     } else {
-      setCheckedGames(checkedGames.concat([gameId]));
+      setSearchGames(searchGames.concat([gameId]));
     }
   }
 
@@ -106,7 +121,21 @@ function Searchbar(props) {
         </div>
 
         <div className={styles.filters}>
-          <div className={styles.searchFilterContainer}>
+          { filtersClicked ? 
+            (
+              <Filters 
+                searchRadius = {searchRadius}
+                searchGames = {searchGames}
+                searchStartDate = {searchStartDate}
+                onRadiusChanged = {handleRadiusChange}
+                onGameChanged = {handleGameChange}
+                onStartDateChanged = {handleStartDateChange}
+                />
+                )
+              :
+              <p className={styles.filterToggle} onClick={()=>setFiltersClicked(true)}>Filters</p>
+          }
+          {/* <div className={styles.searchFilterContainer}>
             <div className={styles.searchFilters}>
               <div className={styles.radiusFilter}>
                 <label htmlFor="radius">Radius </label>
@@ -118,13 +147,15 @@ function Searchbar(props) {
                   <option value="30mi">30mi</option>
                   <option value="40mi">40mi</option>
                   <option value="50mi">50mi</option>
+                  <option value="75mi">75mi</option>
+                  <option value="100mi">100mi</option>
                 </select>
               </div>
               <div className={styles.dateFilter}>
                 <label htmlFor="afterDate">After Date: </label>
                 <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  selected={searchstartDate}
+                  onChange={(date) => setSearchStartDate(date)}
                   minDate={new Date()}
                   dateFormat="MM/dd/yy"
                   popperPlacement="bottom-start"
@@ -153,7 +184,7 @@ function Searchbar(props) {
                     <input
                       name="melee"
                       type="checkbox"
-                      checked={checkedGames.includes(1)}
+                      checked={searchGames.includes(1)}
                       onChange={() => onGameChange(1)}
                     />
                     <label htmlFor="melee">SSBM</label>
@@ -162,7 +193,7 @@ function Searchbar(props) {
                     <input
                       name="ultimate"
                       type="checkbox"
-                      checked={checkedGames.includes(1386)}
+                      checked={searchGames.includes(1386)}
                       onChange={() => onGameChange(1386)}
                     />
                     <label htmlFor="ultimate">SSBU</label>
@@ -171,7 +202,7 @@ function Searchbar(props) {
                     <input
                       name="projectPlus"
                       type="checkbox"
-                      checked={checkedGames.includes(33602)}
+                      checked={searchGames.includes(33602)}
                       onChange={() => onGameChange(33602)}
                     />
                     <label htmlFor="projectPlus">P+</label>
@@ -179,7 +210,7 @@ function Searchbar(props) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <button className={styles.submitButton} type="submit">
             Search!
           </button>
