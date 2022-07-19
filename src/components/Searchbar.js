@@ -16,6 +16,17 @@ function addDays(date, days) {
   return result;
 }
 
+function formatDates(date){
+  // return `${('0' + (date.getMonth() + 1)).slice(-2)}/${('0' + date.getDate()).slice(-2)}/${(date.getFullYear().toString()).slice(-2)}`;
+    return `${('0' + (date.getMonth() + 1)).slice(-2)}/${('0' + date.getDate()).slice(-2)}`;
+}
+
+function formatGames(gameArray){
+  const str = `${(gameArray.includes(1) ? "SSBM, ": "")} ${(gameArray.includes(1386) ? "SSBU, ": "")} ${(gameArray.includes(33602) ? "P+, ": "")} ${(gameArray.includes(4) ? "SSB64, ": "")}  ${(gameArray.includes(24) ? "RoA, ": "")} ${(gameArray.includes(39281) ? "NASB, ": "")}`;
+  console.log(typeof(str));
+  return str.substring(0,str.length-2);
+}
+
 function Searchbar(props) {
   const { onSearchSubmit, onSearchError } = props;
   const [autocompleteAddress, setAutocompleteAddress] = useState(null);
@@ -26,6 +37,7 @@ function Searchbar(props) {
   const [searchEndDate, setSearchEndDate] = useState(null);
   const [filterToggle, setFilterToggle] = useState(false);
   const [sortSearch, setSortSearch] = useState(true);
+  console.log(`~~~~~~search Radius ~~~~ ${searchRadius} ~~~~~~search start date ~~~~ ${searchStartDate} ~~~~~~search end date ~~~~ ${searchEndDate} `);
   Geocode.setApiKey(publicRuntimeConfig.GoogleMapsAPIKey);
 
   const onGeolocationClick = (event) => {
@@ -83,11 +95,12 @@ function Searchbar(props) {
   }
 
   const handleEndDateChange = (date) => {
-    if(date<=searchStartDate){
-      setSearchEndDate(addDays(searchStartDate,1));
+    if(!date || date>searchStartDate){
+      
+      setSearchEndDate(date);
     }
     else{
-      setSearchEndDate(date);
+      setSearchEndDate(addDays(searchStartDate,1));
     }
     console.log(`(clicked date): ${date} ~~~~~~~~~~~~ (start date): ${searchStartDate} ~~~~~~~~~~~~ (end date): ${searchEndDate}`)
   }
@@ -105,7 +118,7 @@ function Searchbar(props) {
         const { lat, lng } = response.results[0].geometry.location;
         onSearchSubmit({
           searchCoordinates: [lat, lng],
-          searchRadius: event.target.radius.value,
+          searchRadius: searchRadius,
           searchVideogames: searchGames,
           searchAfterDate: Math.floor(searchStartDate/1000),
         });
@@ -167,13 +180,41 @@ function Searchbar(props) {
               >
                 Filters
               </a>
-              <span><b>Sort</b>:</span>
-              <div className={styles.sortOptions}>
+              {/* <div className={styles.sortOptions}>
+                <span><b>Sort</b>:</span>
                 <input name="sortTime" type="radio" onClick={()=>{setSortSearch(true)}} checked={sortSearch}/>
                 <label htmlFor="sortTime">Time</label>
                 <input name="sortDistance" type="radio" onClick={()=>{setSortSearch(false)}} checked={!sortSearch} />
                 <label htmlFor="sortDistance">Dist.</label>
-              </div>
+              </div> */}
+              { filterToggle ?
+                  (<div className={styles.sortOptions}>
+                    <span><b>Sort</b>:</span>
+                    <input name="sortTime" type="radio" onClick={()=>{setSortSearch(true)}} checked={sortSearch}/>
+                    <label htmlFor="sortTime">Time</label>
+                    <input name="sortDistance" type="radio" onClick={()=>{setSortSearch(false)}} checked={!sortSearch} />
+                    <label htmlFor="sortDistance">Dist.</label>
+                  </div>) :
+                  (<div className={styles.filterPreview}>
+                    <div className={styles.previewWrapper}>
+                      <span>Radius</span>
+                      <span>{searchRadius}</span>
+                    </div>
+                    <div className={styles.previewWrapper}>
+                      <span>From</span>
+                      <span>{formatDates(searchStartDate)}</span>
+                    </div>
+                    <div className={styles.previewWrapper}>
+                      <span>To</span>
+                      <span>{ searchEndDate ? formatDates(searchEndDate) : '--/--'}</span>
+                    </div>
+                    <div className={styles.previewWrapper}>
+                      <span>Games</span>
+                      <span>{ searchGames.length }</span>
+                    </div>
+                    {/* <p>Radius: {searchRadius}, AfterDate: {formatDates(searchStartDate)}{ searchEndDate && `, BeforeDate: ${formatDates(searchEndDate)}`}, Games: {formatGames(searchGames)}</p> */}
+                  </div>)
+              }
             </div>
             {filterToggle ? (
               <Filters

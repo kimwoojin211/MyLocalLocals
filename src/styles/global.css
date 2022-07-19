@@ -43,7 +43,7 @@ main {
 .searchContainer {
   width: 100%;
   /* border: 1px solid yellow; */
-  height: 9rem;
+  /* height: 9rem; */
   /* flex: 0 1; */
 }
 
@@ -51,7 +51,7 @@ main {
   width: 100%;
   flex-direction: column;
   /* border: 1px solid blue; */
-  height:calc(100vh - 2rem - 3.5rem - 9rem);
+  height:calc(100vh - 3rem - 9rem);
   /* flex:1 1; */
 }
 

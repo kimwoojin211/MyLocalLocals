@@ -36,10 +36,8 @@ function Filters(props){
       <div className={styles.searchFilterGroup}>
         <div className={styles.radiusFilter}>
             <label htmlFor="radius">Radius</label>
-            <select id="radius" onChange={onRadiusChanged(this)}>
-              <option default value="10mi">
-                10mi
-              </option>
+            <select id="radius" value={searchRadius} onChange={(event) => {onRadiusChanged(event.target.value)}}>
+              <option value="10mi">10mi</option>
               <option value="20mi">20mi</option>
               <option value="30mi">30mi</option>
               <option value="40mi">40mi</option>

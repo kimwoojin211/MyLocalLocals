@@ -4,13 +4,12 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
-  border: 1px solid turquoise;
 }
 
 .searchFilterColumn{
   display: flex;
   flex-direction: column;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 
 .filtersToggleBotLeft{
