@@ -14,7 +14,7 @@ function Searchbar(props) {
   const { onSearchSubmit, onSearchError } = props;
   const [autocompleteAddress, setAutocompleteAddress] = useState(null);
   const [searchRadius, setSearchRadius] = useState("10mi");
-  const [searchGames, setSearchGames] = useState([1, 1386, 33602]);
+  const [searchGames, setSearchGames] = useState([1, 1386, 33602, 4, 24, 39281]);
   const [searchAddress, setSearchAddress] = useState("");
   const [searchStartDate, setSearchStartDate] = useState(Date.now());
   const [filterToggle, setFilterToggle] = useState(false);

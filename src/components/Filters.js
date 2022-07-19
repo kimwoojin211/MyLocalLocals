@@ -21,7 +21,7 @@ function Filters(props){
 
   return(
     <div className={styles.searchFilterContainer}>
-      <a onClick={handleFilterClick}>Filters</a>
+      <a className={styles.filtersToggleBotLeft} onClick={handleFilterClick}>Filters</a>
       <div className={styles.searchFilters}>
           <div className={styles.radiusFilter}>
             <label htmlFor="radius">Radius</label>
@@ -71,7 +71,7 @@ function Filters(props){
                 name="melee"
                 type="checkbox"
                 checked={searchGames.includes(1)}
-                onChange={() => onGameChange(1)}
+                onChange={() => handleGameChange(1)}
               />
               <label htmlFor="melee">SSBM</label>
             </div>
@@ -80,7 +80,7 @@ function Filters(props){
                 name="ultimate"
                 type="checkbox"
                 checked={searchGames.includes(1386)}
-                onChange={() => onGameChange(1386)}
+                onChange={() => handleGameChange(1386)}
               />
               <label htmlFor="ultimate">SSBU</label>
             </div>
@@ -89,10 +89,46 @@ function Filters(props){
                 name="projectPlus"
                 type="checkbox"
                 checked={searchGames.includes(33602)}
-                onChange={() => onGameChange(33602)}
+                onChange={() => handleGameChange(33602)}
               />
               <label htmlFor="projectPlus">P+</label>
             </div>
+            <div className={`${styles.gameCheckbox} ${styles.ssb64}`}>
+              <input
+                name="ssb64"
+                type="checkbox"
+                checked={searchGames.includes(4)}
+                onChange={() => handleGameChange(4)}
+              />
+              <label htmlFor="ssb64">SSB64</label>
+            </div>
+            <div className={`${styles.gameCheckbox} ${styles.roa}`}>
+              <input
+                name="rivals"
+                type="checkbox"
+                checked={searchGames.includes(24)}
+                onChange={() => handleGameChange(24)}
+              />
+              <label htmlFor="rivals">RoA</label>
+            </div>
+            <div className={`${styles.gameCheckbox} ${styles.NASB}`}>
+              <input
+                name="nasb"
+                type="checkbox"
+                checked={searchGames.includes(39281)}
+                onChange={() => handleGameChange(39281)}
+              />
+              <label htmlFor="nasb">NASB</label>
+            </div>
+            {/* <div className={`${styles.gameCheckbox} ${styles.brawlhalla}`}>
+              <input
+                name="brawlhalla"
+                type="checkbox"
+                checked={searchGames.includes(15)}
+                onChange={() => onGameChange(15)}
+              />
+              <label htmlFor="brawlhalla">BHALLA</label> 
+            </div> */}
           </div>
         </div>
       </div>

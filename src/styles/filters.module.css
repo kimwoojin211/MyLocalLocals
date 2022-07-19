@@ -5,6 +5,10 @@
   gap: 10px;
 }
 
+.filtersToggleBotLeft{
+  display: none;
+}
+
 .searchFilterContainer p{
   margin: 0;
 }

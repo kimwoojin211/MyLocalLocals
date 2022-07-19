@@ -118,5 +118,6 @@ query TournamentsbyCoordinatesAndGame($perPage: Int, $coordinates: String!, $rad
   3200 -> Mortal Kombat 11
   287 -> DBFZ
   32 -> Skullgirls: 2nd Encore
+  15 -> Brawlhalla
 
 */
