@@ -10,14 +10,22 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const { publicRuntimeConfig } = getConfig();
 
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
 function Searchbar(props) {
   const { onSearchSubmit, onSearchError } = props;
   const [autocompleteAddress, setAutocompleteAddress] = useState(null);
   const [searchRadius, setSearchRadius] = useState("10mi");
   const [searchGames, setSearchGames] = useState([1, 1386, 33602, 4, 24, 39281]);
   const [searchAddress, setSearchAddress] = useState("");
-  const [searchStartDate, setSearchStartDate] = useState(Date.now());
+  const [searchStartDate, setSearchStartDate] = useState(new Date(Date.now()));
+  const [searchEndDate, setSearchEndDate] = useState(null);
   const [filterToggle, setFilterToggle] = useState(false);
+  const [sortSearch, setSortSearch] = useState(true);
   Geocode.setApiKey(publicRuntimeConfig.GoogleMapsAPIKey);
 
   const onGeolocationClick = (event) => {
@@ -68,7 +76,20 @@ function Searchbar(props) {
   }
 
   const handleStartDateChange = (date) => {
+    if(searchEndDate && date>=searchEndDate){
+      setSearchEndDate(addDays(date,1));
+    }
     setSearchStartDate(date);
+  }
+
+  const handleEndDateChange = (date) => {
+    if(date<=searchStartDate){
+      setSearchEndDate(addDays(searchStartDate,1));
+    }
+    else{
+      setSearchEndDate(date);
+    }
+    console.log(`(clicked date): ${date} ~~~~~~~~~~~~ (start date): ${searchStartDate} ~~~~~~~~~~~~ (end date): ${searchEndDate}`)
   }
 
   const handleFiltersToggle = (toggle) => {
@@ -78,7 +99,7 @@ function Searchbar(props) {
 
   function searchTournaments(event) {
     event.preventDefault();
-
+    setFilterToggle(false);
     Geocode.fromAddress(searchAddress).then(
       (response) => {
         const { lat, lng } = response.results[0].geometry.location;
@@ -109,11 +130,22 @@ function Searchbar(props) {
     <React.Fragment>
       <form className={styles.searchForm} onSubmit={searchTournaments}>
         <div className={styles.searchbar}>
-          <label htmlFor="location"><b>Location</b></label>
-          <a className={styles.geoLocation} href="#" onClick={onGeolocationClick}>
+          <label htmlFor="location">
+            <b>Location</b>
+          </label>
+          <a
+            className={styles.geoLocation}
+            href="#"
+            onClick={onGeolocationClick}
+          >
             Use your current location
           </a>
-          <a className={styles.filtersToggleTopRight} onClick={()=>setFilterToggle(!filterToggle)}>Filters</a>
+          <a
+            className={styles.filtersToggleTopRight}
+            onClick={() => setFilterToggle(!filterToggle)}
+          >
+            Filters
+          </a>
           <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceChanged}>
             <input
               type="text"
@@ -126,22 +158,48 @@ function Searchbar(props) {
           </Autocomplete>
         </div>
 
-        <div className={styles.filters}>
-          { filterToggle ? 
-            (
-              <Filters 
-                searchRadius = {searchRadius}
-                searchGames = {searchGames}
-                searchStartDate = {searchStartDate}
-                onRadiusChanged = {handleRadiusChange}
-                onGameChanged = {handleGameChange}
-                onStartDateChanged = {handleStartDateChange}
-                onFilterToggle = {handleFiltersToggle}
-                />
-                )
-              :
-              <a className={styles.filterToggle} onClick={()=>setFilterToggle(!filterToggle)}>Filters</a>
-          }
+        <div className={styles.filtersContainer}>
+          <div className={styles.filters}>
+            <div className={styles.filterSettings}>
+              <a
+                className={styles.filtersToggle}
+                onClick={() => setFilterToggle(!filterToggle)}
+              >
+                Filters
+              </a>
+              <span><b>Sort</b>:</span>
+              <div className={styles.sortOptions}>
+                <input name="sortTime" type="radio" onClick={()=>{setSortSearch(true)}} checked={sortSearch}/>
+                <label htmlFor="sortTime">Time</label>
+                <input name="sortDistance" type="radio" onClick={()=>{setSortSearch(false)}} checked={!sortSearch} />
+                <label htmlFor="sortDistance">Dist.</label>
+              </div>
+            </div>
+            {filterToggle ? (
+              <Filters
+                searchRadius={searchRadius}
+                searchGames={searchGames}
+                searchStartDate={searchStartDate}
+                searchEndDate={searchEndDate}
+                onRadiusChanged={handleRadiusChange}
+                onGameChanged={handleGameChange}
+                onStartDateChanged={handleStartDateChange}
+                onEndDateChanged={handleEndDateChange}
+                onFilterToggle={handleFiltersToggle}
+              />
+            ) : (
+              <div></div>
+              // <a
+              //   className={styles.filterToggle}
+              //   onClick={() => setFilterToggle(!filterToggle)}
+              // >
+              //   Filters
+              // </a>
+            )}
+          </div>
+          <button className={styles.submitButton} type="submit">
+            Search!
+          </button>
           {/* <div className={styles.searchFilterContainer}>
             <div className={styles.searchFilters}>
               <div className={styles.radiusFilter}>
@@ -218,9 +276,6 @@ function Searchbar(props) {
               </div>
             </div>
           </div> */}
-          <button className={styles.submitButton} type="submit">
-            Search!
-          </button>
         </div>
       </form>
     </React.Fragment>
