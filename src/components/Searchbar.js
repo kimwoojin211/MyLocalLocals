@@ -105,7 +105,7 @@ function Searchbar(props) {
     console.log(`(clicked date): ${date} ~~~~~~~~~~~~ (start date): ${searchStartDate} ~~~~~~~~~~~~ (end date): ${searchEndDate}`)
   }
 
-  const handleFiltersToggle = (toggle) => {
+  const handleFilterToggle = (toggle) => {
     console.log(filterToggle);
     setFilterToggle(toggle);
   }
@@ -153,12 +153,12 @@ function Searchbar(props) {
           >
             Use your current location
           </a>
-          <a
-            className={styles.filtersToggleTopRight}
+          {/* <a
+            className={styles.filterToggleTopRight}
             onClick={() => setFilterToggle(!filterToggle)}
           >
             Filters
-          </a>
+          </a> */}
           <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceChanged}>
             <input
               type="text"
@@ -172,30 +172,29 @@ function Searchbar(props) {
         </div>
 
         <div className={styles.filtersContainer}>
-          <div className={styles.filters}>
-            <div className={styles.filterSettings}>
-              <a
-                className={styles.filtersToggle}
+          <div className={`${styles.filters} ${styles.filters__active}`}>
+            <div className={`${styles.filterSettings} ${styles.filterSettings__active}`}>
+              {/* <a
+                className={filterToggle ? styles.filterClose__active : styles.filterClose}
                 onClick={() => setFilterToggle(!filterToggle)}
               >
-                Filters
-              </a>
-              {/* <div className={styles.sortOptions}>
+                Close
+              </a> */}
+              <div className={`${styles.sortOptions}`}>
                 <span><b>Sort</b>:</span>
-                <input name="sortTime" type="radio" onClick={()=>{setSortSearch(true)}} checked={sortSearch}/>
-                <label htmlFor="sortTime">Time</label>
-                <input name="sortDistance" type="radio" onClick={()=>{setSortSearch(false)}} checked={!sortSearch} />
-                <label htmlFor="sortDistance">Dist.</label>
-              </div> */}
-              { filterToggle ?
-                  (<div className={styles.sortOptions}>
-                    <span><b>Sort</b>:</span>
-                    <input name="sortTime" type="radio" onClick={()=>{setSortSearch(true)}} checked={sortSearch}/>
-                    <label htmlFor="sortTime">Time</label>
-                    <input name="sortDistance" type="radio" onClick={()=>{setSortSearch(false)}} checked={!sortSearch} />
-                    <label htmlFor="sortDistance">Dist.</label>
-                  </div>) :
-                  (<div className={styles.filterPreview}>
+                <div>
+                  <input name="sortTime" type="radio" onClick={()=>{setSortSearch(true)}} checked={sortSearch}/>
+                  <label htmlFor="sortTime">Time</label>
+                </div>
+                <div>
+                  <input name="sortDistance" type="radio" onClick={()=>{setSortSearch(false)}} checked={!sortSearch} />
+                  <label htmlFor="sortDistance">Dist.</label>
+                </div>
+              </div>
+            </div>
+              {/* { filterToggle ?
+                  <div></div> :
+                  (<div className={styles.filterPreview} onClick={() => setFilterToggle(true)}>
                     <div className={styles.previewWrapper}>
                       <span>Radius</span>
                       <span>{searchRadius}</span>
@@ -212,11 +211,9 @@ function Searchbar(props) {
                       <span>Games</span>
                       <span>{ searchGames.length }</span>
                     </div>
-                    {/* <p>Radius: {searchRadius}, AfterDate: {formatDates(searchStartDate)}{ searchEndDate && `, BeforeDate: ${formatDates(searchEndDate)}`}, Games: {formatGames(searchGames)}</p> */}
                   </div>)
-              }
-            </div>
-            {filterToggle ? (
+              } */}
+
               <Filters
                 searchRadius={searchRadius}
                 searchGames={searchGames}
@@ -226,17 +223,8 @@ function Searchbar(props) {
                 onGameChanged={handleGameChange}
                 onStartDateChanged={handleStartDateChange}
                 onEndDateChanged={handleEndDateChange}
-                onFilterToggle={handleFiltersToggle}
+                onFilterToggle={handleFilterToggle}
               />
-            ) : (
-              <div></div>
-              // <a
-              //   className={styles.filterToggle}
-              //   onClick={() => setFilterToggle(!filterToggle)}
-              // >
-              //   Filters
-              // </a>
-            )}
           </div>
           <button className={styles.submitButton} type="submit">
             Search!

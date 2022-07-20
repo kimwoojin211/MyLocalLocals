@@ -21,6 +21,8 @@ main {
   min-height: 100vh;
 }
 
+
+
 .col {
   display: flex;
   flex-direction: column;
@@ -35,6 +37,10 @@ main {
   /* min-height: 50px; 55 @ 475; 60px @ 625; 65 @ 900 */
 }
 
+.title__active {
+  height:40vh;
+}
+
 .title span {
   font-size: 0.9rem;
   color: red;
@@ -42,7 +48,8 @@ main {
 
 .searchContainer {
   width: 100%;
-  /* border: 1px solid yellow; */
+  border: 1px solid black;
+  padding:0.5rem 0.2rem;
   /* height: 9rem; */
   /* flex: 0 1; */
 }
@@ -76,12 +83,14 @@ main {
   .title{
     height:3.5rem;
   }
-  .searchContainer{
+  /* .searchContainer{
     height:8.5rem;
-  }
+  } */
   .resultsContainer{
-    height:calc(100vh - 2.5rem - 3.5rem - 9rem);
+    height:calc(100vh - 3.5rem - 9rem);
+    
   }
+  
 }
 
 @media only screen and (min-width: 625px) {
@@ -89,11 +98,11 @@ main {
     flex-direction: row;
     justify-content: space-between;
   }
-  .searchContainer {
+  /* .searchContainer {
     height: 6.5rem;
-  }
+  } */
   .resultsContainer {
-    height: calc(100vh - 3.5rem - 3.5rem - 6.5rem);
+    height: calc(100vh - 2.5rem - 3.5rem - 6.5rem);
   }
   .errorMessage {
     margin: 6rem auto;
