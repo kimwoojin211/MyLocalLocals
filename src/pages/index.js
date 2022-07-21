@@ -90,7 +90,7 @@ function Home() {
           <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
             <div
               className="searchContainer"
-              style={{ margin: hasSearched ? "0 0 1rem 0" : "auto" }}
+              style={{ margin: hasSearched ? "0 0 0.5rem 0" : "auto" }}
             >
               <Searchbar
                 onSearchSubmit={handleSearchSubmit}

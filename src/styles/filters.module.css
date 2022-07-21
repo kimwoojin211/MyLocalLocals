@@ -107,6 +107,7 @@
 
 .searchFilterGroup label, .gameFilters>label {
   font-weight: bold;
+  
 }
 
 /* .searchFilterContainer>div {
@@ -234,6 +235,7 @@
     position: static;
     transform:none;
     order:2;
+    
   }
   
   .searchFilters{
