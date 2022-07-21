@@ -14,6 +14,21 @@ const API_KEY = publicRuntimeConfig.GoogleMapsAPIKey;
 const libraries = ["places"];
 Geocode.setApiKey(API_KEY);
 
+
+function haversine_distance(mk1, mk2) {
+      var R = 3958.8; // Radius of the Earth in miles
+      var rlat1 = mk1.lat * (Math.PI/180); // Convert degrees to radians
+      var rlat2 = mk2.lat * (Math.PI/180); // Convert degrees to radians
+      var difflat = rlat2-rlat1; // Radian difference (latitudes)
+      var difflon = (mk2.lng-mk1.lng) * (Math.PI/180); // Radian difference (longitudes)
+
+      var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+      return (Math.round(d*10).toFixed(1)/10);
+    }
+
+    
+
+
 function Home() {
   const [hasSearched, setHasSearched] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -23,6 +38,55 @@ function Home() {
   const [getTournaments, { data, loading, error }] = useLazyQuery(QUERY, {
     ssr: false,
   });
+
+  const filteredDataWithDistance = () => {
+  if(searchCoordinates && 
+      data &&
+      data.tournaments &&
+      data.tournaments.nodes &&
+      data.tournaments.nodes.length > 0){
+        // const dataNoOnlineOrFinished = {...data, events: data.tournaments.nodes.filter(node => !((node.events.filter(ev => !ev.isOnline)).isEmpty()))}
+        // const dataNoOnline = data.tournaments.nodes.map(tournamentNode => ({...tournamentNode, events: tournamentNode.events.filter(tournamentEvent => {!tournamentEvent.isOnline})}));
+        // console.log("~!~~!#~!~!datanoonline" + dataNoOnline);
+
+        const dataRemoveFinishedTournaments = data.tournaments.nodes.filter(tournamentNode => {tournamentNode.state !== "COMPLETED" && tournamentNode.state !== "INVALID"});
+
+        const dataRemoveNoOffline = data.tournaments.nodes.filter(tournamentNode => tournamentNode.hasOfflineEvents);
+        
+        // const dataRemoveOnlineAndFinished = data.tournaments.nodes.filter(tournamentNode => {tournamentNode.state !== "COMPLETED" && tournamentNode.state !== "INVALID" && tournamentNode.hasOfflineEvents});
+        
+        //const datata = dataRemoveNoOffline.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED")))
+        //**const datata = dataRemoveNoOffline.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED"))).map(tournament => (tournament.includes(false)));
+        
+        const eventsRemaining = dataRemoveNoOffline.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED"))).map(tournament => (tournament.includes(false)));
+        
+        
+        // const datataSet = [...new Set(datata)];
+        // // const datataSet2 = dataRemoveNoOffline.filter(tournamentNode => tournamentNode.events)
+
+        // const datataSet2 = dataRemoveNoOffline.filter((tournamentNode,index) => datata[index]===true)
+        // const datataFilter= datata.filter((item,index) => datata.indexOf(item)=== index);
+        // //datata.includes(false).
+
+        const dataRemoveTournamentsAllEventsCompleted =  dataRemoveNoOffline.filter((tournamentNode,index) => eventsRemaining[index]===true)
+
+        const dataRemoveOnlineAndInvalidEvents = dataRemoveTournamentsAllEventsCompleted.map(tournamentNode => ({...tournamentNode, events: tournamentNode.events.filter(tournamentEvent => !tournamentEvent.isOnline && tournamentEvent.state !== "INVALID")}));
+
+        const dataRemoveTournamentsNoEvents = dataRemoveOnlineAndInvalidEvents.filter(tournamentNode => tournamentNode.events.length>0);
+        
+        const dataWithDistance = dataRemoveTournamentsNoEvents.map(tournamentNode => (
+                                    {...tournamentNode, 
+                                      distance: haversine_distance(
+                                        {lat:tournamentNode.lat,lng:tournamentNode.lng},
+                                        {lat:searchCoordinates[0],lng:searchCoordinates[1]})
+                                    }));
+
+        console.log('~!~~!#~!~!datadistance ' + dataWithDistance);
+
+        return dataWithDistance;
+  }
+}
+  filteredDataWithDistance();
 
   const handleSearchSubmit = (queryVariables) => {
     if (errorMessage) {
@@ -41,6 +105,7 @@ function Home() {
         radius: queryVariables.searchRadius,
         videogames: queryVariables.searchVideogames,
         afterDate: queryVariables.searchAfterDate,
+        beforeDate: queryVariables.searchBeforeDate
       },
     });
   };
@@ -133,7 +198,8 @@ function Home() {
                       style={{ display: hasSearched ? "flex" : "none" }}
                     >
                       <TournamentList
-                        tournaments={data.tournaments.nodes}
+                        // tournaments={data.tournaments.nodes}
+                        tournaments={filteredDataWithDistance()}
                         onTournamentSelected={handleTournamentSelected}
                         selectedTournamentID={selectedTournamentID}
                       />

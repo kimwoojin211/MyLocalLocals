@@ -28,6 +28,7 @@ function TournamentListItem(props) {
             </div>
 
             <div className={styles.tournamentInfoContainer}>
+              <span className={styles.tournamentDistance}>{props.distance}mi</span>
               <div className={styles.tournamentDetailsContainer}>
                 <div className={styles.tournamentDetails}>
                   <p>Address: </p>
@@ -46,17 +47,17 @@ function TournamentListItem(props) {
                   </p>
                 </div>
               </div>
-              <div className={styles.smashGG}>
-                <Button variant="danger" href={props.tournament.url}>
-                  Start.gg
-                </Button>
-                <p className={styles.registration}>
-                  Registration{" "}
-                  <span style={{ color: props.tournament.isRegistrationOpen ? "lightgreen": "red"}}>
-                    {props.tournament.isRegistrationOpen ? "Open" : "Closed"}
-                  </span>
-                </p>
-              </div>
+            </div>
+            <div className={styles.smashGG}>
+              <Button variant="danger" href={props.tournament.url}>
+                Start.gg
+              </Button>
+              <p className={styles.registration}>
+                Registration{" "}
+                <span style={{ color: props.tournament.isRegistrationOpen ? "lightgreen": "red"}}>
+                  {props.tournament.isRegistrationOpen ? "Open" : "Closed"}
+                </span>
+              </p>
             </div>
           </div>
         </div>

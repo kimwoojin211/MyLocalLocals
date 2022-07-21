@@ -21,7 +21,7 @@ export function getApolloClient(forceNew){
 
 
 export const QUERY = gql`
-query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!,  $afterDate: Timestamp) {
+query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $videogames: [ID]!,  $afterDate: Timestamp,  $beforeDate: Timestamp) {
     tournaments(query: {
       perPage: 500
       sortBy: "startAt asc"
@@ -31,13 +31,16 @@ query TournamentsByCoordinatesAndGame($coordinates: String!, $radius: String!, $
           distance: $radius
         }
         afterDate: $afterDate
+        beforeDate: $beforeDate
         videogameIds: $videogames
-        hasOnlineEvents: false
       }
     }) {
 nodes {
         id
         name
+        lat
+        lng
+        mapsPlaceId
         addrState
         venueAddress
         venueName
@@ -46,6 +49,9 @@ nodes {
         startAt
         timezone
         isRegistrationOpen
+        hasOfflineEvents
+        hasOnlineEvents
+        state
         url(relative: false)
         streams{
           enabled
@@ -68,6 +74,8 @@ nodes {
           entrantSizeMax
           type
           slug
+          isOnline
+          state
           videogame{
             id
             name

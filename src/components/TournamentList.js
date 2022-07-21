@@ -28,6 +28,7 @@ function TournamentList(props) {
             name={tournament.name}
             url={tournament.url}
             images={tournament.images}
+            distance={tournament.distance}
             bannerURL={
               tournament.images.length === 0 ? "" : 
                 (tournament.images.find((image) => image.ratio > 1) ? tournament.images.find((image) => image.ratio > 1).url

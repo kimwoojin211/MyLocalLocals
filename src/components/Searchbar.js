@@ -120,7 +120,8 @@ function Searchbar(props) {
           searchCoordinates: [lat, lng],
           searchRadius: searchRadius,
           searchVideogames: searchGames,
-          searchAfterDate: Math.floor(searchStartDate/1000),
+          searchAfterDate: Math.floor(addDays(searchStartDate,-3)/1000),
+          searchBeforeDate: Math.floor(searchEndDate/1000)
         });
       },
       (error) => {
