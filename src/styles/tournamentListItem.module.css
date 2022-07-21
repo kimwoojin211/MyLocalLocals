@@ -63,10 +63,10 @@
 
 .tournamentDistance {
   width: 3rem;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   margin-top: 0.15rem;
   text-align: right;
-  color: green;
+  /* color: lightgreen; */
 }
 
 .tournamentDetailsContainer {

@@ -28,7 +28,9 @@ function TournamentListItem(props) {
             </div>
 
             <div className={styles.tournamentInfoContainer}>
-              <span className={styles.tournamentDistance}>{props.distance}mi</span>
+              <span 
+              className={styles.tournamentDistance} 
+              style={{ color: props.distance<=10 ? 'lightgreen': (props.distance<=50 ? 'yellow' : 'orange')}}>{props.distance}mi</span>
               <div className={styles.tournamentDetailsContainer}>
                 <div className={styles.tournamentDetails}>
                   <p>Address: </p>

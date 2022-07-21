@@ -59,8 +59,6 @@ function Home() {
         //const datata = dataRemoveNoOffline.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED")))
         //**const datata = dataRemoveNoOffline.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED"))).map(tournament => (tournament.includes(false)));
         
-        const eventsRemaining = dataRemoveNoOffline.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED"))).map(tournament => (tournament.includes(false)));
-        
         
         // const datataSet = [...new Set(datata)];
         // // const datataSet2 = dataRemoveNoOffline.filter(tournamentNode => tournamentNode.events)
@@ -69,11 +67,14 @@ function Home() {
         // const datataFilter= datata.filter((item,index) => datata.indexOf(item)=== index);
         // //datata.includes(false).
 
-        const dataRemoveTournamentsAllEventsCompleted =  dataRemoveNoOffline.filter((tournamentNode,index) => eventsRemaining[index]===true)
-
-        const dataRemoveOnlineAndInvalidEvents = dataRemoveTournamentsAllEventsCompleted.map(tournamentNode => ({...tournamentNode, events: tournamentNode.events.filter(tournamentEvent => !tournamentEvent.isOnline && tournamentEvent.state !== "INVALID")}));
-
-        const dataRemoveTournamentsNoEvents = dataRemoveOnlineAndInvalidEvents.filter(tournamentNode => tournamentNode.events.length>0);
+        const dataRemoveOnlineAndInvalidEvents = dataRemoveNoOffline.map(tournamentNode => ({...tournamentNode, events: tournamentNode.events.filter(tournamentEvent => !tournamentEvent.isOnline && tournamentEvent.state !== "INVALID" && !(tournamentEvent.startAt < Date.now()/1000 && tournamentEvent.numEntrants === 0)) }));
+                
+        const eventsRemaining = dataRemoveOnlineAndInvalidEvents.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED"))).map(tournament => (tournament.includes(false)));
+        
+        const dataRemoveTournamentsAllEventsCompleted =  dataRemoveOnlineAndInvalidEvents.filter((tournamentNode,index) => eventsRemaining[index]===true)
+        // const dataRemoveTournamentsAllEventsCompleted =  dataRemoveOnlineAndInvalidEvents.filter(tournamentNode => tournamentNode.state !== 3)
+        
+        const dataRemoveTournamentsNoEvents = dataRemoveTournamentsAllEventsCompleted.filter(tournamentNode => tournamentNode.events.length>0);
         
         const dataWithDistance = dataRemoveTournamentsNoEvents.map(tournamentNode => (
                                     {...tournamentNode, 

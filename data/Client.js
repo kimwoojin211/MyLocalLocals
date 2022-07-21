@@ -69,7 +69,6 @@ nodes {
           id   
           name       
           startAt
-          state
           numEntrants
           entrantSizeMax
           type
