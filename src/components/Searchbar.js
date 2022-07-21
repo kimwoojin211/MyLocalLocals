@@ -28,7 +28,7 @@ function formatGames(gameArray){
 }
 
 function Searchbar(props) {
-  const { onSearchSubmit, onSearchError } = props;
+  const { onSearchSubmit, onSearchError, onSortChange, sortOption } = props;
   const [autocompleteAddress, setAutocompleteAddress] = useState(null);
   const [searchRadius, setSearchRadius] = useState("10mi");
   const [searchGames, setSearchGames] = useState([1, 1386, 33602, 4, 24, 39281]);
@@ -36,7 +36,6 @@ function Searchbar(props) {
   const [searchStartDate, setSearchStartDate] = useState(new Date(Date.now()));
   const [searchEndDate, setSearchEndDate] = useState(null);
   const [filterToggle, setFilterToggle] = useState(false);
-  const [sortSearch, setSortSearch] = useState(true);
   console.log(`~~~~~~search Radius ~~~~ ${searchRadius} ~~~~~~search start date ~~~~ ${searchStartDate} ~~~~~~search end date ~~~~ ${searchEndDate} `);
   Geocode.setApiKey(publicRuntimeConfig.GoogleMapsAPIKey);
 
@@ -86,6 +85,7 @@ function Searchbar(props) {
   const handleGameChange = (games) =>{
     setSearchGames(games);
   }
+
 
   const handleStartDateChange = (date) => {
     if(searchEndDate && date>=searchEndDate){
@@ -184,11 +184,11 @@ function Searchbar(props) {
               <div className={`${styles.sortOptions}`}>
                 <span><b>Sort</b>:</span>
                 <div>
-                  <input name="sortTime" type="radio" onClick={()=>{setSortSearch(true)}} checked={sortSearch}/>
+                  <input name="sortTime" type="radio" onClick={()=>{onSortChange(false)}} checked={!sortOption}/>
                   <label htmlFor="sortTime">Time</label>
                 </div>
                 <div>
-                  <input name="sortDistance" type="radio" onClick={()=>{setSortSearch(false)}} checked={!sortSearch} />
+                  <input name="sortDistance" type="radio" onClick={()=>{onSortChange(true)}} checked={sortOption} />
                   <label htmlFor="sortDistance">Dist.</label>
                 </div>
               </div>

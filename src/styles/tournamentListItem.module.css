@@ -13,7 +13,7 @@
 .overlay {
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .tournamentContainer {
@@ -24,12 +24,6 @@
   flex-wrap: wrap;
 }
 
-.tournamentDistance{
-  width:3rem;
-  font-size: 0.7rem;
-  margin-top:0.2rem;
-  text-align: right;
-}
 
 .itemIndexAndName {
   width: 100%;
@@ -67,11 +61,19 @@
   flex-wrap: wrap;
 }
 
+.tournamentDistance {
+  width: 3rem;
+  font-size: 0.7rem;
+  margin-top: 0.15rem;
+  text-align: right;
+  color: green;
+}
+
 .tournamentDetailsContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
 
 .tournamentDetails {

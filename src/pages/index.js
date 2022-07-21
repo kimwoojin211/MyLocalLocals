@@ -35,6 +35,7 @@ function Home() {
   const [searchCoordinates, setSearchCoordinates] = useState(null);
   const [selectedTournamentID, setSelectedTournamentID] = useState(null);
   const [selectedTournament, setSelectedTournament] = useState({});
+  const [sortSearchDist, setSortSearchDist] = useState(false);
   const [getTournaments, { data, loading, error }] = useLazyQuery(QUERY, {
     ssr: false,
   });
@@ -82,7 +83,10 @@ function Home() {
                                     }));
 
         console.log('~!~~!#~!~!datadistance ' + dataWithDistance);
-
+                                    
+        if(sortSearchDist){
+          return dataWithDistance.sort((a,b) => a.distance>=b.distance)
+        }
         return dataWithDistance;
   }
 }
@@ -109,6 +113,10 @@ function Home() {
       },
     });
   };
+
+  const handleSortChange = (toggle) =>{
+    setSortSearchDist(toggle); 
+  }
 
   const handleSearchError = (searchError) => {
     setErrorMessage(`${searchError}.`);
@@ -158,6 +166,8 @@ function Home() {
               style={{ margin: hasSearched ? "0 0 0.5rem 0" : "auto" }}
             >
               <Searchbar
+                sortOption = {sortSearchDist}
+                onSortChange={handleSortChange}
                 onSearchSubmit={handleSearchSubmit}
                 onSearchError={handleSearchError}
               />
@@ -199,7 +209,7 @@ function Home() {
                     >
                       <TournamentList
                         // tournaments={data.tournaments.nodes}
-                        tournaments={filteredDataWithDistance()}
+                        tournaments={sortSearchDist ? filteredDataWithDistance().sort((a,b)=> a.distance-b.distance): filteredDataWithDistance()}
                         onTournamentSelected={handleTournamentSelected}
                         selectedTournamentID={selectedTournamentID}
                       />
