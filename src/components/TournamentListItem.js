@@ -13,13 +13,17 @@ function TournamentListItem(props) {
         <div className={styles.overlay}>
           <div
             className={styles.tournamentContainer}
-            onClick={() =>
+            onClick={(event) =>
+              (event.target.localName !== "a" &&
               props.onTournamentSelected(
                 props.id,
-                props.venueAddress,
                 props.name,
+                props.venueAddress,
+                props.lat,
+                props.lng,
+                props.distance,
                 props.thumbnailURL
-              )
+              ))
             }
           >
             <div className={styles.itemIndexAndName}>
@@ -50,8 +54,8 @@ function TournamentListItem(props) {
                 </div>
               </div>
             </div>
-            <div className={styles.smashGG}>
-              <Button variant="danger" href={props.tournament.url}>
+            <div className={styles.startGG}>
+              <Button variant="danger" href={props.tournament.url} target="_blank" rel="noreferrer noopener">
                 Start.gg
               </Button>
               <p className={styles.registration}>

@@ -3,7 +3,7 @@ import styles from '../styles/tournamentEvents.module.css'
 
 function TournamentEvents(props){
   return(
-    <a className={styles.eventLink} href={`https://start.gg/` + props.eventURL}>
+    <a className={styles.eventLink} href={`https://start.gg/` + props.eventURL} target="_blank" rel="noreferrer noopener">
     <div className={styles.eventWrapper}>
       <div className={styles.eventDesc}>
         <h6>{props.name}</h6>

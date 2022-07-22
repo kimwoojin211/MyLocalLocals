@@ -141,14 +141,14 @@ function Filters(props){
           </div>
           
           <div className={`${styles.gameRow}`}>
-            <div className={`${styles.gameCheckbox} ${searchGames.includes(4)?styles.ssb64: ''}`}>
+            <div className={`${styles.gameCheckbox} ${searchGames.includes(463676)?styles.multiversus: ''}`}>
               <input
-                name="ssb64"
+                name="multiversus"
                 type="checkbox"
-                checked={searchGames.includes(4)}
-                onChange={() => handleGameChange(4)}
+                checked={searchGames.includes(463676)}
+                onChange={() => handleGameChange(463676)}
               />
-              <label htmlFor="ssb64">SSB64</label>
+              <label htmlFor="multiversus">MVSS</label>
             </div>
             <div className={`${styles.gameCheckbox} ${searchGames.includes(39281)?styles.nasb: ''}`}>
               <input

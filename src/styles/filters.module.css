@@ -8,7 +8,7 @@
   /* border: 4px solid black; */
 }
 
-.melee, .ultimate, .pPlus, .ssb64, .rivals, .nasb{
+.melee, .ultimate, .pPlus, .multiversus, .rivals, .nasb{
   font-weight:bold;
 }
 .melee{
@@ -26,13 +26,16 @@
 .ssb64{
   color: yellow;
 }
+.multiversus {
+  color: rgb(1, 157, 1);
+}
 
 .rivals{
   color: rgb(148, 11, 207);
 }
 
 .nasb{
-  color: rgb(238, 158, 0);
+  color: rgb(218, 124, 0);
 }
 
 .searchFilterColumn{
@@ -346,7 +349,7 @@
     .gameRow {
       width: auto;
       margin-left:0;
-      gap:1rem;
+      gap:1.5rem;
     }
 
     .gameCheckbox{
@@ -354,7 +357,7 @@
       margin-left:0;
     }
     .gameCheckbox>label{
-      min-width: 27px;
+      min-width: 30px;
     }
 }
 

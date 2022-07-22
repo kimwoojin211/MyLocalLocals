@@ -26,6 +26,8 @@ function TournamentList(props) {
             id={index}
             key={index}
             name={tournament.name}
+            lat={tournament.lat}
+            lng={tournament.lng}
             url={tournament.url}
             images={tournament.images}
             distance={tournament.distance}

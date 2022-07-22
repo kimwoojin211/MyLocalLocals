@@ -34,7 +34,7 @@ function Home() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [searchCoordinates, setSearchCoordinates] = useState(null);
   const [selectedTournamentID, setSelectedTournamentID] = useState(null);
-  const [selectedTournament, setSelectedTournament] = useState({});
+  const [selectedTournament, setSelectedTournament] = useState(null);
   const [sortSearchDist, setSortSearchDist] = useState(false);
   const [getTournaments, { data, loading, error }] = useLazyQuery(QUERY, {
     ssr: false,
@@ -91,7 +91,6 @@ function Home() {
         return dataWithDistance;
   }
 }
-  filteredDataWithDistance();
 
   const handleSearchSubmit = (queryVariables) => {
     if (errorMessage) {
@@ -100,8 +99,8 @@ function Home() {
     if (!hasSearched) {
       setHasSearched(true);
     }
-    if (Object.keys(selectedTournament).length > 0) {
-      setSelectedTournament({});
+    if (selectedTournament) {
+      setSelectedTournament(null);
     }
     setSearchCoordinates(queryVariables.searchCoordinates);
     getTournaments({
@@ -128,24 +127,35 @@ function Home() {
 
   const handleTournamentSelected = (
     tournamentId,
-    tournamentAddress,
     tournamentName,
+    tournamentAddress,
+    tournamentLat,
+    tournamentLng,
+    tournamentDistance,
     tournamentThumbnail
   ) => {
     if (tournamentId === selectedTournamentID) {
       setSelectedTournamentID(null);
-      setSelectedTournament({});
+      setSelectedTournament(null);
     } else {
       setSelectedTournamentID(tournamentId);
-      Geocode.fromAddress(tournamentAddress).then((response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        setSelectedTournament({
+      // Geocode.fromAddress(tournamentAddress).then((response) => {
+      //   const { lat, lng } = response.results[0].geometry.location;
+      //   setSelectedTournament({
+      //     tournamentName: tournamentName,
+      //     tournamentAddress: tournamentAddress,
+      //     selectedCoordinates: [lat, lng],
+      //     thumbnailURL: tournamentThumbnail,
+      //   });
+      // });
+      setSelectedTournament({
           tournamentName: tournamentName,
           tournamentAddress: tournamentAddress,
-          selectedCoordinates: [lat, lng],
+          tournamentLat: tournamentLat,
+          tournamentLng: tournamentLng,
+          tournamentDistance: tournamentDistance,
           thumbnailURL: tournamentThumbnail,
         });
-      });
     }
   };
 
@@ -156,15 +166,17 @@ function Home() {
       </Head>
 
       <main>
+        <div className="overlay"></div>
         <div className="pageContainer col">
-          <h1 className="title">
+          <h1 className={`title ${hasSearched ? "title__active" : ""}`}>
             My Local Locals <span>(beta)</span>
           </h1>
 
           <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
+            <div className="bodyContainer">
             <div
               className="searchContainer"
-              style={{ margin: hasSearched ? "0 0 0.5rem 0" : "auto" }}
+              style={{ margin: hasSearched ? "0" : "" }}
             >
               <Searchbar
                 sortOption = {sortSearchDist}
@@ -226,6 +238,7 @@ function Home() {
             ) : (
               <React.Fragment />
             )}
+            </div>
           </LoadScript>
         </div>
       </main>
