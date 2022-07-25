@@ -7,6 +7,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 function TournamentListItem(props) {
   const streetEndIndex = props.venueAddress.indexOf(", ");
   const cityAndStateEndIndex = props.venueAddress.indexOf(props.addrState);
+  console.log(`${props.startTime*1000 > Date.now()}     ${props.startTime*1000}    ${Date.now()}`)
   return (
     <ListGroup.Item className={styles.listItemContainer}>
       <div className={styles.listBackground} style={{ backgroundImage: `url(${props.bannerURL})` }}>
@@ -47,9 +48,9 @@ function TournamentListItem(props) {
                 </div>
                 <div className={styles.tournamentDetails}>
                   <p>Starts at:</p>
-                  <p>
-                    <span>{props.startTime[0]}</span>
-                    <span>{props.startTime[1]}</span>
+                  <p className={props.startTime*1000 < Date.now() ? styles.startTime__active:styles.startTime}>
+                    <span>{props.convertTime(props.startTime*1000)[0]}</span>
+                    <span>{props.convertTime(props.startTime*1000)[1]}</span>
                   </p>
                 </div>
               </div>

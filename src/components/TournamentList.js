@@ -44,7 +44,8 @@ function TournamentList(props) {
             venueName={tournament.venueName}
             venueAddress={tournament.venueAddress}
             addrState={tournament.addrState}
-            startTime={convertTime(tournament.startAt * 1000)}
+            // startTime={convertTime(tournament.startAt * 1000)}
+            startTime={tournament.startAt}
             isRegistrationOpen={tournament.isRegistrationOpen}
             tournamentEvents={tournament.events}
             convertTime={convertTime}

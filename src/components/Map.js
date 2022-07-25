@@ -2,7 +2,6 @@ import React, {useState, useEffect, useCallback} from "react";
 import { GoogleMap, Marker, InfoWindow, Polyline } from "@react-google-maps/api";
 import styles from "../styles/map.module.css";
 
-//Object.keys(selectedTournament).length !== 0
 function Map(props) {
   const [map,setMap] = useState(null);
   const { searchedCoordinates, selectedTournament } = props;
@@ -57,7 +56,6 @@ function Map(props) {
           />
           {
             selectedTournament && (
-            // <div>
             <InfoWindow
               position={{
                 lat: selectedTournament.tournamentLat,
@@ -75,7 +73,6 @@ function Map(props) {
                 </div>
               </div>
             </InfoWindow>
-            // </div> 
           )}
           {selectedTournament && (            
             <Polyline path={[searchedCenter,{lat: selectedTournament.tournamentLat, lng: selectedTournament.tournamentLng}]}></Polyline>)

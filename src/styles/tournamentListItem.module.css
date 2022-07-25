@@ -82,6 +82,10 @@
   font-size: 0.8rem;
 }
 
+.startTime__active{
+  color: red;
+}
+
 .tournamentDetails > :first-child {
   margin-right: 0.5rem;
   min-width: 55px;

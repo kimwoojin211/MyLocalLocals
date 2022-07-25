@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from "../styles/filters.module.css";
 import DatePicker from "react-datepicker";
 
@@ -21,18 +21,6 @@ function Filters(props){
 
   return (
     <div className={styles.searchFilterContainer}>
-      {/* <a className={styles.filtersToggleBotLeft} onClick={handleFilterClick}>
-        Filters
-      </a> */}
-      {/* <div className={styles.searchFilterColumn}>
-        <span>Sort:</span>
-        <div className={styles.sortOptions}>
-          <input name="sortTime" type="radio" />
-          <label htmlFor="sortTime">Time</label>
-          <input name="sortDistance" type="radio" />
-          <label htmlFor="sortDistance">Dist.</label>
-        </div>
-      </div> */}
       <div className={styles.searchFilterGroup}>
         
         <label>Filters</label>
@@ -169,15 +157,6 @@ function Filters(props){
               <label htmlFor="rivals">RoA</label>
             </div>
           </div>
-          {/* <div className={`${styles.gameCheckbox} ${styles.brawlhalla}`}>
-            <input
-              name="brawlhalla"
-              type="checkbox"
-              checked={searchGames.includes(15)}
-              onChange={() => onGameChange(15)}
-            />
-            <label htmlFor="brawlhalla">BHALLA</label> 
-          </div> */}
         </div>
       </div>
   </div>
