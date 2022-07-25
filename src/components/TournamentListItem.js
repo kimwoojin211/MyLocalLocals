@@ -60,9 +60,9 @@ function TournamentListItem(props) {
                 Start.gg
               </Button>
               <p className={styles.registration}>
-                Registration{" "}
-                <span style={{ color: props.tournament.isRegistrationOpen ? "lightgreen": "red"}}>
-                  {props.tournament.isRegistrationOpen ? "Open" : "Closed"}
+                {props.startTime*1000 < Date.now() ? "Tournament":"Registration"}{" "}
+                <span style={{ color: props.startTime*1000 < Date.now() ? "yellow" : (props.tournament.isRegistrationOpen ? "lightgreen": "red")}}>
+                  {props.startTime*1000 < Date.now() ? "Started" : (props.tournament.isRegistrationOpen ? "Open" : "Closed")}
                 </span>
               </p>
             </div>
