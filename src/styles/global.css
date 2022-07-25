@@ -25,7 +25,6 @@ html {
   z-index: 4;
   background: rgba(197, 197, 197, 0.7); 
   padding:0.35rem;
-  padding-bottom: 0.85rem;
   border-radius:6px;
 }
 
@@ -45,7 +44,7 @@ main {
   position:absolute;
   height:100%;
   width:100%;
-  background-color:rgba(0,0,0,0.43);
+  background-color:rgba(0,0,0,0.76);
   z-index:1
 }
 
@@ -72,10 +71,16 @@ main {
 }
 
 
-.title span {
+.titleBeta {
   font-size: 0.9rem;
-  color: rgb(86, 213, 255);
+  color: red;
   text-shadow: 1px 1px black, -1px -1px black;
+}
+
+.titleVersion{
+  font-size: 0.9rem;
+  color: yellow;
+  margin-left: 0.2rem;
 }
 
 .searchContainer {
@@ -98,6 +103,7 @@ main {
   /* border: 1px solid blue; */
   height:calc(100vh - 3rem - 13.5rem);
   z-index:3;
+  margin-bottom:0.5rem;
   /* flex:1 1; */
 }
 
@@ -121,11 +127,14 @@ main {
 
 @media only screen and (min-width: 475px) {
 
+  .title{
+    font-size:2.4rem;
+  }
   /* .searchContainer{
     height:8.5rem;
   } */
   .resultsContainer{
-    height:calc(100vh - 3.5rem - 13rem);
+    height:calc(100vh - 3.5rem - 12rem);
     
   }
   
@@ -140,7 +149,7 @@ main {
     height: 6.5rem;
   } */
   .resultsContainer {
-    height: calc(100vh - 2.5rem - 3.5rem - 9.5rem);
+    height: calc(100vh - 2.5rem - 3.5rem - 10rem);
   }
   .errorMessage {
     margin: 6rem auto;
@@ -148,7 +157,11 @@ main {
 }
 
 @media only screen and (min-width: 768px) {
- */
+
+
+  .title{
+    font-size: 3rem;
+  }
 
   .errorMessage {
     margin: 7rem auto;

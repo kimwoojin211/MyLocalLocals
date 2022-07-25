@@ -162,14 +162,14 @@ function Home() {
   return (
     <React.Fragment>
       <Head>
-        <title>My Local Locals (beta)</title>
+        <title>My Local Locals (beta)v2</title>
       </Head>
 
       <main>
         <div className="overlay"></div>
         <div className="pageContainer col">
           <h1 className={`title ${hasSearched ? "title__active" : ""}`}>
-            My Local Locals <span>(beta)</span>
+            My Local Locals <span className="titleBeta">(beta)</span><span className="titleVersion">v2</span>
           </h1>
 
           <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>

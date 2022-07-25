@@ -19,7 +19,7 @@
 .listWrapper{
   width:100%;
   min-height: 325px;
-  height: calc(100vh - 1rem - 3.5rem - 16rem);
+  height: calc(100vh - 1rem - 3.5rem - 13.5rem);
   overflow: scroll;
   overflow-x: hidden;
   border-top: 1px solid grey;
@@ -58,7 +58,7 @@
 
 @media only screen and (min-width:768px) {
   .listWrapper {
-      height: calc(100vh - 4rem - 3.5rem - 9.5rem);
+      height: calc(100vh - 4rem - 3.5rem - 10rem);
     }
 
 }
