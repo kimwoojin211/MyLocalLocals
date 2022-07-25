@@ -46,33 +46,14 @@ function Home() {
       data.tournaments &&
       data.tournaments.nodes &&
       data.tournaments.nodes.length > 0){
-        // const dataNoOnlineOrFinished = {...data, events: data.tournaments.nodes.filter(node => !((node.events.filter(ev => !ev.isOnline)).isEmpty()))}
-        // const dataNoOnline = data.tournaments.nodes.map(tournamentNode => ({...tournamentNode, events: tournamentNode.events.filter(tournamentEvent => {!tournamentEvent.isOnline})}));
-        // console.log("~!~~!#~!~!datanoonline" + dataNoOnline);
-
-        const dataRemoveFinishedTournaments = data.tournaments.nodes.filter(tournamentNode => {tournamentNode.state !== "COMPLETED" && tournamentNode.state !== "INVALID"});
 
         const dataRemoveNoOffline = data.tournaments.nodes.filter(tournamentNode => tournamentNode.hasOfflineEvents);
-        
-        // const dataRemoveOnlineAndFinished = data.tournaments.nodes.filter(tournamentNode => {tournamentNode.state !== "COMPLETED" && tournamentNode.state !== "INVALID" && tournamentNode.hasOfflineEvents});
-        
-        //const datata = dataRemoveNoOffline.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED")))
-        //**const datata = dataRemoveNoOffline.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED"))).map(tournament => (tournament.includes(false)));
-        
-        
-        // const datataSet = [...new Set(datata)];
-        // // const datataSet2 = dataRemoveNoOffline.filter(tournamentNode => tournamentNode.events)
-
-        // const datataSet2 = dataRemoveNoOffline.filter((tournamentNode,index) => datata[index]===true)
-        // const datataFilter= datata.filter((item,index) => datata.indexOf(item)=== index);
-        // //datata.includes(false).
 
         const dataRemoveOnlineAndInvalidEvents = dataRemoveNoOffline.map(tournamentNode => ({...tournamentNode, events: tournamentNode.events.filter(tournamentEvent => !tournamentEvent.isOnline && tournamentEvent.state !== "INVALID" && !(tournamentEvent.startAt < Date.now()/1000 && tournamentEvent.numEntrants === 0)) }));
                 
         const eventsRemaining = dataRemoveOnlineAndInvalidEvents.map(tournamentNode => (tournamentNode.events.map(tournamentEvent => tournamentEvent.state === "COMPLETED"))).map(tournament => (tournament.includes(false)));
         
         const dataRemoveTournamentsAllEventsCompleted =  dataRemoveOnlineAndInvalidEvents.filter((tournamentNode,index) => eventsRemaining[index]===true)
-        // const dataRemoveTournamentsAllEventsCompleted =  dataRemoveOnlineAndInvalidEvents.filter(tournamentNode => tournamentNode.state !== 3)
         
         const dataRemoveTournamentsNoEvents = dataRemoveTournamentsAllEventsCompleted.filter(tournamentNode => tournamentNode.events.length>0);
         
@@ -82,8 +63,6 @@ function Home() {
                                         {lat:tournamentNode.lat,lng:tournamentNode.lng},
                                         {lat:searchCoordinates[0],lng:searchCoordinates[1]})
                                     }));
-
-        console.log('~!~~!#~!~!datadistance ' + dataWithDistance);
                                     
         if(sortSearchDist){
           return dataWithDistance.sort((a,b) => a.distance>=b.distance)
@@ -139,15 +118,6 @@ function Home() {
       setSelectedTournament(null);
     } else {
       setSelectedTournamentID(tournamentId);
-      // Geocode.fromAddress(tournamentAddress).then((response) => {
-      //   const { lat, lng } = response.results[0].geometry.location;
-      //   setSelectedTournament({
-      //     tournamentName: tournamentName,
-      //     tournamentAddress: tournamentAddress,
-      //     selectedCoordinates: [lat, lng],
-      //     thumbnailURL: tournamentThumbnail,
-      //   });
-      // });
       setSelectedTournament({
           tournamentName: tournamentName,
           tournamentAddress: tournamentAddress,
@@ -221,7 +191,6 @@ function Home() {
                       style={{ display: hasSearched ? "flex" : "none" }}
                     >
                       <TournamentList
-                        // tournaments={data.tournaments.nodes}
                         tournaments={sortSearchDist ? filteredDataWithDistance().sort((a,b)=> a.distance-b.distance): filteredDataWithDistance()}
                         onTournamentSelected={handleTournamentSelected}
                         selectedTournamentID={selectedTournamentID}
