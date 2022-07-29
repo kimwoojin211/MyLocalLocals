@@ -136,7 +136,7 @@ function Filters(props){
                 checked={searchGames.includes(463676)}
                 onChange={() => handleGameChange(463676)}
               />
-              <label htmlFor="multiversus">MVSS</label>
+              <label htmlFor="multiversus">MVS</label>
             </div>
             <div className={`${styles.gameCheckbox} ${searchGames.includes(39281)?styles.nasb: ''}`}>
               <input
